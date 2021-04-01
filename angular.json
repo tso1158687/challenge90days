@@ -49,9 +49,14 @@
             "aot": true,
             "assets": [
               "apps/challenge90days/src/favicon.ico",
-              "apps/challenge90days/src/assets"
+              "apps/challenge90days/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
-            "styles": ["apps/challenge90days/src/styles.scss"],
+            "styles": ["apps/challenge90days/src/theme.scss", "apps/challenge90days/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
