@@ -56,7 +56,9 @@
                 "output": "/assets/"
               }
             ],
-            "styles": ["apps/challenge90days/src/theme.scss", "apps/challenge90days/src/styles.scss"],
+            "styles": [
+              "apps/challenge90days/src/theme.scss", 
+              "apps/challenge90days/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
