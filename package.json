@@ -48,7 +48,6 @@
     "aos": "^2.3.4",
     "eva-icons": "^1.1.2",
     "firebase": "^7.0 || ^8.0",
-    "ng-zorro-antd": "^11.3.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
