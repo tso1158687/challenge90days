@@ -4,7 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "public",
+    "public": "dist/apps/challenge90days",
     "ignore": [
       "firebase.json",
       "**/.*",
