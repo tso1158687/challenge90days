@@ -13,11 +13,14 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTimelineModule } from 'ng-zorro-antd/timeline';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { AppRoutingModule } from './app-routing.module';
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule, FormsModule, BrowserAnimationsModule,NzButtonModule,NzTimelineModule,NzLayoutModule,NzTypographyModule],
+  imports: [BrowserModule, HttpClientModule, FormsModule, BrowserAnimationsModule,NzButtonModule,NzTimelineModule,NzLayoutModule,NzTypographyModule, NbThemeModule.forRoot({ name: 'dark' }), NbLayoutModule, NbEvaIconsModule, AppRoutingModule],
   providers: [{ provide: NZ_I18N, useValue: zh_TW }],
   bootstrap: [AppComponent],
 })
