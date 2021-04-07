@@ -207,7 +207,7 @@
   dependencies:
     tslib "^2.0.0"
 
-"@angular/cdk@^11.0.0", "@angular/cdk@^11.0.2":
+"@angular/cdk@^11.0.0":
   version "11.2.7"
   resolved "https://registry.npmjs.org/@angular/cdk/-/cdk-11.2.7.tgz#1ddcd71cba2506e53beb51a6be7c6a766f7af05e"
   integrity sha512-18h7dyXHl/h+rsXFoNpqxiFCDhqewXVPpLG/WWeiFXKdtHeIk1yzfoSjo7nBzclicFFN/A+M2IQSIt21doJ0aA==
@@ -322,21 +322,6 @@
   resolved "https://registry.npmjs.org/@angular/router/-/router-11.2.8.tgz#dd57abf097d4dbc42dbe69aea963b47ad5ea2087"
   integrity sha512-HkHIe0yxRFXSOlotK6jN7kU0y7MU1I9R15ahxIe33bNDXM6ZQO3ZPiaulM+nxmu6lYjjFVfbUame0vs70R5mkA==
   dependencies:
-    tslib "^2.0.0"
-
-"@ant-design/colors@^5.0.0":
-  version "5.1.1"
-  resolved "https://registry.npmjs.org/@ant-design/colors/-/colors-5.1.1.tgz#800b2186b1e27e66432e67d03ed96af3e21d8940"
-  integrity sha512-Txy4KpHrp3q4XZdfgOBqLl+lkQIc3tEvHXOimRN1giX1AEC7mGtyrO9p8iRGJ3FLuVMGa2gNEzQyghVymLttKQ==
-  dependencies:
-    "@ctrl/tinycolor" "^3.3.1"
-
-"@ant-design/icons-angular@^11.0.1":
-  version "11.0.1"
-  resolved "https://registry.npmjs.org/@ant-design/icons-angular/-/icons-angular-11.0.1.tgz#8ff3131f3d9b4b25fd28c64c4a9bdfe36da54942"
-  integrity sha512-WwxVx/aToxTjWmB5+O+3rOjSYdF8FC/Yd/8jF1ZGQMtLWAzP8/foQmKvPAktTUsh0/Ijhtur7LrHN2VuUedMcA==
-  dependencies:
-    "@ant-design/colors" "^5.0.0"
     tslib "^2.0.0"
 
 "@apidevtools/json-schema-ref-parser@^9.0.3":
@@ -1347,11 +1332,6 @@
   dependencies:
     exec-sh "^0.3.2"
     minimist "^1.2.0"
-
-"@ctrl/tinycolor@^3.3.1":
-  version "3.4.0"
-  resolved "https://registry.npmjs.org/@ctrl/tinycolor/-/tinycolor-3.4.0.tgz#c3c5ae543c897caa9c2a68630bed355be5f9990f"
-  integrity sha512-JZButFdZ1+/xAfpguQHoabIXkcqRRKpMrWKBkpEZZyxfY9C1DpADFB8PEqGSTeFr135SaTRfKqGKx5xSCLI7ZQ==
 
 "@cypress/listr-verbose-renderer@^0.4.1":
   version "0.4.1"
@@ -5266,11 +5246,6 @@ date-fns@^1.27.2:
   version "1.30.1"
   resolved "https://registry.npmjs.org/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
-
-date-fns@^2.10.0:
-  version "2.19.0"
-  resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.19.0.tgz#65193348635a28d5d916c43ec7ce6fbd145059e1"
-  integrity sha512-X3bf2iTPgCAQp9wvjOQytnf5vO5rESYRXlPIVcgSbtT5OTScPcsf9eZU+B/YIkKAtYr5WeCii58BgATrNitlWg==
 
 dayjs@^1.9.3:
   version "1.10.4"
@@ -9896,17 +9871,6 @@ next-tick@~1.0.0:
   resolved "https://registry.npmjs.org/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
-ng-zorro-antd@^11.3.0:
-  version "11.3.0"
-  resolved "https://registry.npmjs.org/ng-zorro-antd/-/ng-zorro-antd-11.3.0.tgz#c09c6c34229bad3cdb22a64b4806f898053f7bb3"
-  integrity sha512-6oX+DidXd07bLWihwfhPqn8YeA6ZhZsYQsHUOib17lF/wVRZQCl9bacuYc7R/e6AyxuvFCsJQHVp0PEP7v+wTQ==
-  dependencies:
-    "@angular/cdk" "^11.0.2"
-    "@ant-design/icons-angular" "^11.0.1"
-    date-fns "^2.10.0"
-    resize-observer-polyfill "^1.5.1"
-    tslib "^2.0.0"
-
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.npmjs.org/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
@@ -11847,11 +11811,6 @@ requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
-
-resize-observer-polyfill@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.npmjs.org/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
-  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
 
 resolve-cwd@^2.0.0:
   version "2.0.0"
