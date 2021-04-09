@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CheckinComponent } from './components/checkin.component';
+import { CheckinRoutingModule } from './checkin-routing.module';
 
 
 
@@ -9,7 +10,8 @@ import { CheckinComponent } from './components/checkin.component';
     CheckinComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    CheckinRoutingModule
   ]
 })
 export class CheckinModule { }
