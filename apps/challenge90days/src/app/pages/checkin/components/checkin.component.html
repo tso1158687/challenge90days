@@ -1,1 +1,17 @@
-<p>checkin works!</p>
+<nb-card status="primary">
+  <nb-card-header>打卡</nb-card-header>
+  <nb-card-body>
+    <textarea nbInput fullWidth placeholder="今天做了什麼"></textarea>
+  </nb-card-body>
+  <nb-card-footer><button nbButton status="primary" (click)="checkin()">打卡</button></nb-card-footer>
+</nb-card>
+
+<nb-card status="danger">
+  <nb-card-header>預打卡</nb-card-header>
+  <nb-card-body>
+    A nebula is an interstellar cloud of dust, hydrogen, helium and other
+    ionized gases. Originally, nebula was a name for any diffuse astronomical
+    object, including galaxies beyond the Milky Way.
+  </nb-card-body>
+  <nb-card-footer><button nbButton status="danger">打卡</button></nb-card-footer>
+</nb-card>

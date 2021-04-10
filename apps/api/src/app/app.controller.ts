@@ -27,6 +27,8 @@ export class AppController {
     ).subscribe(e=>{
       console.log(e)
       return  { message: 'ok' }
+    },error=>{
+      return {message:'ohnono'}
     });
   }
 }
