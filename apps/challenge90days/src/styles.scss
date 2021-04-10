@@ -7,3 +7,7 @@
     font-family: 'Noto Sans TC'
 }
 @import 'aos/dist/aos.css';
+
+nb-layout-header nav{
+    justify-content: space-between !important;
+}

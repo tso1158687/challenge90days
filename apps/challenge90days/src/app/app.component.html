@@ -1,9 +1,28 @@
 <nb-layout>
   <nb-layout-header fixed>
-    90天挑戰 {{ hello$ | async | json }}
-    <button nbButton status="primary" routerLink='checkin'>打卡</button>
-    <button nbButton status="primary" routerLink='auth/login'>登入</button>
-
+    <div class="header-area left">
+      <h1>90天原子習慣挑戰</h1>
+      <button nbButton outline shape="round" status="info">介紹</button>
+      <button nbButton outline shape="round" status="info">心得分享</button>
+    </div>
+    <div class="header-area right">
+      <button nbButton outline status="success" routerLink="checkin">
+        成就<nb-icon icon="award-outline"></nb-icon>
+      </button>
+      <button nbButton status="primary" routerLink="checkin">
+        打卡<nb-icon icon="checkmark-circle-2-outline"></nb-icon>
+      </button>
+      <div>
+        <button nbButton status="primary" routerLink="auth/login" *ngIf="!user">
+          登入
+        </button>
+        <nb-user
+          [name]="user?.email"
+          [picture]="user?.picture"
+          *ngIf="!!user"
+        ></nb-user>
+      </div>
+    </div>
   </nb-layout-header>
 
   <nb-layout-column>
@@ -12,12 +31,18 @@
 
   <nb-layout-footer fixed>
     <ng-container *ngFor="let footer of footerData">
-      <a target="_blank" [href]="footer.link">
-        <nb-icon
-          [icon]="footer.icon"
-          [options]="{ animation: { type: 'zoom' } }"
-        ></nb-icon>
-      </a>
+      <a nbButton ghost status="danger" target="_blank" [href]="footer.link" nbButton><nb-icon
+        [icon]="footer.icon"
+        [options]="{ animation: { type: 'zoom' } }"
+      ></nb-icon></a>
+      <!-- <button nbButton ghost status="danger">
+        <a target="_blank" [href]="footer.link">
+          <nb-icon
+            [icon]="footer.icon"
+            [options]="{ animation: { type: 'zoom' } }"
+          ></nb-icon>
+        </a>
+      </button> -->
     </ng-container>
   </nb-layout-footer>
 </nb-layout>

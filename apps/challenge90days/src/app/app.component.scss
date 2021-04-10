@@ -13,3 +13,13 @@
 .nb-theme-dark a{
   color: #fff;
 }
+
+.header-area{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  button{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
