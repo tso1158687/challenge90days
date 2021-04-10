@@ -1,17 +1,23 @@
 <nb-layout>
-
   <nb-layout-header fixed>
-    90天挑戰
+    90天挑戰 {{ hello$ | async | json }}
+    <button nbButton status="primary" routerLink='checkin'>打卡</button>
+    <button nbButton status="primary" routerLink='auth/login'>登入</button>
+
   </nb-layout-header>
 
   <nb-layout-column>
-    
-        <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
   </nb-layout-column>
 
   <nb-layout-footer fixed>
-  <!-- Insert footer here -->
-  jason 2021
+    <ng-container *ngFor="let footer of footerData">
+      <a target="_blank" [href]="footer.link">
+        <nb-icon
+          [icon]="footer.icon"
+          [options]="{ animation: { type: 'zoom' } }"
+        ></nb-icon>
+      </a>
+    </ng-container>
   </nb-layout-footer>
-
 </nb-layout>
