@@ -1,10 +1,12 @@
-<nb-card status="primary">
-  <nb-card-header>打卡</nb-card-header>
-  <nb-card-body>
-    <textarea nbInput fullWidth placeholder="今天做了什麼"></textarea>
-  </nb-card-body>
-  <nb-card-footer><button nbButton status="primary" (click)="checkin()">打卡</button></nb-card-footer>
-</nb-card>
+<ng-container [formGroup]='checkinForm'>
+    <nb-card status="primary">
+        <nb-card-header>打卡</nb-card-header>
+        <nb-card-body>
+            <textarea nbInput fullWidth placeholder="今天做了什麼" formControlName='message'></textarea>
+        </nb-card-body>
+        <nb-card-footer><button nbButton status="primary" (click)="checkin()">打卡</button></nb-card-footer>
+    </nb-card>
+</ng-container>
 
 <nb-card status="danger">
   <nb-card-header>預打卡</nb-card-header>

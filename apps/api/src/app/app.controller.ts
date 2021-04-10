@@ -1,4 +1,4 @@
-import { Controller, Get, HttpService } from '@nestjs/common';
+import { Body, Controller, Get, HttpService, Post } from '@nestjs/common';
 
 import { Message } from '@challenge90days/api-interfaces';
 
@@ -16,13 +16,15 @@ export class AppController {
     return this.appService.getData();
   }
 
-  @Get('checkin')
-  sendToSlack() {
-    const data = { text: '從API來的訊息，大家安安' };
+  @Post('checkin')
+  sendToSlack(@Body() message ) {
+    console.log('msg')
+    console.log(message)
+    const data = { text: message.message };
     console.log('ohohoh')
 
     this.httpService.post(
-      'https://hooks.slack.com/services/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',
+      'url',
       data
     ).subscribe(e=>{
       console.log(e)
