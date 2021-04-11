@@ -20,11 +20,12 @@ export class AppController {
   sendToSlack(@Body() message ) {
     console.log('msg')
     console.log(message)
-    const data = { text: message.message };
+    const msg=`jason打卡囉 今天打卡內容：${message.message}`
+    const data = { text: msg };
     console.log('ohohoh')
 
     this.httpService.post(
-      'url',
+      '',
       data
     ).subscribe(e=>{
       console.log(e)

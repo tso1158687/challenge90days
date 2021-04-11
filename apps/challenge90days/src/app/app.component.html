@@ -6,7 +6,7 @@
       <button nbButton outline shape="round" status="info">心得分享</button>
     </div>
     <div class="header-area right">
-      <button nbButton outline status="success" routerLink="checkin">
+      <button nbButton outline status="success" routerLink="checkin/challenge">
         成就<nb-icon icon="award-outline"></nb-icon>
       </button>
       <button nbButton status="primary" routerLink="checkin">
@@ -35,14 +35,6 @@
         [icon]="footer.icon"
         [options]="{ animation: { type: 'zoom' } }"
       ></nb-icon></a>
-      <!-- <button nbButton ghost status="danger">
-        <a target="_blank" [href]="footer.link">
-          <nb-icon
-            [icon]="footer.icon"
-            [options]="{ animation: { type: 'zoom' } }"
-          ></nb-icon>
-        </a>
-      </button> -->
     </ng-container>
   </nb-layout-footer>
 </nb-layout>
