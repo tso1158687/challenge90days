@@ -25,7 +25,7 @@ export class AppController {
     console.log('ohohoh')
 
     this.httpService.post(
-      '',
+      'https://hooks.slack.com/services/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',
       data
     ).subscribe(e=>{
       console.log(e)

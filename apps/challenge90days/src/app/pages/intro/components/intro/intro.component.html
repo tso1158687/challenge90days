@@ -1,0 +1,10 @@
+<ng-container *ngFor="let item of items |async">
+    
+    <nb-card>
+        <nb-card-header>{{item.title}}</nb-card-header>
+        <nb-card-body>
+           {{item.content}}
+        </nb-card-body>
+        <nb-card-footer>By Wikipedia</nb-card-footer>
+    </nb-card>
+</ng-container>
