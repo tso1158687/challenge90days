@@ -2,8 +2,8 @@
     
     <nb-card>
         <nb-card-header>{{item.title}}</nb-card-header>
-        <nb-card-body>
-           {{item.content}}
+        <nb-card-body >
+           <p [innerHTML]="item.content"></p>
         </nb-card-body>
         <nb-card-footer>By Wikipedia</nb-card-footer>
     </nb-card>
