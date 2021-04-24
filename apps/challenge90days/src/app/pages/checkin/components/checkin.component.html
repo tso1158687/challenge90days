@@ -2,7 +2,12 @@
     <nb-card status="primary">
         <nb-card-header>打卡</nb-card-header>
         <nb-card-body>
-            <textarea nbInput fullWidth placeholder="今天做了什麼" formControlName='message'></textarea>
+            <div>
+                <input nbInput status="primary" type="file" (change)="onFileChange($event)">
+            </div>
+            <div>
+                <textarea nbInput fullWidth placeholder="今天做了什麼" formControlName='message'></textarea>
+            </div>
         </nb-card-body>
         <nb-card-footer><button nbButton status="primary" (click)="checkin()">打卡</button></nb-card-footer>
     </nb-card>

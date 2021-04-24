@@ -1,5 +1,5 @@
 import { ThrowStmt } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
 import { CheckinService } from '../../../services/checkin.service';
@@ -13,8 +13,9 @@ export class CheckinComponent implements OnInit {
   checkinForm: FormGroup;
   constructor(
     private fb: FormBuilder,
-    private checkinService:CheckinService,
-    private toastrService: NbToastrService
+    private checkinService: CheckinService,
+    private toastrService: NbToastrService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -24,14 +25,33 @@ export class CheckinComponent implements OnInit {
   initForm(): void {
     this.checkinForm = this.fb.group({
       message: '',
+      imgFile: null,
     });
+  }
+  onFileChange(event) {
+    let reader = new FileReader();
+
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        console.log(reader)
+        this.checkinForm.get('imgFile').patchValue(reader.result);
+
+        // need to run CD since file load runs outside of zone
+        this.cd.markForCheck();
+        console.log(this.checkinForm.value)
+      };
+    }
   }
 
   checkin() {
-    const message=this.checkinForm.get('message').value
-    this.checkinService.addCheckin(message).subscribe(e=>{
-      console.log('component')
+    console.log(this.checkinForm.value);
+    const message = this.checkinForm.get('message').value;
+    this.checkinService.addCheckin(this.checkinForm.value).subscribe((e) => {
+      console.log('component');
       this.toastrService.success('成功', '恭喜');
-    })
+    });
   }
 }
