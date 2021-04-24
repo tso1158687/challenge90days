@@ -5,6 +5,7 @@ import { IntroRoutingModule } from './intro-routing.module';
 import { LandingComponent } from './components/landing/landing.component';
 import { IntroComponent } from './components/intro/intro.component';
 import { NbCardModule } from '@nebular/theme';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -16,7 +17,9 @@ import { NbCardModule } from '@nebular/theme';
   imports: [
     CommonModule,
     IntroRoutingModule,
-    NbCardModule
+    NbCardModule,
+    // test
+    ReactiveFormsModule
   ]
 })
 export class IntroModule { }
