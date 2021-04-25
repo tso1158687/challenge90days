@@ -58,11 +58,11 @@ export class CheckinComponent implements OnInit {
 
   checkin() {
     console.log(this.checkinForm.value);
+    this.showFirework()
     const message = this.checkinForm.get('message').value;
     this.checkinService.addCheckin(this.checkinForm.value).subscribe((e) => {
       console.log('component');
       this.toastrService.success('成功', '恭喜');
-      this.showFirework()
     });
   }
 
