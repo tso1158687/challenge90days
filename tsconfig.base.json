@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@challenge90days/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@challenge90days/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@challenge90days/firework": ["libs/firework/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
