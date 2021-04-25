@@ -34,4 +34,9 @@ export class AppController {
       return {message:'ohnono'}
     });
   }
+
+  @Get('cronjob')
+  testCronJob(){
+    return this.appService.testCronJob()
+  }
 }
