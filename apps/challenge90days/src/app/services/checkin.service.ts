@@ -52,7 +52,7 @@ export class CheckinService {
 
   uploadFile(data, filePath: string, postPath: string) {
     console.log(data)
-    const fullFilePath = `intro/${filePath}.jpg`;
+    const fullFilePath = `intro/${filePath}`;
     console.log(fullFilePath)
     const fileRef = this.storage.ref(fullFilePath);
     const task = this.storage.upload(fullFilePath, data);
