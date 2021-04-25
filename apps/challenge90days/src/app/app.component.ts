@@ -4,6 +4,8 @@ import { Message } from '@challenge90days/api-interfaces';
 import * as AOS from 'aos';
 import { footerData } from './data/footer';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
+import { FireworkService } from './services/firework.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'challenge90days-root',
@@ -11,20 +13,23 @@ import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  user:any = {};
+  showFirework$: BehaviorSubject<boolean>;
+  user: any = {};
   footerData = footerData;
-  constructor(private authService: NbAuthService,private http: HttpClient){
-    this.authService.onTokenChange()
-      .subscribe((token: NbAuthJWTToken) => {
-
-        if (token.isValid()) {
-          this.user = token.getPayload(); // here we receive a payload from the token and assigns it to our `user` variable 
-          console.log(this.user)
-        }
-
-      });
+  constructor(
+    private authService: NbAuthService,
+    private http: HttpClient,
+    private fireworkService: FireworkService
+  ) {
+    this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
+      if (token.isValid()) {
+        this.user = token.getPayload(); // here we receive a payload from the token and assigns it to our `user` variable
+        console.log(this.user);
+      }
+    });
   }
   ngOnInit() {
+    this.showFirework$ = this.fireworkService.showFirework$;
     AOS.init();
     // this.authService.
   }

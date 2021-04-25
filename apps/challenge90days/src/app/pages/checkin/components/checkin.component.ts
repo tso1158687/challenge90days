@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
 import { CheckinService } from '../../../services/checkin.service';
+import { FireworkService } from '../../../services/firework.service';
 
 @Component({
   selector: 'challenge90days-checkin',
@@ -15,6 +16,7 @@ export class CheckinComponent implements OnInit {
     private fb: FormBuilder,
     private checkinService: CheckinService,
     private toastrService: NbToastrService,
+    private fireworkService:FireworkService,
     private cd: ChangeDetectorRef
   ) {}
 
@@ -53,5 +55,9 @@ export class CheckinComponent implements OnInit {
       console.log('component');
       this.toastrService.success('成功', '恭喜');
     });
+  }
+
+  showFirework(){
+    this.fireworkService.showFirework()
   }
 }

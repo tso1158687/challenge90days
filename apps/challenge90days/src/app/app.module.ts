@@ -12,6 +12,7 @@ import { AngularFireModule } from '@angular/fire';
 import { NbAuthModule } from '@nebular/auth';
 import { NbFirebaseAuthModule, NbFirebasePasswordStrategy, NbFirebaseGoogleStrategy } from '@nebular/firebase-auth';
 import { environment } from '../environments/environment';
+import { FireworkModule } from '../../../../libs/firework/src/lib/firework.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -19,6 +20,7 @@ import { environment } from '../environments/environment';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
+    FireworkModule,
     NbThemeModule.forRoot({ name: 'dark' }),
     NbLayoutModule,
     NbEvaIconsModule,
