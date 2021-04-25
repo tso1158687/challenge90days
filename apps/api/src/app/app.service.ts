@@ -16,7 +16,7 @@ export class AppService {
     return { message };
   }
 
-  @Cron('_ 10 _ * * *')
+  @Cron('0 0 * * * ')
   notificationCheckin(){
     const data = { text: '晚上11點囉，請大家記得打卡！😊' };
     this.httpService.post(
