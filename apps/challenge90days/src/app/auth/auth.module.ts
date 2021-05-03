@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {
   NbAuthComponent,
   NbLoginComponent,
+  NbRegisterComponent,
 } from '@nebular/auth';
 
 
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: 'login',
         component: NbLoginComponent,
+      },
+      {
+        path: 'register',
+        component: NbRegisterComponent,
       },
     ],
   },

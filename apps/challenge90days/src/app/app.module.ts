@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbIconModule, NbButtonModule, NbToastrModule, NbUserModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbIconModule, NbButtonModule, NbToastrModule, NbUserModule, NbContextMenuModule, NbMenuModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire';
@@ -27,6 +27,8 @@ import { FireworkModule } from '../../../../libs/firework/src/lib/firework.modul
     NbIconModule,
     NbButtonModule,
     NbUserModule,
+    NbContextMenuModule,
+    NbMenuModule.forRoot(),
     NbToastrModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -36,7 +38,17 @@ import { FireworkModule } from '../../../../libs/firework/src/lib/firework.modul
       forms: {
         login: {
           strategy: 'password',
-          rememberMe: false,
+          rememberMe: true,
+          socialLinks: [],
+        },
+        register: {
+          redirectDelay: 500,
+          strategy: 'email',
+          showMessages: {
+            success: true,
+            error: true,
+          },
+          terms: false,
           socialLinks: [],
         },
         validation: {

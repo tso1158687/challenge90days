@@ -1,0 +1,18 @@
+<ng-container [formGroup]='testFrom'>
+    <textarea nbInput fullWidth placeholder="Textarea" formControlName="test">
+</ng-container>
+</textarea>
+<input type="file" name="" id="">
+<button (click)="gogo()">click</button>
+<ng-container *ngFor="let item of items |async">
+    
+    <nb-card>
+        <nb-card-header>{{item.title}}</nb-card-header>
+        <nb-card-body >
+            <img [src]="item.imgUrl" alt="">
+           <!-- <p [innerHTML]="item.content"></p> -->
+           {{item.content}}
+        </nb-card-body>
+        <nb-card-footer>By Wikipedia</nb-card-footer>
+    </nb-card>
+</ng-container>

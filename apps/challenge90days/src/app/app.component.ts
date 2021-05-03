@@ -16,6 +16,10 @@ export class AppComponent implements OnInit {
   showFirework$: BehaviorSubject<boolean>;
   user: any = {};
   footerData = footerData;
+  items = [
+    { title: 'Profile' },
+    { title: 'Logout' },
+  ];
   constructor(
     private authService: NbAuthService,
     private http: HttpClient,
@@ -38,5 +42,4 @@ export class AppComponent implements OnInit {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
   }
-  hello$ = this.http.get<Message>('/api/hello');
 }

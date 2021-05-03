@@ -1,9 +1,17 @@
 <nb-layout>
   <nb-layout-header fixed>
     <div class="header-area left">
-      <h1 routerLink=''>90天原子習慣挑戰</h1>
-      <button nbButton outline shape="round" status="info" routerLink='introduction'>介紹</button>
-      <button nbButton outline shape="round" status="info">心得分享</button>
+      <h1 routerLink="">90天原子習慣挑戰</h1>
+      <button
+        nbButton
+        outline
+        shape="round"
+        status="info"
+        routerLink="introduction"
+      >
+        介紹
+      </button>
+      <button nbButton outline shape="round" status="info" routerLink="share">心得分享</button>
     </div>
     <div class="header-area right">
       <button nbButton outline status="success" routerLink="checkin/challenge">
@@ -17,6 +25,7 @@
           登入
         </button>
         <nb-user
+          [nbContextMenu]="items"
           [name]="user?.email"
           [picture]="user?.picture"
           *ngIf="!!user"
@@ -31,12 +40,22 @@
 
   <nb-layout-footer fixed>
     <ng-container *ngFor="let footer of footerData">
-      <a nbButton ghost status="danger" target="_blank" [href]="footer.link" nbButton><nb-icon
-        [icon]="footer.icon"
-        [options]="{ animation: { type: 'zoom' } }"
-      ></nb-icon></a>
+      <a
+        nbButton
+        ghost
+        status="danger"
+        target="_blank"
+        [href]="footer.link"
+        nbButton
+        ><nb-icon
+          [icon]="footer.icon"
+          [options]="{ animation: { type: 'zoom' } }"
+        ></nb-icon
+      ></a>
     </ng-container>
   </nb-layout-footer>
 </nb-layout>
 
-<challenge90days-firework [showFirework$]='showFirework$'></challenge90days-firework>
+<challenge90days-firework
+  [showFirework$]="showFirework$"
+></challenge90days-firework>

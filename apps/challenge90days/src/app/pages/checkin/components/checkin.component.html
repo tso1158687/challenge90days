@@ -18,6 +18,9 @@
           formControlName="message"
         ></textarea>
       </div>
+      <div>
+        <input type="text" nbInput fullWidth placeholder="分享連結（如果有的話）">
+      </div>
     </nb-card-body>
     <nb-card-footer
       ><button nbButton status="primary" (click)="checkin()">
@@ -38,7 +41,7 @@
 <h1>打卡內容</h1>
 <ng-container *ngFor="let article of articles$ | async">
   <nb-card accent="info">
-    <nb-card-header>{{ article.time.seconds | date }}</nb-card-header>
+    <nb-card-header>{{ article.time.toDate() | date }}</nb-card-header>
     <nb-card-body>
       <div>
         <img width="500px" [src]="article.imgFile" alt="" />
