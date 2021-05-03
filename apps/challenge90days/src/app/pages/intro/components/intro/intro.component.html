@@ -1,18 +1,67 @@
-<ng-container [formGroup]='testFrom'>
-    <textarea nbInput fullWidth placeholder="Textarea" formControlName="test">
-</ng-container>
-</textarea>
-<input type="file" name="" id="">
-<button (click)="gogo()">click</button>
-<ng-container *ngFor="let item of items |async">
-    
-    <nb-card>
-        <nb-card-header>{{item.title}}</nb-card-header>
-        <nb-card-body >
-            <img [src]="item.imgUrl" alt="">
-           <!-- <p [innerHTML]="item.content"></p> -->
-           {{item.content}}
-        </nb-card-body>
-        <nb-card-footer>By Wikipedia</nb-card-footer>
-    </nb-card>
-</ng-container>
+<h1 class="h1">什麼是原子習慣挑戰？</h1>
+<p class="paragraph">
+  習慣就像人生的原子，每一個習慣都是造就你整體增長的基本元件，而大家都知道養成好習慣對人生的重要性和影響力，也理解持之以恆的道理，卻總是淪為無法撐過一個月或三日打魚，兩日曬網的情形；或是總覺得完成一件事情或達成一個目標就是要有遠大的目標，有驚天動地的進展，結果才會可歌可泣。
+</p>
+
+<p class="paragraph">
+  我們都高估了「衝動」對我們的重要性，一直在等待「動力」、「靈感」來的那個瞬間才願意開始去做；也更低估了每天都做一些如原子般小改善的價值，這些小小的慣常行為似乎無關緊要，但很快地，它們就會互相堆疊，透過微小的改變、日積月累的複利的效應，激發大一點的效應；這些效應又會相乘，最終到達的等級遠遠超出一開始的投資。
+</p>
+
+​
+<p class="paragraph">
+  習慣雖小，但威力無窮，每天增加0.01，一年以後會變成現在的37倍強大；每天退步難以察覺的0.01，一年之後，會成為現在的0.03，自我改善的複利就是「原子習慣」
+</p>
+
+​
+<h2>為什麼是九十天呢？</h2>
+
+​
+<ul>
+  <li>
+    降低心理門檻：我們也理解一年其實很長，快速變換和前進的社會讓很多人若在短時內無法得到回饋或改變就支撐不下去，降低起心動念的難度，讓大家開始願意去做是活動的宗旨和初心，也是確保普羅大眾都一定可以做得到的時間。
+  </li>
+  <li>快速累積小勝利： 三個月體驗累積的力量，也讓自己達成時有小小成就感。</li>
+  <li>
+    快速試錯再前進：90天內發現自己原來不喜歡或不適合現在正在做的事情，太好了，不必再多花時間，換另一個方式和計畫前進吧!
+  </li>
+</ul>
+
+​
+<h2>我們還可以從90天原子挑戰活動得到什麼？</h2>
+
+​
+<ul>
+  <li>持之以恆好習慣</li>
+  <li>志同道合的朋友</li>
+  <li>拓展人脈舒適圈</li>
+</ul>
+<nb-card>
+  <nb-card-body>
+    <nb-tabset>
+      <nb-tab tabTitle="每日打卡挑戰">
+        <p>設定一個每天都可以做到的目標，例如：</p>
+        <ol>
+          <li>每日跟讀英文TED Talk 練習發音和語調</li>
+          <li>每天閱讀並紀錄書摘</li>
+          <li>在社群分享每天的心情紀錄</li>
+          <li>每天早起打卡並建立早晨儀式感活動</li>
+          <li>每天仰臥起坐三十下</li>
+        </ol>
+        <p>​透過每日打卡，來養成習慣</p>
+      </nb-tab>
+      <nb-tab tabTitle="30-60-90挑戰">
+        <p>
+          設定一個三個月內想要達成的大目標，並分別設定每月的里程碑來檢視進度完成度，例如：
+        </p>
+        <ol>
+          <li>九十天內有策略找到男/女朋友</li>
+          <li>完成一門渴望已久/荒廢許久的線上課程</li>
+          <li>練習吉他並表演新的六首歌</li>
+          <li>幫媽媽規劃有趣且適合的退休生活</li>
+          <li>撰寫串接前後台的手機APP</li>
+        </ol>
+        <p>透過每月檢視進度，確保自己在完成大目標的路上。</p>
+      </nb-tab>
+    </nb-tabset>
+  </nb-card-body>
+</nb-card>
