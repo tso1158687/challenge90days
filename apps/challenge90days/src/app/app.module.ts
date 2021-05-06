@@ -70,7 +70,14 @@ import { FireworkModule } from '../../../../libs/firework/src/lib/firework.modul
               success: '/',
               failure: null
             },
+          
           },
+          register:{
+            redirect: {
+              success: '/',
+              failure: null
+            },
+          }
         }),
         NbFirebaseGoogleStrategy.setup({
           name: 'google',

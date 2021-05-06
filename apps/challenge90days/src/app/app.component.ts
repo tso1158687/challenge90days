@@ -17,8 +17,10 @@ export class AppComponent implements OnInit {
   user: any = {};
   footerData = footerData;
   items = [
-    { title: 'Profile' },
-    { title: 'Logout' },
+    { title: '設定' },
+    { title: '成就' },
+    { title: '登出' },
+
   ];
   constructor(
     private authService: NbAuthService,
