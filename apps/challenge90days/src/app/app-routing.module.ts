@@ -11,10 +11,13 @@ const routes: Routes = [
       import('./pages/checkin/checkin.module').then((m) => m.CheckinModule),
   },
   {
-    path:'auth',
-    loadChildren:()=>
-    import('./auth/auth.module').then((m) => m.AuthModule),
-
+    path: 'announce',
+    loadChildren: () =>
+      import('./pages/announce/announce.module').then((m) => m.AnnounceModule),
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: '',
@@ -31,4 +34,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
