@@ -14,9 +14,6 @@
       <button nbButton outline shape="round" status="info" routerLink="share">心得分享</button>
     </div>
     <div class="header-area right">
-      <button nbButton outline status="success" routerLink="checkin/challenge">
-        成就<nb-icon icon="award-outline"></nb-icon>
-      </button>
       <button nbButton status="primary" routerLink="checkin">
         打卡<nb-icon icon="checkmark-circle-2-outline"></nb-icon>
       </button>
@@ -25,7 +22,8 @@
           登入
         </button>
         <nb-user
-          [nbContextMenu]="items"
+          [nbContextMenu]="settingList"
+          nbContextMenuTag="my-context-menu"
           [name]="user?.email"
           [picture]="user?.picture"
           *ngIf="!!user"
