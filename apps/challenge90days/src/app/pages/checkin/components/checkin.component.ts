@@ -6,6 +6,7 @@ import { NbToastrService } from '@nebular/theme';
 import { Observable } from 'rxjs';
 import { CheckinService } from '../../../services/checkin.service';
 import { FireworkService } from '../../../services/firework.service';
+import { NbAuthService } from '@nebular/auth';
 
 @Component({
   selector: 'challenge90days-checkin',
@@ -21,11 +22,11 @@ export class CheckinComponent implements OnInit {
     private toastrService: NbToastrService,
     private fireworkService: FireworkService,
     private cd: ChangeDetectorRef,
+    private authService:NbAuthService,
     // temp
     private firestore: AngularFirestore,
   ) {
     this.articles$ = firestore.collection('checkin', ref => ref
-    // .where('postStatus','==',true)
     .orderBy('time', 'desc')
   )
     .valueChanges();
@@ -37,7 +38,9 @@ export class CheckinComponent implements OnInit {
 
   initForm(): void {
     this.checkinForm = this.fb.group({
+      user:'',
       message: '',
+      url:'',
       imgFile: null,
     });
   }
@@ -47,23 +50,18 @@ export class CheckinComponent implements OnInit {
     this.checkinForm.get('imgFile').patchValue(file);
     this.cd.markForCheck();
     console.log(this.checkinForm.value);
-    // reader.onload = () => {
-    //   console.log(reader)
-
-    //   // need to run CD since file load runs outside of zone
-    //   console.log(this.checkinForm.value)
-    // };
     }
   }
 
   checkin() {
     console.log(this.checkinForm.value);
     this.showFirework()
+    this.toastrService.success('成功', '恭喜，又完成一天囉');
     const message = this.checkinForm.get('message').value;
     this.checkinService.addCheckin(this.checkinForm.value).subscribe((e) => {
       console.log('component');
-      this.toastrService.success('成功', '恭喜');
     });
+    this.initForm()
   }
 
   showFirework() {

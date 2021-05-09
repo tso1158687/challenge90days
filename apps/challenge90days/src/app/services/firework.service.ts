@@ -19,6 +19,6 @@ export class FireworkService {
     this.showFirework$.next(true)
     setTimeout(() => {
       this.showFirework$.next(false)
-    }, 5000);
+    }, 6000);
   }
 }
