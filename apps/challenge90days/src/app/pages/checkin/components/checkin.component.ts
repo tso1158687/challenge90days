@@ -14,7 +14,6 @@ import { NbAuthService } from '@nebular/auth';
   styleUrls: ['./checkin.component.scss'],
 })
 export class CheckinComponent implements OnInit {
-  articles$: Observable<any[]>;
   checkinForm: FormGroup;
   constructor(
     private fb: FormBuilder,
@@ -24,12 +23,9 @@ export class CheckinComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private authService:NbAuthService,
     // temp
-    private firestore: AngularFirestore,
+   
   ) {
-    this.articles$ = firestore.collection('checkin', ref => ref
-    .orderBy('time', 'desc')
-  )
-    .valueChanges();
+    
   }
 
   ngOnInit(): void {

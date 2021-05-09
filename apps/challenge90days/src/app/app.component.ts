@@ -18,9 +18,10 @@ export class AppComponent implements OnInit {
   user: any = {};
   footerData = footerData;
   settingList: NbMenuItem[] = [
-    { title: '設定', url: 'settings', icon: 'settings-outline' },
-    { title: '公告', url: 'announce',icon: 'message-circle-outline'  },
+    { title: '我的打卡', url: 'checkin/myself',icon: 'browser-outline'  },
     { title: '成就', url: 'checkin/challenge',icon: 'award-outline'  },
+    { title: '公告', url: 'announce',icon: 'message-circle-outline'  },
+    { title: '設定', url: 'settings', icon: 'settings-outline' },
     { title: '登出', url: 'logout',icon: 'message-circle-outline'  },
   ];
 

@@ -36,20 +36,3 @@
     ><button nbButton status="danger">預約</button></nb-card-footer
   >
 </nb-card>
-
-<!-- temp -->
-<h1>打卡內容</h1>
-<ng-container *ngFor="let article of articles$ | async">
-  <nb-card accent="info">
-    <nb-card-header>{{ article.time.toDate() | date }}</nb-card-header>
-    <nb-card-body>
-      <div>
-        <img width="500px" [src]="article.imgFile" alt="" />
-      </div>
-      <p>
-        {{ article.content }}
-      </p>
-    </nb-card-body>
-    <!-- <nb-card-footer><button nbButton status="danger">預約</button></nb-card-footer> -->
-  </nb-card>
-</ng-container>

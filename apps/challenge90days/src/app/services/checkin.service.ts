@@ -34,6 +34,7 @@ export class CheckinService {
     const data = {
       content: checkinObj.message,
       postUser: 'test',
+      url:checkinObj.url,
       imgFile: '',
       type: 1,
       time: new Date(),
