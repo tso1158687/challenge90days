@@ -43,7 +43,7 @@ import { FireworkModule } from '../../../../libs/firework/src/lib/firework.modul
         },
         register: {
           redirectDelay: 500,
-          strategy: 'email',
+          strategy: 'password',
           showMessages: {
             success: true,
             error: true,
