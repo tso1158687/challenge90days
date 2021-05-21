@@ -15,37 +15,41 @@ import { NbAuthService } from '@nebular/auth';
 })
 export class CheckinComponent implements OnInit {
   checkinForm: FormGroup;
+  date = new Date(new Date().getTime() + 86400000)
+  minDate=new Date()
+  maxDate =new Date(new Date().getTime() + 86400000*7)
   constructor(
     private fb: FormBuilder,
     private checkinService: CheckinService,
     private toastrService: NbToastrService,
     private fireworkService: FireworkService,
     private cd: ChangeDetectorRef,
-    private authService:NbAuthService,
+    private authService: NbAuthService,
     // temp
-   
+
   ) {
-    
+
   }
 
   ngOnInit(): void {
     this.initForm();
+    console.log(this.maxDate)
   }
 
   initForm(): void {
     this.checkinForm = this.fb.group({
-      user:'',
+      user: '',
       message: '',
-      url:'',
+      url: '',
       imgFile: null,
     });
   }
   onFileChange(event) {
     if (event.target.files && event.target.files.length) {
-    const file: File = event.target.files[0];
-    this.checkinForm.get('imgFile').patchValue(file);
-    this.cd.markForCheck();
-    console.log(this.checkinForm.value);
+      const file: File = event.target.files[0];
+      this.checkinForm.get('imgFile').patchValue(file);
+      this.cd.markForCheck();
+      console.log(this.checkinForm.value);
     }
   }
 
@@ -60,7 +64,11 @@ export class CheckinComponent implements OnInit {
     this.initForm()
   }
 
-  showFirework() {
+  showFirework(): void {
     this.fireworkService.showFirework();
+  }
+
+  handleDateChange(event): void {
+    console.log(event)
   }
 }

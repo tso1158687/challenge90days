@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 import { NbMenuItem, NbMenuService } from '@nebular/theme';
 import { filter, map, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
+import { AngularFireAuth } from '@angular/fire/auth';
 @Component({
   selector: 'challenge90days-root',
   templateUrl: './app.component.html',
@@ -29,8 +29,10 @@ export class AppComponent implements OnInit {
     private router: Router,
     private authService: NbAuthService,
     private fireworkService: FireworkService,
-    private nbMenuService: NbMenuService
+    private nbMenuService: NbMenuService,
+    public auth: AngularFireAuth
   ) {
+    // this.auth.currentUser.then(e=>{e.sendEmailVerification()})
     this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
       console.log(token);
       console.log(token.isValid());
@@ -41,12 +43,16 @@ export class AppComponent implements OnInit {
     });
   }
   ngOnInit() {
+    // this.authService.
+    // firebase 驗證方法
+    // this.auth.user.subscribe(e=>e.sendEmailVerification())
     this.showFirework$ = this.fireworkService.showFirework$;
     AOS.init();
     this.clickMenuItem();
   }
 
   clickMenuItem() {
+  
     console.log('click')
     this.nbMenuService
       .onItemClick()
@@ -66,7 +72,7 @@ export class AppComponent implements OnInit {
 
   logout(){
     console.log('logout')
-    this.authService.logout('password').pipe(take(1)).subscribe(e=>{
+    this.authService.logout('password').subscribe(e=>{
       console.log(e)
     })
     // this.authService.refreshToken('email')

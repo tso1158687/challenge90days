@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CheckinComponent } from './components/checkin.component';
 import { CheckinRoutingModule } from './checkin-routing.module';
-import { NbCardModule, NbButtonModule, NbInputModule, NbToastrService, NbIconModule } from '@nebular/theme';
+import { NbCardModule, NbButtonModule, NbInputModule, NbToastrService, NbIconModule, NbCalendarModule } from '@nebular/theme';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ChallenageComponent } from './components/challenage/challenage.component';
 import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
@@ -24,7 +24,8 @@ import { MyselfComponent } from './components/myself/myself.component';
     NbCardModule,
     NbButtonModule,
     NbInputModule,
-    NbIconModule
+    NbIconModule,
+    NbCalendarModule
   ],
   providers:  [
     { provide: BUCKET, useValue: environment.firebase.storageBucket }
