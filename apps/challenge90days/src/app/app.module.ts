@@ -38,7 +38,7 @@ import { FireworkModule } from '../../../../libs/firework/src/lib/firework.modul
       forms: {
         login: {
           strategy: 'password',
-          rememberMe: true,
+          rememberMe: false,
           socialLinks: [],
         },
         register: {

@@ -21,7 +21,6 @@
   <nb-card-header>預約打卡</nb-card-header>
   <nb-card-body> 明天要出去玩怕來不及打卡嗎？先預約打卡！ <br>
     <nb-calendar [(date)]="date" [min]='minDate' [max]='maxDate'></nb-calendar>
-    <!-- <nb-calendar [date]="date" (dateChange)="handleDateChange($event)"></nb-calendar> -->
   </nb-card-body>
   <nb-card-footer><button nbButton status="danger">預約</button></nb-card-footer>
 </nb-card>

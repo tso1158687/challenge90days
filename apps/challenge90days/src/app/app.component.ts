@@ -4,7 +4,7 @@ import { footerData } from './data/footer';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 import { FireworkService } from './services/firework.service';
 import { BehaviorSubject } from 'rxjs';
-import { NbMenuItem, NbMenuService } from '@nebular/theme';
+import { NbMenuItem, NbMenuService, NbToastrService } from '@nebular/theme';
 import { filter, map, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -15,14 +15,13 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class AppComponent implements OnInit {
   showFirework$: BehaviorSubject<boolean>;
-  user: any = {};
+  user: any ;
   footerData = footerData;
   settingList: NbMenuItem[] = [
     { title: '我的打卡', url: 'checkin/myself',icon: 'browser-outline'  },
     { title: '成就', url: 'checkin/challenge',icon: 'award-outline'  },
     { title: '公告', url: 'announce',icon: 'message-circle-outline'  },
     { title: '設定', url: 'settings', icon: 'settings-outline' },
-    { title: '登出', url: 'logout',icon: 'message-circle-outline'  },
   ];
 
   constructor(
@@ -30,12 +29,14 @@ export class AppComponent implements OnInit {
     private authService: NbAuthService,
     private fireworkService: FireworkService,
     private nbMenuService: NbMenuService,
+    private toastrService: NbToastrService,
     public auth: AngularFireAuth
   ) {
     // this.auth.currentUser.then(e=>{e.sendEmailVerification()})
     this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
       console.log(token);
       console.log(token.isValid());
+      console.log(!!this.user)
       if (token.isValid()) {
         this.user = token.getPayload(); // here we receive a payload from the token and assigns it to our `user` variable
         console.log(this.user);
@@ -74,7 +75,8 @@ export class AppComponent implements OnInit {
     console.log('logout')
     this.authService.logout('password').subscribe(e=>{
       console.log(e)
+      this.toastrService.success('','登出成功');
+      this.router.navigate([e.getRedirect()])
     })
-    // this.authService.refreshToken('email')
   }
 }
