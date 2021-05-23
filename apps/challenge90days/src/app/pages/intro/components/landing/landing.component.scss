@@ -1,6 +1,11 @@
 :host {
     display: flex;
     flex-direction: column;
+    // background-color: #36f;
+    background-repeat: no-repeat;
+    background-image:url('/assets/bg.svg');
+    overflow: hidden;
+    background-size: cover;
   }
   .main {
     display: flex;
@@ -8,5 +13,6 @@
     align-items: center;
     // width: 100vw;
     height: 100vh;
+   
   }
   
