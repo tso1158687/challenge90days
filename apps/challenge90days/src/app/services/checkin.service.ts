@@ -50,7 +50,7 @@ export class CheckinService {
     // TODO:可以加入名字了
     return this.http.post(
       'https://challenge-90-days.herokuapp.com/api/checkin',
-      { message: checkinObj.message, name: this.userInfo.value.name }
+      { message: checkinObj.message, name: this.userInfo.name }
     );
   }
 
