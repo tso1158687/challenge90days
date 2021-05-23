@@ -11,7 +11,7 @@
     "build": "ng build api --prod",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
-    "deploy": "firebase deploy",
+    "deploy": "firebase deploy --only hosting",
     "e2e": "ng e2e",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
