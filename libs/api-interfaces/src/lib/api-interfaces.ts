@@ -4,7 +4,7 @@ export interface Message {
 
 export interface UserInfo {
   userId: string;
-  eventId: string;
+  eventId: number;
   name: string;
   email: string;
 }

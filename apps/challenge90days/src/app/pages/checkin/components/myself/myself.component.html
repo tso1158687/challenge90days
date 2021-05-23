@@ -1,17 +1,30 @@
 <h1>我的打卡</h1>
-<ng-container *ngFor="let article of articles$ | async">
-  <nb-card accent="info">
-    <nb-card-header>{{ article.time.toDate() | date:'medium' }}</nb-card-header>
-    <nb-card-body>
-      <div>
-        <img width="500px" [src]="article.imgFile" alt="" />
-      </div>
-      <p>
+<!-- <nb-card>
+  <nb-card-header>
+    <h1 class="h5">Selected date: {{ date | date }}</h1>
+  </nb-card-header>
+  <nb-card-body>
+    <nb-calendar  [(date)]="date" size="large">
+    </nb-calendar>
+  </nb-card-body>
+</nb-card> -->
+<div class="checkin-container">
+
+
+  <ng-container *ngFor="let article of articles$ | async">
+    <nb-card accent="info" data-aos="fade-up" data-aos-duration="4000">
+      <nb-card-header>{{ article.time.toDate() | date:'medium' }}</nb-card-header>
+      <nb-card-body>
+        <div>
+          <img width="500px" [src]="article.imgFile" alt="" />
+        </div>
+        <p>
           <a [href]="article.url">{{article.url}}</a>
-      </p>
-      <p>
-        {{ article.content }}
-      </p>
-    </nb-card-body>
-  </nb-card>
-</ng-container>
+        </p>
+        <p>
+          {{ article.content }}
+        </p>
+      </nb-card-body>
+    </nb-card>
+  </ng-container>
+</div>

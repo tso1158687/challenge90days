@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbIconModule, NbButtonModule, NbToastrModule, NbUserModule, NbContextMenuModule, NbMenuModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbIconModule, NbButtonModule, NbToastrModule, NbUserModule, NbContextMenuModule, NbMenuModule, NbDateService } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire';

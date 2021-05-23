@@ -17,10 +17,10 @@ export class AppController {
   }
 
   @Post('checkin')
-  sendToSlack(@Body() message ) {
+  sendToSlack(@Body() content ) {
     console.log('msg')
-    console.log(message)
-    const msg=`jason打卡囉 今天打卡內容：${message.message}`
+    console.log(content)
+    const msg=`${content.name}打卡囉 今天打卡內容：${content.message}`
     const data = { text: msg };
     console.log('ohohoh')
 

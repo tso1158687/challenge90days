@@ -20,12 +20,13 @@ export class UserService {
   }
 
   getUserInfo(userId: string): void {
-    this.userCollection = this.firestore.collection<any>('user', ref => {
+    this.userCollection = this.firestore.collection<UserInfo>('user', ref => {
       return ref.where('userId', '==', userId)
     })
 
-    this.userCollection.valueChanges().subscribe(userInfos=>{
-      this.userInfo$.next(userInfos[0])
+    this.userCollection.valueChanges().subscribe(userInfo=>{
+      console.log(userInfo)
+      this.userInfo$.next(userInfo[0])
     })
   }
 }
