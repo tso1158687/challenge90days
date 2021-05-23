@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { NbAuthService } from '@nebular/auth';
 
 @Component({
   selector: 'challenge90days-myself',
@@ -8,6 +9,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./myself.component.scss']
 })
 export class MyselfComponent implements OnInit {
+  userId:string
   articles$: Observable<any[]>;
 
   constructor(

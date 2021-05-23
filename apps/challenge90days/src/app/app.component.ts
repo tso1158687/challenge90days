@@ -8,6 +8,7 @@ import { NbMenuItem, NbMenuService, NbToastrService } from '@nebular/theme';
 import { filter, map, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { UserService } from './services/user.service';
 @Component({
   selector: 'challenge90days-root',
   templateUrl: './app.component.html',
@@ -15,12 +16,12 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class AppComponent implements OnInit {
   showFirework$: BehaviorSubject<boolean>;
-  user: any ;
+  user: any;
   footerData = footerData;
   settingList: NbMenuItem[] = [
-    { title: '我的打卡', url: 'checkin/myself',icon: 'browser-outline'  },
-    { title: '成就', url: 'checkin/challenge',icon: 'award-outline'  },
-    { title: '公告', url: 'announce',icon: 'message-circle-outline'  },
+    { title: '我的打卡', url: 'checkin/myself', icon: 'browser-outline' },
+    { title: '成就', url: 'checkin/challenge', icon: 'award-outline' },
+    { title: '公告', url: 'announce', icon: 'message-circle-outline' },
     { title: '設定', url: 'settings', icon: 'settings-outline' },
   ];
 
@@ -30,6 +31,7 @@ export class AppComponent implements OnInit {
     private fireworkService: FireworkService,
     private nbMenuService: NbMenuService,
     private toastrService: NbToastrService,
+    private userService: UserService,
     public auth: AngularFireAuth
   ) {
     // this.auth.currentUser.then(e=>{e.sendEmailVerification()})
@@ -40,6 +42,7 @@ export class AppComponent implements OnInit {
       if (token.isValid()) {
         this.user = token.getPayload(); // here we receive a payload from the token and assigns it to our `user` variable
         console.log(this.user);
+        this.userService.userId$.next(this.user.user_id)
       }
     });
   }
@@ -53,7 +56,7 @@ export class AppComponent implements OnInit {
   }
 
   clickMenuItem() {
-  
+
     console.log('click')
     this.nbMenuService
       .onItemClick()
@@ -62,21 +65,17 @@ export class AppComponent implements OnInit {
         map((e) => e.item)
       )
       .subscribe((title) => {
-        console.log(title.url)
-        if(title.url!=='logout'){
-          this.router.navigate([title.url]);
-        }else{
-          this.logout()
-        }
+        this.router.navigate([title.url]);
       });
   }
 
-  logout(){
+  logout() {
     console.log('logout')
-    this.authService.logout('password').subscribe(e=>{
+    this.authService.logout('password').subscribe(e => {
       console.log(e)
-      this.toastrService.success('','登出成功');
+      this.toastrService.success('', '登出成功');
       this.router.navigate([e.getRedirect()])
+      location.reload();
     })
   }
 }
