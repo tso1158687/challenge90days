@@ -6,6 +6,7 @@ import { NbAuthService, NbRegisterComponent } from '@nebular/auth';
 import { UserInfo } from '@challenge90days/api-interfaces';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { NbToastrService } from '@nebular/theme';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'challenge90days-register',
@@ -14,6 +15,8 @@ import { NbToastrService } from '@nebular/theme';
 })
 export class RegisterComponent extends NbRegisterComponent implements OnInit {
   userCollection: AngularFirestoreCollection<UserInfo>;
+  activatedEventCollection:AngularFirestoreCollection<any>;
+  activateEvent$ = new Observable<any>()
   registerForm: FormGroup;
   showSpinner = false
   duration = 4000;
@@ -37,6 +40,10 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
   ) {
     super(authService, {}, changeDetectorRef, roter)
     this.userCollection = firestore.collection<any>('user');
+    this.activatedEventCollection=firestore.collection<any>('event')
+    // TODO:要用where去查詢現在正在舉辦的活動，過濾掉過期的
+    this.activateEvent$ = firestore.collection('event')
+    .valueChanges();
   }
   ngOnInit(): void {
     this.initForm()
@@ -45,6 +52,7 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
   initForm(): void {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(this.nameLimit.min), Validators.maxLength(this.nameLimit.max)]],
+      eventId: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(this.passwordLimit.min), Validators.maxLength(this.passwordLimit.max)]],
     })
@@ -69,6 +77,7 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
   addUserInfo(userId: string): void {
     const data: UserInfo = {
       userId: userId,
+      eventId:this.registerForm.get('eventId').value,
       name: this.registerForm.get('name').value,
       email: this.registerForm.get('email').value
     }

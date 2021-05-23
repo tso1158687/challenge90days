@@ -3,7 +3,8 @@ export interface Message {
 }
 
 export interface UserInfo {
-  userId: string,
-  name: string,
-  email: string
+  userId: string;
+  eventId: string;
+  name: string;
+  email: string;
 }

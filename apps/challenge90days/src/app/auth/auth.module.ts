@@ -7,9 +7,8 @@ import { Routes, RouterModule } from '@angular/router';
 import {
   NbAuthComponent,
   NbLoginComponent,
-  NbRegisterComponent,
 } from '@nebular/auth';
-import { NbButtonModule, NbInputModule, NbSpinnerModule } from '@nebular/theme';
+import { NbButtonModule, NbInputModule, NbSpinnerModule, NbSelectModule } from '@nebular/theme';
 import { RegisterComponent } from './components/register/register.component';
 
 
@@ -34,7 +33,7 @@ const routes: Routes = [
       },
     ],
   },
-  
+
 ];
 
 @NgModule({
@@ -45,6 +44,7 @@ const routes: Routes = [
     NbInputModule,
     NbButtonModule,
     NbSpinnerModule,
+    NbSelectModule,
     RouterModule.forChild(routes),
   ],
   exports: [RouterModule],
