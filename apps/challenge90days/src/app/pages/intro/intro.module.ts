@@ -7,6 +7,7 @@ import { IntroComponent } from './components/intro/intro.component';
 import { NbCardModule, NbSpinnerModule, NbTabsetModule } from '@nebular/theme';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ShareComponent } from './components/share/share.component';
+import { LottieIconModule } from '../../modules/lottie-icon/lottie-icon.module';
 
 
 
@@ -22,6 +23,7 @@ import { ShareComponent } from './components/share/share.component';
     NbCardModule,
     NbTabsetModule,
     NbSpinnerModule,
+    LottieIconModule,
     // test
     ReactiveFormsModule
   ]

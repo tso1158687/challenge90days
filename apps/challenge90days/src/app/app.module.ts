@@ -33,7 +33,7 @@ import { FireworkModule } from '../../../../libs/firework/src/lib/firework.modul
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     NbFirebaseAuthModule,
-    
+
     NbAuthModule.forRoot({
       forms: {
         login: {
