@@ -12,6 +12,18 @@ export class LandingComponent implements OnInit {
     loop: true,
     initialSegment: [10, 88]
   };
+  iconOpts2: AnimationOptions = {
+    path: '/assets/work2.json',
+    autoplay: true,
+    loop: true,
+    initialSegment: [10, 88]
+  };
+  iconOpts3: AnimationOptions = {
+    path: '/assets/go.json',
+    autoplay: true,
+    loop: true,
+    // initialSegment: [10, 88]
+  };
   constructor() { }
 
   ngOnInit(): void {

@@ -1,20 +1,21 @@
 <nb-layout>
   <nb-layout-header fixed>
     <div class="header-area left">
-      <h1 routerLink="">90天原子習慣挑戰</h1>
+      <h1  class="main-title" routerLink="">90天原子習慣挑戰</h1>
       <button nbButton outline shape="round" status="info" routerLink="introduction">
         介紹 
       </button>
       <button nbButton outline shape="round" status="info" routerLink="share">心得分享</button>
     </div>
     <div class="header-area right">
+      <nb-toggle status="basic"  [(ngModel)]="themeToggle" (ngModelChange)='changeThemeMode(themeToggle)'>{{themeToggle?'暗黑':'光亮'}}</nb-toggle>
       <button nbButton status="primary" (click)="logout()" *ngIf="!!user">
         登出
       </button>
       <button nbButton status="primary" routerLink="checkin" *ngIf="!!user">
         打卡<nb-icon icon="checkmark-circle-2-outline"></nb-icon>
       </button>
-      <nb-toggle status="basic"  [(ngModel)]="themeToggle" (ngModelChange)='changeThemeMode(themeToggle)'>{{themeToggle?'暗黑':'光亮'}}</nb-toggle>
+    
       <button nbButton outline status="info" routerLink="auth/register" *ngIf="!user">註冊</button>
       <div>
         <button nbButton status="primary" routerLink="auth/login" *ngIf="!user">
@@ -31,12 +32,6 @@
   </nb-layout-column>
 
   <nb-layout-footer fixed>
-    
-    <!-- <ng-container *ngFor="let footer of footerData">
-      <a nbButton ghost status="danger" target="_blank" [href]="footer.link" nbButton>
-        <nb-icon [icon]="footer.icon" [options]="{ animation: { type: 'zoom' } }"></nb-icon>
-      </a>
-    </ng-container> -->
     <challenge90days-footer></challenge90days-footer>
   </nb-layout-footer>
 </nb-layout>
