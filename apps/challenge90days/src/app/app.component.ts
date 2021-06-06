@@ -3,7 +3,12 @@ import * as AOS from 'aos';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 import { FireworkService } from './services/firework.service';
 import { BehaviorSubject } from 'rxjs';
-import { NbMenuItem, NbMenuService, NbToastrService } from '@nebular/theme';
+import {
+  NbMenuItem,
+  NbMenuService,
+  NbThemeService,
+  NbToastrService,
+} from '@nebular/theme';
 import { filter, map, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -22,6 +27,7 @@ export class AppComponent implements OnInit {
     { title: '公告', url: 'announce', icon: 'message-circle-outline' },
     { title: '設定', url: 'settings', icon: 'settings-outline' },
   ];
+  themeToggle = true;
 
   constructor(
     private router: Router,
@@ -30,17 +36,18 @@ export class AppComponent implements OnInit {
     private nbMenuService: NbMenuService,
     private toastrService: NbToastrService,
     private userService: UserService,
+    private themeService: NbThemeService,
     public auth: AngularFireAuth
   ) {
     // this.auth.currentUser.then(e=>{e.sendEmailVerification()})
     this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
       console.log(token);
       console.log(token.isValid());
-      console.log(!!this.user)
+      console.log(!!this.user);
       if (token.isValid()) {
         this.user = token.getPayload(); // here we receive a payload from the token and assigns it to our `user` variable
         console.log(this.user);
-        this.userService.userId$.next(this.user.user_id)
+        this.userService.userId$.next(this.user.user_id);
       }
     });
   }
@@ -51,11 +58,21 @@ export class AppComponent implements OnInit {
     this.showFirework$ = this.fireworkService.showFirework$;
     AOS.init();
     this.clickMenuItem();
+    if (
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    ) {
+      // dark mode
+      this.themeToggle = true;
+      this.changeThemeMode(this.themeToggle);
+    } else {
+      this.themeToggle = false;
+      this.changeThemeMode(this.themeToggle);
+    }
   }
 
   clickMenuItem() {
-
-    console.log('click')
+    console.log('click');
     this.nbMenuService
       .onItemClick()
       .pipe(
@@ -68,12 +85,17 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    console.log('logout')
-    this.authService.logout('password').subscribe(e => {
-      console.log(e)
+    console.log('logout');
+    this.authService.logout('password').subscribe((e) => {
+      console.log(e);
       this.toastrService.success('', '登出成功');
-      this.router.navigate([e.getRedirect()])
+      this.router.navigate([e.getRedirect()]);
       location.reload();
-    })
+    });
+  }
+
+  changeThemeMode(themeToggle: boolean) {
+    const theme = themeToggle ? 'dark' : 'default';
+    this.themeService.changeTheme(theme);
   }
 }

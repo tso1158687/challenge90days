@@ -14,6 +14,7 @@
       <button nbButton status="primary" routerLink="checkin" *ngIf="!!user">
         打卡<nb-icon icon="checkmark-circle-2-outline"></nb-icon>
       </button>
+      <nb-toggle status="basic"  [(ngModel)]="themeToggle" (ngModelChange)='changeThemeMode(themeToggle)'>{{themeToggle?'暗黑':'光亮'}}</nb-toggle>
       <button nbButton outline status="info" routerLink="auth/register" *ngIf="!user">註冊</button>
       <div>
         <button nbButton status="primary" routerLink="auth/login" *ngIf="!user">
