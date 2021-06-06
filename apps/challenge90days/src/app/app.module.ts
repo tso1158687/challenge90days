@@ -5,20 +5,36 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbIconModule, NbButtonModule, NbToastrModule, NbUserModule, NbContextMenuModule, NbMenuModule, NbDateService } from '@nebular/theme';
+import {
+  NbThemeModule,
+  NbLayoutModule,
+  NbIconModule,
+  NbButtonModule,
+  NbToastrModule,
+  NbUserModule,
+  NbContextMenuModule,
+  NbMenuModule,
+  NbDateService,
+} from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire';
 import { NbAuthModule } from '@nebular/auth';
-import { NbFirebaseAuthModule, NbFirebasePasswordStrategy, NbFirebaseGoogleStrategy } from '@nebular/firebase-auth';
+import {
+  NbFirebaseAuthModule,
+  NbFirebasePasswordStrategy,
+  NbFirebaseGoogleStrategy,
+} from '@nebular/firebase-auth';
 import { environment } from '../environments/environment';
 import { FireworkModule } from '../../../../libs/firework/src/lib/firework.module';
+import { FooterModule } from './modules/footer/footer.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    FooterModule,
     BrowserAnimationsModule,
     FireworkModule,
     NbThemeModule.forRoot({ name: 'dark' }),
@@ -33,7 +49,6 @@ import { FireworkModule } from '../../../../libs/firework/src/lib/firework.modul
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     NbFirebaseAuthModule,
-
     NbAuthModule.forRoot({
       forms: {
         login: {
@@ -68,16 +83,15 @@ import { FireworkModule } from '../../../../libs/firework/src/lib/firework.modul
           login: {
             redirect: {
               success: '/',
-              failure: null
+              failure: null,
             },
-          
           },
-          register:{
+          register: {
             redirect: {
               success: '/',
-              failure: null
+              failure: null,
             },
-          }
+          },
         }),
         NbFirebaseGoogleStrategy.setup({
           name: 'google',

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import * as AOS from 'aos';
-import { footerData } from './data/footer';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 import { FireworkService } from './services/firework.service';
 import { BehaviorSubject } from 'rxjs';
@@ -17,7 +16,6 @@ import { UserService } from './services/user.service';
 export class AppComponent implements OnInit {
   showFirework$: BehaviorSubject<boolean>;
   user: any;
-  footerData = footerData;
   settingList: NbMenuItem[] = [
     { title: '我的打卡', url: 'checkin/myself', icon: 'browser-outline' },
     { title: '成就', url: 'checkin/challenge', icon: 'award-outline' },

@@ -1,1 +1,12 @@
-<p>footer works!</p>
+<ng-container *ngFor="let footer of footerData">
+  <a
+    nbButton
+    ghost
+    status="danger"
+    target="_blank"
+    [href]="footer.link"
+    nbButton
+  >
+    <fa-icon class="fa-lg" [icon]="footer.icon"></fa-icon>
+  </a>
+</ng-container>
