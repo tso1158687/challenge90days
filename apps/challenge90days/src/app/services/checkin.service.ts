@@ -43,6 +43,7 @@ export class CheckinService {
       userId: this.userService.userId$.value
     };
     this.checkinCollection.add(data).then((e) => {
+      console.log(e)
       if (checkinObj.imgFile) {
         this.uploadFile(checkinObj.imgFile, e.id, e.path);
       }

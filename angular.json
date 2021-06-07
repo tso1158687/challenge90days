@@ -47,7 +47,6 @@
             "main": "apps/challenge90days/src/main.ts",
             "polyfills": "apps/challenge90days/src/polyfills.ts",
             "tsConfig": "apps/challenge90days/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "apps/challenge90days/src/favicon.ico",
               "apps/challenge90days/src/assets",
@@ -61,7 +60,13 @@
               "apps/challenge90days/src/theme.scss",
               "apps/challenge90days/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -91,7 +96,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -122,7 +128,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/challenge90days"],
+          "outputs": [
+            "coverage/apps/challenge90days"
+          ],
           "options": {
             "jestConfig": "apps/challenge90days/jest.config.js",
             "passWithNoTests": true
@@ -151,7 +159,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/challenge90days-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/challenge90days-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -163,12 +173,16 @@
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
+            "assets": [
+              "apps/api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -193,12 +207,16 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/api/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/api/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/api"],
+          "outputs": [
+            "coverage/apps/api"
+          ],
           "options": {
             "jestConfig": "apps/api/jest.config.js",
             "passWithNoTests": true
@@ -214,7 +232,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/api-interfaces/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/api-interfaces/**/*.ts"
+            ]
           }
         }
       }
@@ -236,7 +256,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/firework"],
+          "outputs": [
+            "coverage/libs/firework"
+          ],
           "options": {
             "jestConfig": "libs/firework/jest.config.js",
             "passWithNoTests": true
