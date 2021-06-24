@@ -9,7 +9,7 @@
     </div>
     <div class="header-area right">
       <nb-toggle status="basic"  [(ngModel)]="themeToggle" (ngModelChange)='changeThemeMode(themeToggle)'>{{themeToggle?'暗黑':'光亮'}}</nb-toggle>
-      <button nbButton status="primary" (click)="logout()" *ngIf="!!user">
+      <button nbButton ghost status="primary" (click)="logout()" *ngIf="!!user">
         登出
       </button>
       <button nbButton status="primary" routerLink="checkin" *ngIf="!!user">

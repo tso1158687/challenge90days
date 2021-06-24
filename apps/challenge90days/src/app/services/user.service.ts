@@ -4,7 +4,7 @@ import {
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
 import { UserInfo } from '@challenge90days/api-interfaces';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 
 @Injectable({
@@ -20,18 +20,16 @@ export class UserService {
     private firestore: AngularFirestore,
     private authService: NbAuthService
   ) {
-    console.log('user service ');
     this.getUserInfoByToken();
   }
 
   getUserInfoByToken() {
-    console.log('getuserinfo')
+ 
     this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
-      console.log(token);
-      console.log(token.isValid());
-      // console.log(!!this.user);
+      const userInfo=token.getPayload()
+      this.userId$.next(userInfo.user_id)
       if (token.isValid()) {
-        this.user$.next(token.getPayload()); // here we receive a payload from the token and assigns it to our `user` variable
+        this.user$.next(userInfo); 
       }
     });
   }

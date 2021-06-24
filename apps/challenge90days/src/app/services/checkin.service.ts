@@ -5,6 +5,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
+  AngularFirestoreDocument,
 } from '@angular/fire/firestore';
 import { finalize } from 'rxjs/operators';
 import { UserService } from './user.service';
@@ -15,30 +16,44 @@ import { NbDateService } from '@nebular/theme';
   providedIn: 'root',
 })
 export class CheckinService {
+  private userDoc: AngularFirestoreDocument<any>;
   checkinCollection: AngularFirestoreCollection<any>;
-  userCollection:AngularFirestoreCollection<any>;
+  userCollection: AngularFirestoreCollection<any>;
   //
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
-  userInfo
+  userInfo;
   constructor(
     private http: HttpClient,
     private firestore: AngularFirestore,
     private storage: AngularFireStorage,
-    private userService: UserService,
-    // private dateService: NbDateService<Date>
-  ) {
+    private userService: UserService
+  ) // private dateService: NbDateService<Date>
+  {
     this.checkinCollection = firestore.collection<any>('checkin');
-    this.userInfo = this.userService.userInfo$.value
-   
+    this.userInfo = this.userService.userInfo$.value;
   }
 
-  test(){
-    console.log(this.userInfo)
-    this.userCollection=this.firestore.collection(this.userInfo)
-    this.userCollection.valueChanges().subscribe(e=>{
-      console.log(e)
-    })
+  test() {
+    // TODO:黑人問號中
+    const userPath = `user/CEd7QmQl0fQ0oJL4VcpUFH08q4u1`;
+    console.log(userPath);
+    this.userDoc = this.firestore.doc<any>('user/CEd7QmQl0fQ0oJL4VcpUFH08q4u1');
+    this.userDoc.valueChanges().subscribe((e) => {
+      console.log('user doc');
+      console.log(e);
+    });
+    console.log(this.userInfo);
+    console.log(this.userService.userId$.value);
+    this.userCollection = this.firestore.collection<UserInfo>('user', (ref) => {
+      // return ref.where('userId', '==', 'CEd7QmQl0fQ0oJL4VcpUFH08q4u1');
+      return ref;
+    });
+    const a = this.userCollection.doc('CEd7QmQl0fQ0oJL4VcpUFH08q4u1');
+
+    this.userCollection.valueChanges().subscribe((e) => {
+      console.log(e);
+    });
   }
 
   addCheckin(checkinObj: any): Observable<any> {
@@ -50,11 +65,11 @@ export class CheckinService {
       imgFile: '',
       type: 1,
       time: new Date(),
-      userId: this.userService.userId$.value
+      userId: this.userService.userId$.value,
     };
     // this.checkinCollection.ref.
     this.checkinCollection.add(data).then((e) => {
-      console.log(e)
+      console.log(e);
       if (checkinObj.imgFile) {
         this.uploadFile(checkinObj.imgFile, e.id, e.path);
       }
@@ -73,9 +88,9 @@ export class CheckinService {
 
     // observe percentage changes
     this.uploadPercent = task.percentageChanges();
-    this.uploadPercent.subscribe(e => {
-      console.log(e)
-    })
+    this.uploadPercent.subscribe((e) => {
+      console.log(e);
+    });
     // get notified when the download URL is available
     task
       .snapshotChanges()
