@@ -16,6 +16,7 @@ import { NbDateService } from '@nebular/theme';
 })
 export class CheckinService {
   checkinCollection: AngularFirestoreCollection<any>;
+  userCollection:AngularFirestoreCollection<any>;
   //
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
@@ -29,6 +30,15 @@ export class CheckinService {
   ) {
     this.checkinCollection = firestore.collection<any>('checkin');
     this.userInfo = this.userService.userInfo$.value
+   
+  }
+
+  test(){
+    console.log(this.userInfo)
+    this.userCollection=this.firestore.collection(this.userInfo)
+    this.userCollection.valueChanges().subscribe(e=>{
+      console.log(e)
+    })
   }
 
   addCheckin(checkinObj: any): Observable<any> {
@@ -42,6 +52,7 @@ export class CheckinService {
       time: new Date(),
       userId: this.userService.userId$.value
     };
+    // this.checkinCollection.ref.
     this.checkinCollection.add(data).then((e) => {
       console.log(e)
       if (checkinObj.imgFile) {

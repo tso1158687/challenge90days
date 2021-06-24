@@ -7,4 +7,5 @@ export interface UserInfo {
   eventId: number[];
   name: string;
   email: string;
+  createDate: Date;
 }

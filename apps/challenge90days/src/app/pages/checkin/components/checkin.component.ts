@@ -15,25 +15,23 @@ import { NbAuthService } from '@nebular/auth';
 })
 export class CheckinComponent implements OnInit {
   checkinForm: FormGroup;
-  date = new Date(new Date().getTime() + 86400000)
-  minDate=new Date()
-  maxDate =new Date(new Date().getTime() + 86400000*7)
+  date = new Date(new Date().getTime() + 86400000);
+  minDate = new Date();
+  maxDate = new Date(new Date().getTime() + 86400000 * 7);
   constructor(
     private fb: FormBuilder,
     private checkinService: CheckinService,
     private toastrService: NbToastrService,
     private fireworkService: FireworkService,
     private cd: ChangeDetectorRef,
-    private authService: NbAuthService,
-    // temp
+    private authService: NbAuthService
+  ) // temp
 
-  ) {
-
-  }
+  {}
 
   ngOnInit(): void {
     this.initForm();
-    console.log(this.maxDate)
+    console.log(this.maxDate);
   }
 
   initForm(): void {
@@ -55,13 +53,13 @@ export class CheckinComponent implements OnInit {
 
   checkin() {
     console.log(this.checkinForm.value);
-    this.showFirework()
+    this.showFirework();
     this.toastrService.success('成功', '恭喜，又完成一天囉');
     const message = this.checkinForm.get('message').value;
     this.checkinService.addCheckin(this.checkinForm.value).subscribe((e) => {
       console.log('component');
     });
-    this.initForm()
+    this.initForm();
   }
 
   showFirework(): void {
@@ -69,6 +67,10 @@ export class CheckinComponent implements OnInit {
   }
 
   handleDateChange(event): void {
-    console.log(event)
+    console.log(event);
+  }
+
+  test() {
+    this.checkinService.test();
   }
 }

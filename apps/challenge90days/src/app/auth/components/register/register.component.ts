@@ -108,6 +108,7 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
       eventId: [this.registerForm.get('eventId').value],
       name: this.registerForm.get('name').value,
       email: this.registerForm.get('email').value,
+      createDate: new Date(),
     };
     this.userCollection.add(data).then((e) => {
       this.toastrService.success(
