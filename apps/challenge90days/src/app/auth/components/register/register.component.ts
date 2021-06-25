@@ -104,13 +104,13 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
 
   addUserInfo(userId: string): void {
     const data: UserInfo = {
-      userId: userId,
+      userId,
       eventId: [this.registerForm.get('eventId').value],
       name: this.registerForm.get('name').value,
       email: this.registerForm.get('email').value,
       createDate: new Date(),
     };
-    this.userCollection.add(data).then((e) => {
+    this.userCollection.doc(userId).set(data).then((e) => {
       this.toastrService.success(
         `Hi ${data.name} 😀,請至你的信箱驗證驗證帳號`,
         '註冊成功!',
