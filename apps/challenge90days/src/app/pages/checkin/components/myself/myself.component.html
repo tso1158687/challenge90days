@@ -1,28 +1,20 @@
-<h1>我的打卡</h1>
-<!-- <nb-card>
-  <nb-card-header>
-    <h1 class="h5">Selected date: {{ date | date }}</h1>
-  </nb-card-header>
-  <nb-card-body>
-    <nb-calendar  [(date)]="date" size="large">
-    </nb-calendar>
-  </nb-card-body>
-</nb-card> -->
+<div>
+  <h1>我的打卡</h1>
+  <nb-toggle status="basic"  [(ngModel)]="checkinListToggle" (ngModelChange)='changeCheckinListMode(checkinListToggle)'>{{checkinListToggle?'看看別人':'看看自己'}}</nb-toggle>
+</div>
 <div class="checkin-container">
-
-
-  <ng-container *ngFor="let article of articles$ | async">
+  <ng-container *ngFor="let checkin of checkinList$ | async">
     <nb-card accent="info" data-aos="fade-up" data-aos-duration="4000">
-      <nb-card-header>{{ article.time.toDate() | date:'medium' }}</nb-card-header>
+      <nb-card-header>{{ checkin.time.toDate() | date:'medium' }}</nb-card-header>
       <nb-card-body>
         <div>
-          <img width="500px" [src]="article.imgFile" alt="" />
+          <img width="500px" [src]="checkin.imgFile" alt="" />
         </div>
         <p>
-          <a [href]="article.url">{{article.url}}</a>
+          <a [href]="checkin.url">{{checkin.url}}</a>
         </p>
         <p>
-          {{ article.content }}
+          {{ checkin.content }}
         </p>
       </nb-card-body>
     </nb-card>

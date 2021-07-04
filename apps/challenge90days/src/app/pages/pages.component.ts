@@ -64,9 +64,7 @@ export class PagesComponent implements OnInit {
 
   getUserInfo(): void {
     this.userService.user$.subscribe((user) => {
-      console.log(user)
       this.user = user;
-      console.log(this.user)
     });
   }
 }
