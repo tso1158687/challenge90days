@@ -11,11 +11,8 @@ import {
   NbIconModule,
   NbButtonModule,
   NbToastrModule,
-  NbUserModule,
-  NbContextMenuModule,
-  NbMenuModule,
-  NbDateService,
   NbToggleModule,
+  NbMenuModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
@@ -43,9 +40,7 @@ import { FooterModule } from './modules/footer/footer.module';
     NbEvaIconsModule,
     NbIconModule,
     NbButtonModule,
-    NbUserModule,
     NbToggleModule,
-    NbContextMenuModule,
     NbMenuModule.forRoot(),
     NbToastrModule.forRoot(),
     AppRoutingModule,

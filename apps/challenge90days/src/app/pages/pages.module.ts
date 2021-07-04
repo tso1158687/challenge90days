@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PagesRoutingModule } from './pages-routing.module';
 import { PagesComponent } from './pages.component';
 import { FooterModule } from '../modules/footer/footer.module';
-import { NbLayoutModule, NbToggleModule, NbButtonModule } from '@nebular/theme';
+import { NbLayoutModule, NbToggleModule, NbButtonModule, NbUserModule, NbMenuModule, NbContextMenuModule, NbIconModule } from '@nebular/theme';
 import { FormsModule } from '@angular/forms';
 
 
@@ -19,6 +19,10 @@ import { FormsModule } from '@angular/forms';
     NbToggleModule,
     NbButtonModule,
     FormsModule,
+    NbUserModule,
+    NbMenuModule,
+    NbContextMenuModule,
+    NbIconModule,
     PagesRoutingModule
   ]
 })

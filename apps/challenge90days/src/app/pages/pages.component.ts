@@ -32,9 +32,6 @@ export class PagesComponent implements OnInit {
     public auth: AngularFireAuth
   ) {}
   ngOnInit() {
-    // this.authService.
-    // firebase 驗證方法
-    // this.auth.user.subscribe(e=>e.sendEmailVerification())
     this.getUserInfo();
     AOS.init();
     this.clickMenuItem();
@@ -67,7 +64,9 @@ export class PagesComponent implements OnInit {
 
   getUserInfo(): void {
     this.userService.user$.subscribe((user) => {
+      console.log(user)
       this.user = user;
+      console.log(this.user)
     });
   }
 }
