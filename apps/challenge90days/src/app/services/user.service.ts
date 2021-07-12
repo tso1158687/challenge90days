@@ -20,6 +20,7 @@ export class UserService {
     private firestore: AngularFirestore,
     private authService: NbAuthService
   ) {
+   
     this.getUserInfoByToken();
   }
 
@@ -29,12 +30,15 @@ export class UserService {
       const userInfo=token.getPayload()
       this.userId$.next(userInfo.user_id)
       if (token.isValid()) {
+        console.log(userInfo)
         this.user$.next(userInfo); 
+        this.getUserInfo(userInfo.user_id)
       }
     });
   }
 
   getUserInfo(userId: string): void {
+    console.log('get user info')
     this.userCollection = this.firestore.collection<UserInfo>('user', (ref) => {
       return ref.where('userId', '==', userId);
     });
@@ -42,6 +46,7 @@ export class UserService {
     this.userCollection.valueChanges().subscribe((userInfo) => {
       console.log(userInfo);
       this.userInfo$.next(userInfo[0]);
+      console.log(this.userInfo$.value)
     });
   }
 

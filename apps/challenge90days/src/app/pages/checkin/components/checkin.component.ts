@@ -69,8 +69,4 @@ export class CheckinComponent implements OnInit {
   handleDateChange(event): void {
     console.log(event);
   }
-
-  test() {
-    this.checkinService.test();
-  }
 }
