@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&display=swap');
 // @import url("https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap");
 // @import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
 // @import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Noto+Sans+TC:wght@500&family=Noto+Serif+TC&display=swap');
@@ -10,7 +11,8 @@
 // }
 * {
     // font-family: "Kosugi Maru", sans-serif !important;
-     font-family: 'Noto Serif TC', serif !important;
+    //  font-family: 'Noto Serif TC', serif !important;
+    font-family: 'Noto Sans TC', sans-serif !important;
   }
   
 // @import './bootstrap.scss';
