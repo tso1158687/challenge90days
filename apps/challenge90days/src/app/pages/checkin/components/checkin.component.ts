@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { CheckinService } from '../../../services/checkin.service';
 import { FireworkService } from '../../../services/firework.service';
 import { NbAuthService } from '@nebular/auth';
+import { emojiList } from '../../../data/emoji';
 
 @Component({
   selector: 'challenge90days-checkin',
@@ -14,6 +15,7 @@ import { NbAuthService } from '@nebular/auth';
   styleUrls: ['./checkin.component.scss'],
 })
 export class CheckinComponent implements OnInit {
+  emojiList=emojiList
   checkinForm: FormGroup;
   date = new Date(new Date().getTime() + 86400000);
   minDate = new Date();

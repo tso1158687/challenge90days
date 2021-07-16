@@ -2,6 +2,10 @@
   <nb-card status="primary">
     <nb-card-header>打卡</nb-card-header>
     <nb-card-body>
+      <ng-container *ngFor="let emoji of emojiList">
+        {{emoji.emoji}}
+      </ng-container>
+      
       <div>
         <input nbInput status="primary" type="file" (change)="onFileChange($event)" />
       </div>
