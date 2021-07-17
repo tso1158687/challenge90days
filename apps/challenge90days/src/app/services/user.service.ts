@@ -13,7 +13,7 @@ import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 export class UserService {
   user$ = new BehaviorSubject<any>({});
   userId$ = new BehaviorSubject<string>('');
-  userInfo$ = new BehaviorSubject({});
+  userInfo$ = new BehaviorSubject<UserInfo>(null);
   userCollection: AngularFirestoreCollection<UserInfo>;
 
   constructor(

@@ -1,13 +1,12 @@
-import { ThrowStmt } from '@angular/compiler';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { NbToastrService } from '@nebular/theme';
-import { Observable } from 'rxjs';
+import { NbToastrService, NbDateService } from '@nebular/theme';
 import { CheckinService } from '../../../services/checkin.service';
 import { FireworkService } from '../../../services/firework.service';
 import { NbAuthService } from '@nebular/auth';
 import { emojiList } from '../../../data/emoji';
+import { DateService } from '../../../services/date.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'challenge90days-checkin',
@@ -15,7 +14,10 @@ import { emojiList } from '../../../data/emoji';
   styleUrls: ['./checkin.component.scss'],
 })
 export class CheckinComponent implements OnInit {
-  emojiList=emojiList
+  userInfo$ = this.userService.userInfo$;
+  welcomeText: string;
+  emojiList = emojiList;
+
   checkinForm: FormGroup;
   date = new Date(new Date().getTime() + 86400000);
   minDate = new Date();
@@ -26,14 +28,15 @@ export class CheckinComponent implements OnInit {
     private toastrService: NbToastrService,
     private fireworkService: FireworkService,
     private cd: ChangeDetectorRef,
-    private authService: NbAuthService
-  ) // temp
-
-  {}
+    private userService: UserService,
+    private dateService: DateService
+  ) {}
 
   ngOnInit(): void {
+    // this.userService.userInfo$.subscribe(e=>console.log(e))
     this.initForm();
     console.log(this.maxDate);
+    this.welcomeText = this.dateService.getWelcomeText();
   }
 
   initForm(): void {
@@ -42,6 +45,7 @@ export class CheckinComponent implements OnInit {
       message: '',
       url: '',
       imgFile: null,
+      emoji: '',
     });
   }
   onFileChange(event) {
@@ -70,5 +74,9 @@ export class CheckinComponent implements OnInit {
 
   handleDateChange(event): void {
     console.log(event);
+  }
+
+  setEmoji(emoji: string): void {
+    this.checkinForm.get('emoji').patchValue(emoji);
   }
 }

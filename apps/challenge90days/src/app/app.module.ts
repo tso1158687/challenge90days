@@ -13,6 +13,7 @@ import {
   NbToastrModule,
   NbToggleModule,
   NbMenuModule,
+  NbCalendarModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
@@ -31,6 +32,7 @@ import { FooterModule } from './modules/footer/footer.module';
   imports: [
     BrowserModule,
     HttpClientModule,
+    NbCalendarModule,
     FormsModule,
     FooterModule,
     BrowserAnimationsModule,

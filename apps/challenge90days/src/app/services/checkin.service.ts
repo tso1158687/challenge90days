@@ -9,7 +9,6 @@ import {
 import { finalize } from 'rxjs/operators';
 import { UserService } from './user.service';
 import { UserInfo } from '@challenge90days/api-interfaces';
-import { NbDateService } from '@nebular/theme';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +24,6 @@ export class CheckinService {
     private firestore: AngularFirestore,
     private storage: AngularFireStorage,
     private userService: UserService,
-    // private dateService: NbDateService<Date>
   ) {
     this.checkinCollection = firestore.collection<any>('checkin');
   this.userService.userInfo$.subscribe(e=>{
@@ -35,7 +33,6 @@ export class CheckinService {
   }
 
   addCheckin(checkinObj: any): Observable<any> {
-    // this.dateService.today()
    console.log(this.userInfo)
     const data = {
       content: checkinObj.message,
@@ -44,7 +41,8 @@ export class CheckinService {
       imgFile: '',
       type: 1,
       time: new Date(),
-      userId: this.userService.userId$.value
+      userId: this.userService.userId$.value,
+      emoji:checkinObj.emoji
     };
     console.log(data)
     this.checkinCollection.add(data).then((e) => {

@@ -9,3 +9,5 @@ export interface UserInfo {
   email: string;
   createDate: Date;
 }
+
+export interface Checkin {}

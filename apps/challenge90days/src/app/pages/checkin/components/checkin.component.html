@@ -1,30 +1,55 @@
+<h1 *ngIf="userInfo$.value">{{ welcomeText }}{{ (userInfo$ | async).name }}</h1>
 <ng-container [formGroup]="checkinForm">
   <nb-card status="primary">
     <nb-card-header>打卡</nb-card-header>
     <nb-card-body>
-      <ng-container *ngFor="let emoji of emojiList">
-        {{emoji.emoji}}
-      </ng-container>
-      
       <div>
-        <input nbInput status="primary" type="file" (change)="onFileChange($event)" />
+        <input
+          nbInput
+          status="primary"
+          type="file"
+          (change)="onFileChange($event)"
+        />
       </div>
       <div>
-        <textarea nbInput fullWidth placeholder="今天做了什麼" formControlName="message"></textarea>
+        <textarea
+          nbInput
+          fullWidth
+          placeholder="今天做了什麼"
+          formControlName="message"
+        ></textarea>
       </div>
       <div>
-        <input formControlName='url' type="text" nbInput fullWidth placeholder="分享連結（如果有的話）">
+        <input
+          formControlName="url"
+          type="text"
+          nbInput
+          fullWidth
+          placeholder="分享連結（如果有的話）"
+        />
+      </div>
+      <div>
+        <nb-button-group>
+          <button nbButton *ngFor="let emoji of emojiList" (click)="setEmoji(emoji)">
+            {{ emoji }}
+          </button>
+        </nb-button-group>
       </div>
     </nb-card-body>
-    <nb-card-footer><button nbButton status="primary" (click)="checkin()">
+    <nb-card-footer
+      ><button nbButton status="primary" (click)="checkin()">
         打卡
-      </button></nb-card-footer>
+      </button></nb-card-footer
+    >
   </nb-card>
 </ng-container>
 <nb-card status="danger">
   <nb-card-header>預約打卡</nb-card-header>
-  <nb-card-body> 明天要出去玩怕來不及打卡嗎？先預約打卡！ <br>
-    <nb-calendar [(date)]="date" [min]='minDate' [max]='maxDate'></nb-calendar>
+  <nb-card-body>
+    明天要出去玩怕來不及打卡嗎？先預約打卡！ <br />
+    <nb-calendar [(date)]="date" [min]="minDate" [max]="maxDate"></nb-calendar>
   </nb-card-body>
-  <nb-card-footer><button nbButton status="danger">預約</button></nb-card-footer>
+  <nb-card-footer
+    ><button nbButton status="danger">預約</button></nb-card-footer
+  >
 </nb-card>

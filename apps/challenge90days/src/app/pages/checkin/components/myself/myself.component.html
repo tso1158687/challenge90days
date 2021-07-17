@@ -5,7 +5,7 @@
 <div class="checkin-container">
   <ng-container *ngFor="let checkin of checkinList$ | async">
     <nb-card accent="info" data-aos="fade-up" data-aos-duration="4000">
-      <nb-card-header>{{ checkin.time.toDate() | date:'medium' }}</nb-card-header>
+      <nb-card-header>{{ checkin.time.toDate() | date:'medium' }} {{checkin.emoji}}</nb-card-header>
       <nb-card-body>
         <div>
           <img width="500px" [src]="checkin.imgFile" alt="" />
