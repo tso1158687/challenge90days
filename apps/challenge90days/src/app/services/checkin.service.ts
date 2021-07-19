@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin, Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/storage';
 import {
   AngularFirestore,
@@ -8,7 +8,9 @@ import {
 } from '@angular/fire/firestore';
 import { finalize } from 'rxjs/operators';
 import { UserService } from './user.service';
-import { UserInfo } from '@challenge90days/api-interfaces';
+
+import { DateService } from './date.service';
+import { CheckinObj } from '@challenge90days/api-interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -18,35 +20,38 @@ export class CheckinService {
   //
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
-  userInfo
+  userInfo;
   constructor(
     private http: HttpClient,
     private firestore: AngularFirestore,
     private storage: AngularFireStorage,
     private userService: UserService,
+    private dateService: DateService
   ) {
     this.checkinCollection = firestore.collection<any>('checkin');
-  this.userService.userInfo$.subscribe(e=>{
-    this.userInfo=e
-    console.log(this.userInfo)
-  })
+    this.userService.userInfo$.subscribe((e) => {
+      this.userInfo = e;
+      console.log(this.userInfo);
+    });
   }
 
-  addCheckin(checkinObj: any): Observable<any> {
-   console.log(this.userInfo)
+  addCheckin(checkinObj: CheckinObj): Observable<any> {
+    console.log(this.userInfo);
     const data = {
       content: checkinObj.message,
       postUser: this.userInfo.name,
       url: checkinObj.url,
       imgFile: '',
       type: 1,
-      time: new Date(),
+      time: checkinObj.isCheckinTomorrow
+        ? this.dateService.getTomorrowDateTime()
+        : new Date(),
       userId: this.userService.userId$.value,
-      emoji:checkinObj.emoji
+      emoji: checkinObj.emoji,
     };
-    console.log(data)
+    console.log(data);
     this.checkinCollection.add(data).then((e) => {
-      console.log(e)
+      console.log(e);
       if (checkinObj.imgFile) {
         this.uploadFile(checkinObj.imgFile, e.id, e.path);
       }
@@ -65,9 +70,9 @@ export class CheckinService {
 
     // observe percentage changes
     this.uploadPercent = task.percentageChanges();
-    this.uploadPercent.subscribe(e => {
-      console.log(e)
-    })
+    this.uploadPercent.subscribe((e) => {
+      console.log(e);
+    });
     // get notified when the download URL is available
     task
       .snapshotChanges()

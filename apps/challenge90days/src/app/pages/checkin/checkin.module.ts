@@ -11,6 +11,8 @@ import {
   NbCalendarModule,
   NbToggleModule,
   NbButtonGroupModule,
+  NbCheckboxModule,
+  NbFormFieldModule,
 } from '@nebular/theme';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ChallenageComponent } from './components/challenage/challenage.component';
@@ -33,6 +35,7 @@ import { MyselfComponent } from './components/myself/myself.component';
     NbCalendarModule,
     NbToggleModule,
     NbButtonGroupModule,
+    NbCheckboxModule,
   ],
   providers: [
     { provide: BUCKET, useValue: environment.firebase.storageBucket },

@@ -1,7 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap');
-h1{
-    font-size: 48px;
-    font-weight: 500;
-    margin-bottom: 15px;
-    font-family: 'Kosugi Maru' !important
+.container {
+  display: flex;
+}
+.left {
+  width: 75%;
+}
+
+.right {
+  width: 25%;
+}
+
+.input-group{
+    margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: 500;
+  margin-bottom: 15px;
+  font-family: 'Kosugi Maru' !important;
+}
+
+.label {
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.checkin-checkbox{
+    margin-left: 10px;
 }

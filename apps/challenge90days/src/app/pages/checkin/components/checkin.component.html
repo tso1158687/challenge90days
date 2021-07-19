@@ -1,55 +1,63 @@
 <h1 *ngIf="userInfo$.value">{{ welcomeText }}{{ (userInfo$ | async).name }}</h1>
-<ng-container [formGroup]="checkinForm">
-  <nb-card status="primary">
-    <nb-card-header>打卡</nb-card-header>
-    <nb-card-body>
-      <div>
-        <input
-          nbInput
-          status="primary"
-          type="file"
-          (change)="onFileChange($event)"
-        />
-      </div>
-      <div>
-        <textarea
-          nbInput
-          fullWidth
-          placeholder="今天做了什麼"
-          formControlName="message"
-        ></textarea>
-      </div>
-      <div>
-        <input
-          formControlName="url"
-          type="text"
-          nbInput
-          fullWidth
-          placeholder="分享連結（如果有的話）"
-        />
-      </div>
-      <div>
-        <nb-button-group>
-          <button nbButton *ngFor="let emoji of emojiList" (click)="setEmoji(emoji)">
-            {{ emoji }}
-          </button>
-        </nb-button-group>
-      </div>
-    </nb-card-body>
-    <nb-card-footer
-      ><button nbButton status="primary" (click)="checkin()">
-        打卡
-      </button></nb-card-footer
-    >
-  </nb-card>
-</ng-container>
-<nb-card status="danger">
-  <nb-card-header>預約打卡</nb-card-header>
-  <nb-card-body>
-    明天要出去玩怕來不及打卡嗎？先預約打卡！ <br />
-    <nb-calendar [(date)]="date" [min]="minDate" [max]="maxDate"></nb-calendar>
-  </nb-card-body>
-  <nb-card-footer
-    ><button nbButton status="danger">預約</button></nb-card-footer
-  >
-</nb-card>
+<div class="container">
+  <div class="left">
+    <ng-container [formGroup]="checkinForm">
+      <nb-card status="primary">
+        <nb-card-header>打卡</nb-card-header>
+        <nb-card-body>
+          <div class="input-group">
+            <label for="checkin-file" class="label">上傳檔案</label>
+            <input
+              id="checkin-file"
+              nbInput
+              status="primary"
+              type="file"
+              (change)="onFileChange($event)"
+            />
+          </div>
+          <div class="input-group">
+            <label for="checkin-content" class="label">今天做了什麼</label>
+            <textarea
+              id="checkin-content"
+              nbInput
+              fullWidth
+              placeholder="今天做了什麼"
+              formControlName="message"
+            ></textarea>
+          </div>
+          <div class="input-group">
+            <label for="checkin-url" class="label">分享連結(如果有的話)</label>
+            <input
+              id="checkin-url"
+              formControlName="url"
+              type="text"
+              nbInput
+              fullWidth
+              placeholder="分享連結（如果有的話）"
+            />
+          </div>
+          <div class="input-group">
+            <label class="label" for="">今天心情如何</label>
+            <nb-button-group size="giant">
+              <button
+                style="font-size: 2.5rem"
+                nbButton
+                *ngFor="let emoji of emojiList"
+                (click)="setEmoji(emoji)"
+              >
+                {{ emoji }}
+              </button>
+            </nb-button-group>
+          </div>
+        </nb-card-body>
+        <nb-card-footer
+          ><button nbButton status="primary" (click)="checkin()">打卡</button>
+          <nb-checkbox status="warning" class="checkin-checkbox" (checkedChange)='isCheckinTomorrow($event)'>預約明天</nb-checkbox>
+        </nb-card-footer>
+      </nb-card>
+    </ng-container>
+  </div>
+  <div class="right">
+    <nb-card>123456</nb-card>
+  </div>
+</div>

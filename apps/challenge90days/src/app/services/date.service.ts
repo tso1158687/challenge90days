@@ -5,9 +5,7 @@ import { NbDateService } from '@nebular/theme';
   providedIn: 'root',
 })
 export class DateService {
-  constructor(
-    private nbDateService:NbDateService<Date>
-  ) {}
+  constructor(private nbDateService: NbDateService<Date>) {}
 
   getWelcomeText(): string {
     const nowHour = this.nbDateService.getHours(new Date());
@@ -23,5 +21,10 @@ export class DateService {
     }
 
     return welcomeText;
+  }
+
+  getTomorrowDateTime(): Date {
+    const tomorrowDate = this.nbDateService.addDay(new Date(), 1);
+    return tomorrowDate;
   }
 }

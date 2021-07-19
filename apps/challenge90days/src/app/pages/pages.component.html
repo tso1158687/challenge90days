@@ -8,7 +8,9 @@
       <button nbButton outline shape="round" status="info" routerLink="share">心得分享</button>
     </div>
     <div class="header-area right">
-      <nb-toggle status="basic"  [(ngModel)]="themeToggle" (ngModelChange)='changeThemeMode(themeToggle)'>{{themeToggle?'暗黑':'光亮'}}</nb-toggle>
+      <nb-toggle status="basic"  [(ngModel)]="themeToggle" (ngModelChange)='changeThemeMode(themeToggle)'>
+        <nb-icon [icon]="themeToggle?'moon':'sun-outline'"></nb-icon>
+      </nb-toggle>
       <button nbButton ghost status="primary" (click)="logout()" *ngIf="!!user">
         登出
       </button>

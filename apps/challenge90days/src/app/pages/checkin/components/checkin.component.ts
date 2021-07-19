@@ -33,6 +33,7 @@ export class CheckinComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.dateService.getTomorrowDateTime())
     // this.userService.userInfo$.subscribe(e=>console.log(e))
     this.initForm();
     console.log(this.maxDate);
@@ -46,6 +47,7 @@ export class CheckinComponent implements OnInit {
       url: '',
       imgFile: null,
       emoji: '',
+      isCheckinTomorrow: false,
     });
   }
   onFileChange(event) {
@@ -78,5 +80,9 @@ export class CheckinComponent implements OnInit {
 
   setEmoji(emoji: string): void {
     this.checkinForm.get('emoji').patchValue(emoji);
+  }
+
+  isCheckinTomorrow(isCheckinTomorrow: boolean): void {
+    this.checkinForm.get('isCheckinTomorrow').patchValue(isCheckinTomorrow);
   }
 }

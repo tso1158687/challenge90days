@@ -4,6 +4,8 @@ import { Observable, Subject } from 'rxjs';
 import { NbAuthService } from '@nebular/auth';
 import { UserService } from '../../../../services/user.service';
 import { debounceTime, distinctUntilChanged, startWith, switchMap } from 'rxjs/operators';
+import { Checkin } from '@challenge90days/api-interfaces';
+
 
 @Component({
   selector: 'challenge90days-myself',
@@ -14,7 +16,7 @@ export class MyselfComponent implements OnInit {
   userId: string;
   articles$: Observable<any[]>;
 
-  checkinList$: Observable<any[]>;
+  checkinList$: Observable<Checkin[]>;
   checkinListMode$ = new Subject<boolean>();
   constructor(
     private firestore: AngularFirestore,
@@ -49,7 +51,7 @@ export class MyselfComponent implements OnInit {
       distinctUntilChanged(),
       switchMap((checkinListMode) =>
         this.firestore
-          .collection('checkin', (ref) => {
+          .collection<Checkin>('checkin', (ref) => {
             console.log(checkinListMode);
             if(checkinListMode){
               console.log('全部')
