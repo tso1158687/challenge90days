@@ -1,30 +1,43 @@
-<nb-card>
+<nb-card accent="success">
   <nb-card-header>
     <h1>我的打卡</h1>
-    <nb-toggle status="basic"  [(ngModel)]="checkinListToggle" (ngModelChange)='changeCheckinListMode(checkinListToggle)'>{{checkinListToggle?'看看別人':'看看自己'}}</nb-toggle>
+    <nb-toggle
+      status="basic"
+      [(ngModel)]="checkinListToggle"
+      (ngModelChange)="changeCheckinListMode(checkinListToggle)"
+      >{{ checkinListToggle ? '看看別人' : '看看自己' }}</nb-toggle
+    >
   </nb-card-header>
   <nb-card-body>
     <div class="checkin-container">
       <ng-container *ngFor="let checkin of checkinList$ | async">
-        <nb-card accent="info" data-aos="fade-up" data-aos-duration="4000">
+        <nb-card  data-aos="fade-up" data-aos-duration="4000">
           <nb-card-header>
-            <h3> {{ checkin.content }}</h3>
+            <h3>
+              <span class="underline">
+                {{ checkin.content }}
+              </span>
+              </h3>
             <div class="subtitle">
-              今日心情:{{checkin.emoji}}
+                {{checkin.postUser}}
             </div>
-            </nb-card-header>
+          </nb-card-header>
           <nb-card-body>
             <div>
               <img height="400px" [src]="checkin.imgFile" alt="" />
             </div>
             <p>
-              <a [href]="checkin.url">{{checkin.url}}</a>
+              <a [href]="checkin.url">{{ checkin.url }}</a>
             </p>
             <p>
               {{ checkin.content }}
             </p>
           </nb-card-body>
-          <nb-card-footer>{{ checkin.time.toDate() | date:'y/M/d/ h:mm' }}</nb-card-footer>
+          <nb-card-footer>
+            <span class="emoji">{{checkin.emoji}}</span>
+            {{
+            checkin.time.toDate() | date: 'y/M/d/ h:mm'
+          }}</nb-card-footer>
         </nb-card>
       </ng-container>
     </div>
