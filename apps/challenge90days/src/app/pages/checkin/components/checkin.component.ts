@@ -7,6 +7,8 @@ import { NbAuthService } from '@nebular/auth';
 import { emojiList } from '../../../data/emoji';
 import { DateService } from '../../../services/date.service';
 import { UserService } from '../../../services/user.service';
+import { Observable } from 'rxjs';
+import { Checkin } from '@challenge90days/api-interfaces';
 
 @Component({
   selector: 'challenge90days-checkin',
@@ -15,6 +17,7 @@ import { UserService } from '../../../services/user.service';
 })
 export class CheckinComponent implements OnInit {
   userInfo$ = this.userService.userInfo$;
+  lastCheckin$:Observable<Checkin[]>
   welcomeText: string;
   emojiList = emojiList;
 
@@ -38,6 +41,7 @@ export class CheckinComponent implements OnInit {
     this.initForm();
     console.log(this.maxDate);
     this.welcomeText = this.dateService.getWelcomeText();
+    this.getLastCheckin()
   }
 
   initForm(): void {
@@ -84,5 +88,13 @@ export class CheckinComponent implements OnInit {
 
   isCheckinTomorrow(isCheckinTomorrow: boolean): void {
     this.checkinForm.get('isCheckinTomorrow').patchValue(isCheckinTomorrow);
+  }
+
+  getLastCheckin(){
+    this.lastCheckin$=this.checkinService.getLastCheckin()
+    this.lastCheckin$.subscribe(e=>{
+      console.log('???')
+      console.log(e)
+    })
   }
 }

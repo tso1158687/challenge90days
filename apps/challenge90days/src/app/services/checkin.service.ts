@@ -10,7 +10,7 @@ import { finalize } from 'rxjs/operators';
 import { UserService } from './user.service';
 
 import { DateService } from './date.service';
-import { CheckinObj } from '@challenge90days/api-interfaces';
+import { Checkin, CheckinObj } from '@challenge90days/api-interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -89,5 +89,16 @@ export class CheckinService {
         })
       )
       .subscribe();
+  }
+
+  getLastCheckin(): Observable<Checkin[]> {
+    return this.firestore
+      .collection<Checkin>('checkin', (ref) => {
+        return ref
+          .where('userId', '==', this.userService.userId$.value)
+          .orderBy('time', 'desc')
+          .limit(1);
+      })
+      .valueChanges();
   }
 }
