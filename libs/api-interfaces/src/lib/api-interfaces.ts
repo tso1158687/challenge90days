@@ -16,7 +16,7 @@ export interface Checkin {
   url: string;
   imgFile: any;
   type: number;
-  time: Date;
+  time: any;
   userId: string;
   emoji: string;
 }

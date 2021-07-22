@@ -3,11 +3,13 @@
   display: flex;
 }
 .left {
-  width: 75%;
+  padding-right: 10px;
+  width:60%;
 }
 
 .right {
-  width: 25%;
+  padding-left: 10px;
+  width: 40%;
 }
 
 .input-group{

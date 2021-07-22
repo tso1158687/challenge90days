@@ -11,34 +11,7 @@
   <nb-card-body>
     <div class="checkin-container">
       <ng-container *ngFor="let checkin of checkinList$ | async">
-        <nb-card  data-aos="fade-up" data-aos-duration="4000">
-          <nb-card-header>
-            <h3>
-              <span class="underline">
-                {{ checkin.content }}
-              </span>
-              </h3>
-            <div class="subtitle">
-                {{checkin.postUser}}
-            </div>
-          </nb-card-header>
-          <nb-card-body>
-            <div>
-              <img height="400px" [src]="checkin.imgFile" alt="" />
-            </div>
-            <p>
-              <a [href]="checkin.url">{{ checkin.url }}</a>
-            </p>
-            <p>
-              {{ checkin.content }}
-            </p>
-          </nb-card-body>
-          <nb-card-footer>
-            <span class="emoji">{{checkin.emoji}}</span>
-            {{
-            checkin.time.toDate() | date: 'y/M/d/ h:mm'
-          }}</nb-card-footer>
-        </nb-card>
+        <challenge90days-checkin-card [checkin]='checkin'></challenge90days-checkin-card>
       </ng-container>
     </div>
   </nb-card-body>

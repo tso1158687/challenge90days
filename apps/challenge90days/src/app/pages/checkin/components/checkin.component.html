@@ -52,12 +52,27 @@
         </nb-card-body>
         <nb-card-footer
           ><button nbButton status="primary" (click)="checkin()">打卡</button>
-          <nb-checkbox status="warning" class="checkin-checkbox" (checkedChange)='isCheckinTomorrow($event)'>預約明天</nb-checkbox>
+          <nb-checkbox
+            status="warning"
+            class="checkin-checkbox"
+            (checkedChange)="isCheckinTomorrow($event)"
+            >預約明天</nb-checkbox
+          >
         </nb-card-footer>
       </nb-card>
     </ng-container>
   </div>
   <div class="right">
-    <nb-card>123456</nb-card>
+    <nb-card>
+      <nb-card-header>
+       看看昨天的戰績
+      </nb-card-header>
+      <nb-card-body>
+
+        <challenge90days-checkin-card
+        [checkin]="(lastCheckin$ | async)[0]"
+        ></challenge90days-checkin-card>
+      </nb-card-body>
+    </nb-card>
   </div>
 </div>
