@@ -17,26 +17,37 @@ export class AppController {
   }
 
   @Post('checkin')
-  sendToSlack(@Body() content ) {
-    console.log('msg')
-    console.log(content)
-    const msg=`jason打卡囉 今天打卡內容：${content.message}`
+  sendToSlack(@Body() content) {
+    console.log('msg');
+    console.log(content);
+    const msg = `jason打卡囉 今天打卡內容：${content.message}`;
     const data = { text: msg };
-    console.log('ohohoh')
+    console.log('ohohoh');
 
-    this.httpService.post(
-      process.env.slackApi,
-      data
-    ).subscribe(e=>{
-      console.log(e)
-      return  { message: 'ok' }
-    },error=>{
-      return {message:'ohnono'}
-    });
+    this.httpService.post(process.env.slackApi, data).subscribe(
+      (e) => {
+        console.log(e);
+        return { message: 'ok' };
+      },
+      (error) => {
+        return { message: 'ohnono' };
+      }
+    );
   }
 
   @Get('cronjob')
-  testCronJob(){
-    return this.appService.testCronJob()
+  testCronJob() {
+    return this.appService.testCronJob();
+  }
+
+  @Post('snedMessageToLineChannel')
+  snedMessageToLineChannel(@Body() data): void {
+    console.log('!!!!');
+    this.appService.pushMessageToLineChannel(data.message);
+  }
+
+  @Post('webhook')
+  getWebHookEvent(): void {
+    this.appService.listenLineWebhook();
   }
 }
