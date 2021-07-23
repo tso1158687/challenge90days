@@ -59,6 +59,7 @@
     "chart.js": "^2.9.3",
     "eva-icons": "^1.1.2",
     "firebase": "^7.0 || ^8.0",
+    "linebot": "^1.6.1",
     "lottie-web": "^5.7.8",
     "ngx-lottie": "^6.4.0",
     "reflect-metadata": "^0.1.13",
