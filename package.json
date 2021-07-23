@@ -46,6 +46,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
     "@fortawesome/free-regular-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@line/bot-sdk": "^7.3.0",
     "@nebular/auth": "^7.0.0",
     "@nebular/eva-icons": "7.0.0",
     "@nebular/firebase-auth": "^7.0.0",
