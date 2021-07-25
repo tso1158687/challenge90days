@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpService, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpService, Param, Post } from '@nestjs/common';
 
 import { Message } from '@challenge90days/api-interfaces';
 
@@ -13,6 +13,7 @@ export class AppController {
 
   @Get('hello')
   getData(): Message {
+    console.log('hello')
     return this.appService.getData();
   }
 
@@ -43,11 +44,18 @@ export class AppController {
   @Post('snedMessageToLineChannel')
   snedMessageToLineChannel(@Body() data): void {
     console.log('!!!!');
+    console.log(data)
     this.appService.pushMessageToLineChannel(data.message);
   }
 
   @Post('webhook')
   getWebHookEvent(): void {
     this.appService.listenLineWebhook();
+  }
+
+  @Get('getGroupInfo/:groupId')
+  getGroupInfo(@Param('groupId') groupId){
+    console.log(groupId)
+    this.appService.getGroupMemberIds(groupId)
   }
 }
