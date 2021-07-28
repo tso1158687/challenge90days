@@ -22,6 +22,7 @@ export class PagesComponent implements OnInit {
     { title: '設定', url: 'settings', icon: 'settings-outline' },
   ];
   themeToggle = this.themeService.themeToggle;
+  logoPath='/assets/logo.jpeg'
   constructor(
     private router: Router,
     private authService: NbAuthService,
