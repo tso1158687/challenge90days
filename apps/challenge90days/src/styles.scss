@@ -15,49 +15,15 @@
   font-family: 'Noto Sans TC', sans-serif !important;
 }
 
-// @import './bootstrap.scss';
 @import 'aos/dist/aos.css';
-
-nb-layout-header nav {
-  justify-content: space-between !important;
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  > * {
-    display: flex;
-  }
-}
-
-.col {
-  flex: 1 0 0%;
-}
-
-@media (max-width: 768px) {
-  .col-md-12 {
-    flex: 0 0 auto;
-    width: 100%;
-  }
-}
-
-.h-center {
-  justify-content: center;
-}
-
-.v-center {
-  align-items: center;
-}
-
-.flex-row {
-  flex-direction: row;
-}
-
-.flex-column {
-  flex-direction: column;
-}
 
 .fs-2x{
   font-size: 2rem;
   line-height: 2rem;
+}
+
+@media (max-width: 768px) {
+  nb-layout-header nav{
+    height: 100% !important;
+  }
 }

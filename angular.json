@@ -112,18 +112,17 @@
             "tsConfig": "apps/challenge90days/tsconfig.app.json",
             "assets": [
               "apps/challenge90days/src/favicon.ico",
-              "apps/challenge90days/src/assets",
-              {
-                "glob": "**/*",
-                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-                "output": "/assets/"
-              }
+              "apps/challenge90days/src/assets"
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "apps/challenge90days/src/theme.scss",
               "apps/challenge90days/src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "./node_modules/@popperjs/core/dist/umd/popper.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ],
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,

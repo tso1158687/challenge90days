@@ -19,7 +19,24 @@ h1 {
     #a083ed 70%,
     #43aeff 85%
   );
+  // background: -webkit-linear-gradient(#1C7CE0, #150051);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1.5em !important;
 }
+
+.row{
+  height: 100vh;
+}
+
+// .intro1{
+// background-color: #e27d60;
+// }
+
+// .intro2{
+// background-color: #85dc;
+// }
+
+// .intro3{
+// background-color: #5cdb95;
+// }
