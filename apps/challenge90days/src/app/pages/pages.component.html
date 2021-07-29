@@ -10,14 +10,16 @@
           shape="round"
           status="info"
           routerLink="introduction"
+          class="d-none"
         >
           介紹
         </button>
-        <button nbButton outline shape="round" status="info" routerLink="share">
+        <button nbButton outline shape="round" status="info" routerLink="share"  class="d-none">
           心得分享
         </button>
+          <nb-icon [icon]="mobileToggle?'arrow-ios-upward-outline':'arrow-ios-downward-outline'" (click)="changeMobileToggle()"></nb-icon>
       </div>
-      <div class="header-area right">
+      <div class="header-area right" [class.d-none]="!mobileToggle">
         <nb-toggle
           status="basic"
           [(ngModel)]="themeToggle"

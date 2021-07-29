@@ -13,6 +13,7 @@ import { filter, map } from 'rxjs/operators';
   styleUrls: ['./pages.component.scss'],
 })
 export class PagesComponent implements OnInit {
+  mobileToggle = false;
   user$ = this.userService.user$;
   user: any;
   settingList: NbMenuItem[] = [
@@ -22,7 +23,7 @@ export class PagesComponent implements OnInit {
     { title: '設定', url: 'settings', icon: 'settings-outline' },
   ];
   themeToggle = this.themeService.themeToggle;
-  logoPath='/assets/logo.jpeg'
+  logoPath = '/assets/logo.jpeg';
   constructor(
     private router: Router,
     private authService: NbAuthService,
@@ -67,5 +68,9 @@ export class PagesComponent implements OnInit {
     this.userService.user$.subscribe((user) => {
       this.user = user;
     });
+  }
+
+  changeMobileToggle() {
+    this.mobileToggle = !this.mobileToggle;
   }
 }
