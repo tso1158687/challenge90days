@@ -4,20 +4,9 @@
       <div class="header-area left">
         <img [src]="logoPath" routerLink="" alt="90天原子習慣挑戰" />
         <h1>90天原子習慣挑戰</h1>
-        <button
-          nbButton
-          outline
-          shape="round"
-          status="info"
-          routerLink="introduction"
-          class="d-none"
-        >
-          介紹
+        <button nbButton size="tiny" status="basic" (click)="changeMobileToggle()">
+          <nb-icon [icon]="mobileToggle?'arrow-ios-upward-outline':'arrow-ios-downward-outline'" ></nb-icon>
         </button>
-        <button nbButton outline shape="round" status="info" routerLink="share"  class="d-none">
-          心得分享
-        </button>
-          <nb-icon [icon]="mobileToggle?'arrow-ios-upward-outline':'arrow-ios-downward-outline'" (click)="changeMobileToggle()"></nb-icon>
       </div>
       <div class="header-area right" [class.d-none]="!mobileToggle">
         <nb-toggle
@@ -27,7 +16,7 @@
         >
           <nb-icon [icon]="themeToggle ? 'moon' : 'sun-outline'"></nb-icon>
         </nb-toggle>
-        <button
+        <!-- <button
           nbButton
           ghost
           status="primary"
@@ -35,8 +24,13 @@
           *ngIf="!!user"
         >
           登出
-        </button>
-        <button nbButton status="primary" routerLink="checkin" *ngIf="!!user">
+        </button> -->
+        <button
+          nbButton
+          status="primary"
+          routerLink="checkin"
+          *ngIf="hasUserData()"
+        >
           打卡<nb-icon icon="checkmark-circle-2-outline"></nb-icon>
         </button>
 

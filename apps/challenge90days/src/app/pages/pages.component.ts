@@ -67,10 +67,15 @@ export class PagesComponent implements OnInit {
   getUserInfo(): void {
     this.userService.user$.subscribe((user) => {
       this.user = user;
+      console.log(this.user);
     });
   }
 
-  changeMobileToggle() {
+  changeMobileToggle(): void {
     this.mobileToggle = !this.mobileToggle;
+  }
+
+  hasUserData(): boolean {
+    return Object.keys(this.user).length > 0;
   }
 }
