@@ -41,6 +41,12 @@ h1 {
   }
 }
 
+@media (max-width: 768px) {
+  h1{
+    font-size: 2rem !important;
+  }
+}
+
 // .intro1{
 // background-color: #e27d60;
 // }
