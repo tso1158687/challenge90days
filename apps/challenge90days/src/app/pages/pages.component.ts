@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { NbAuthService } from '@nebular/auth';
@@ -6,21 +6,24 @@ import { NbMenuItem, NbMenuService, NbToastrService } from '@nebular/theme';
 import { ThemeService } from '../services/theme.service';
 import { UserService } from '../services/user.service';
 import * as AOS from 'aos';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, takeUntil } from 'rxjs/operators';
+import { fromEvent, Subject } from 'rxjs';
 @Component({
   selector: 'challenge90days-pages',
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.scss'],
 })
-export class PagesComponent implements OnInit {
-  mobileToggle = false;
+export class PagesComponent implements OnInit, OnDestroy {
+  isMobileMode = true;
+  showSecondNavbar = false;
   user$ = this.userService.user$;
+  stop$ = new Subject();
   user: any;
   settingList: NbMenuItem[] = [
     { title: '我的打卡', url: 'checkin/myself', icon: 'browser-outline' },
-    { title: '成就', url: 'checkin/challenge', icon: 'award-outline' },
-    { title: '公告', url: 'announce', icon: 'message-circle-outline' },
-    { title: '設定', url: 'settings', icon: 'settings-outline' },
+    // { title: '成就', url: 'checkin/challenge', icon: 'award-outline' },
+    // { title: '公告', url: 'announce', icon: 'message-circle-outline' },
+    // { title: '設定', url: 'settings', icon: 'settings-outline' },
   ];
   themeToggle = this.themeService.themeToggle;
   logoPath = '/assets/logo.jpeg';
@@ -34,9 +37,14 @@ export class PagesComponent implements OnInit {
     public auth: AngularFireAuth
   ) {}
   ngOnInit() {
+    this.getWindowSizeEvent();
     this.getUserInfo();
     AOS.init();
     this.clickMenuItem();
+  }
+
+  ngOnDestroy() {
+    this.stop$.next();
   }
 
   clickMenuItem() {
@@ -72,10 +80,21 @@ export class PagesComponent implements OnInit {
   }
 
   changeMobileToggle(): void {
-    this.mobileToggle = !this.mobileToggle;
+    this.showSecondNavbar = !this.showSecondNavbar;
   }
 
   hasUserData(): boolean {
     return Object.keys(this.user).length > 0;
+  }
+
+  getWindowSizeEvent(): void {
+    this.isMobileMode = window.innerWidth <= 768;
+    this.showSecondNavbar=!this.isMobileMode
+    fromEvent(window, 'resize')
+      .pipe(takeUntil(this.stop$))
+      .subscribe(() => {
+        this.isMobileMode = window.innerWidth <= 768;
+        this.showSecondNavbar=!this.isMobileMode
+      });
   }
 }

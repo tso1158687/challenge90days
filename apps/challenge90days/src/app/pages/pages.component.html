@@ -4,11 +4,11 @@
       <div class="header-area left">
         <img [src]="logoPath" routerLink="" alt="90天原子習慣挑戰" />
         <h1>90天原子習慣挑戰</h1>
-        <button nbButton size="tiny" status="basic" (click)="changeMobileToggle()">
-          <nb-icon [icon]="mobileToggle?'arrow-ios-upward-outline':'arrow-ios-downward-outline'" ></nb-icon>
+        <button nbButton size="tiny" status="basic" (click)="changeMobileToggle()" *ngIf="isMobileMode">
+          <nb-icon [icon]="showSecondNavbar?'arrow-ios-upward-outline':'arrow-ios-downward-outline'" ></nb-icon>
         </button>
       </div>
-      <div class="header-area right" [class.d-none]="!mobileToggle">
+      <div class="header-area right" [class.d-none]="!showSecondNavbar">
         <nb-toggle
           status="basic"
           [(ngModel)]="themeToggle"
@@ -25,11 +25,13 @@
         >
           登出
         </button> -->
+        <!-- *ngIf="hasUserData()" -->
         <button
           nbButton
+          hero
+          shape="round"
           status="primary"
           routerLink="checkin"
-          *ngIf="hasUserData()"
         >
           打卡<nb-icon icon="checkmark-circle-2-outline"></nb-icon>
         </button>

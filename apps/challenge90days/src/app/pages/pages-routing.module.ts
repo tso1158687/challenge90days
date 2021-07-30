@@ -15,11 +15,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./checkin/checkin.module').then((m) => m.CheckinModule),
       },
-      {
-        path: 'announce',
-        loadChildren: () =>
-          import('./announce/announce.module').then((m) => m.AnnounceModule),
-      },
+      // {
+      //   path: 'announce',
+      //   loadChildren: () =>
+      //     import('./announce/announce.module').then((m) => m.AnnounceModule),
+      // },
       {
         path: '',
         loadChildren: () =>
