@@ -20,7 +20,7 @@ export class PagesComponent implements OnInit, OnDestroy {
   stop$ = new Subject();
   user: any;
   settingList: NbMenuItem[] = [
-    { title: '我的打卡', url: 'checkin/myself', icon: 'browser-outline' },
+    { title: '打卡戰績', url: 'checkin/list', icon: 'browser-outline' },
     // { title: '成就', url: 'checkin/challenge', icon: 'award-outline' },
     // { title: '公告', url: 'announce', icon: 'message-circle-outline' },
     // { title: '設定', url: 'settings', icon: 'settings-outline' },

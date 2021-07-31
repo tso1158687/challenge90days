@@ -9,12 +9,12 @@ export const routes: Routes = [
     path: '',
     component: CheckinComponent,
   },
+  // {
+  //   path: 'challenge',
+  //   component: ChallenageComponent,
+  // },
   {
-    path: 'challenge',
-    component: ChallenageComponent,
-  },
-  {
-    path: 'myself',
+    path: 'list',
     component: MyselfComponent,
   },
 ];
