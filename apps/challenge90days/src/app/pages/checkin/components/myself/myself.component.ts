@@ -14,7 +14,6 @@ import { Checkin } from '@challenge90days/api-interfaces';
 })
 export class MyselfComponent implements OnInit {
   userId: string;
-  articles$: Observable<any[]>;
 
   checkinList$: Observable<Checkin[]>;
   checkinListMode$ = new Subject<boolean>();
@@ -39,12 +38,10 @@ export class MyselfComponent implements OnInit {
   }
 
   changeCheckinListMode(mode): void {
-    console.log(mode);
     this.checkinListMode$.next(mode);
   }
 
   getCheckinListData(): void {
-    console.log('??????');
     this.checkinList$ = this.checkinListMode$.pipe(
       startWith(false),
       debounceTime(300),

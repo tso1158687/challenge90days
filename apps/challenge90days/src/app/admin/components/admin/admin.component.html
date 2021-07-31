@@ -1,1 +1,25 @@
-admin works
+<div class="container">
+  <div class="row">
+    <div class="col col-12">
+      <h3>後台</h3>
+    </div>
+    <div class="col col-12">
+      <nb-select placeholder="選擇活動名稱"(selectedChange)='changeEventId($event)'  [(selected)]="selectedEventId">
+        <nb-option
+          [value]="event.id"
+          *ngFor="let event of eventList$ | async"
+          >{{ event.name }}</nb-option
+        >
+      </nb-select>
+    </div>
+  </div>
+  <div class="row">
+      <ng-container *ngFor="let user of checkinList$ |async">
+          <div class="col col-12" >
+              {{user.name}}
+          </div>
+      </ng-container>
+      
+  </div>
+</div>
+

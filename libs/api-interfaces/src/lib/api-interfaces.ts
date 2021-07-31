@@ -1,3 +1,4 @@
+import { DocumentReference } from '@angular/fire/firestore';
 export interface Message {
   message: string;
 }
@@ -8,6 +9,7 @@ export interface UserInfo {
   name: string;
   email: string;
   createDate: Date;
+  checkinList?: DocumentReference[];
 }
 
 export interface Checkin {
