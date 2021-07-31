@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
 import { PagesComponent } from './pages.component';
+import { AdminModule } from '../admin/admin.module';
 
 const routes: Routes = [
   {
@@ -14,6 +15,12 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () =>
           import('./checkin/checkin.module').then((m) => m.CheckinModule),
+      },
+      {
+        path: 'admin',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('../admin/admin.module').then((m) => m.AdminModule),
       },
       // {
       //   path: 'announce',
