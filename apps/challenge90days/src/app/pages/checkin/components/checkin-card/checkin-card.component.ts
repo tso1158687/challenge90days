@@ -7,6 +7,7 @@ import { Checkin } from '@challenge90days/api-interfaces';
   styleUrls: ['./checkin-card.component.scss']
 })
 export class CheckinCardComponent implements OnInit {
+  @Input() status=''
   @Input() checkin:Checkin
   constructor() { }
 

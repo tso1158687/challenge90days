@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { NbToastrService, NbDateService } from '@nebular/theme';
 import { CheckinService } from '../../../services/checkin.service';
 import { FireworkService } from '../../../services/firework.service';
-import { NbAuthService } from '@nebular/auth';
 import { emojiList } from '../../../data/emoji';
 import { DateService } from '../../../services/date.service';
 import { UserService } from '../../../services/user.service';
@@ -16,15 +15,13 @@ import { Checkin } from '@challenge90days/api-interfaces';
   styleUrls: ['./checkin.component.scss'],
 })
 export class CheckinComponent implements OnInit {
+  isCheckinMode = true;
   userInfo$ = this.userService.userInfo$;
-  lastCheckin$:Observable<Checkin[]>
+  lastCheckin$: Observable<Checkin[]>;
   welcomeText: string;
   emojiList = emojiList;
 
   checkinForm: FormGroup;
-  date = new Date(new Date().getTime() + 86400000);
-  minDate = new Date();
-  maxDate = new Date(new Date().getTime() + 86400000 * 7);
   constructor(
     private fb: FormBuilder,
     private checkinService: CheckinService,
@@ -36,12 +33,9 @@ export class CheckinComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.dateService.getTomorrowDateTime())
-    // this.userService.userInfo$.subscribe(e=>console.log(e))
     this.initForm();
-    console.log(this.maxDate);
     this.welcomeText = this.dateService.getWelcomeText();
-    this.getLastCheckin()
+    this.getLastCheckin();
   }
 
   initForm(): void {
@@ -70,6 +64,7 @@ export class CheckinComponent implements OnInit {
     const message = this.checkinForm.get('message').value;
     this.checkinService.addCheckin(this.checkinForm.value).subscribe((e) => {
       console.log('component');
+      this.isCheckinMode=false
     });
     this.initForm();
   }
@@ -90,11 +85,7 @@ export class CheckinComponent implements OnInit {
     this.checkinForm.get('isCheckinTomorrow').patchValue(isCheckinTomorrow);
   }
 
-  getLastCheckin(){
-    this.lastCheckin$=this.checkinService.getLastCheckin()
-    this.lastCheckin$.subscribe(e=>{
-      console.log('???')
-      console.log(e)
-    })
+  getLastCheckin() {
+    this.lastCheckin$ = this.checkinService.getLastCheckin();
   }
 }

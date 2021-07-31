@@ -1,1 +1,1 @@
-export const emojiList: string[] = ['😀','😆','😫','😊','😍','😂','🙃'];
+export const emojiList: string[] = ['😀','😫','😍','😂','🙃'];
