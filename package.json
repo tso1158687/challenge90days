@@ -9,6 +9,7 @@
     "start": "ng serve",
     "start:api": "node dist/apps/api/main.js",
     "build": "ng build api --prod",
+    "build:deploy":"ng build challenge90days --prod && firebase deploy --only hosting",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
     "deploy": "firebase deploy --only hosting",
