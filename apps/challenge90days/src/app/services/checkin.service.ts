@@ -10,13 +10,14 @@ import { finalize } from 'rxjs/operators';
 import { UserService } from './user.service';
 
 import { DateService } from './date.service';
-import { Checkin, CheckinObj } from '@challenge90days/api-interfaces';
+import { Checkin, CheckinObj, UserInfo } from '@challenge90days/api-interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CheckinService {
   checkinCollection: AngularFirestoreCollection<any>;
+  userCollection: AngularFirestoreCollection<any>;
   //
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
@@ -29,6 +30,7 @@ export class CheckinService {
     private dateService: DateService
   ) {
     this.checkinCollection = firestore.collection<any>('checkin');
+    // this.userCollection = firestore.collection<any>('user');
     this.userService.userInfo$.subscribe((e) => {
       this.userInfo = e;
       console.log(this.userInfo);
@@ -52,10 +54,13 @@ export class CheckinService {
     console.log(data);
     this.checkinCollection.add(data).then((e) => {
       console.log(e);
+      console.log(e.path);
+      this.userService.updateUserInfo(e.path);
       if (checkinObj.imgFile) {
         this.uploadFile(checkinObj.imgFile, e.id, e.path);
       }
     });
+
     // TODO:可以加入名字了
     return this.http.post(
       'https://challenge-90-days.herokuapp.com/api/checkin',
