@@ -64,7 +64,7 @@ export class CheckinService {
 
     // TODO:可以加入名字了
     return this.http.post(
-      'https://challenge-90-days.herokuapp.com/api/checkin',
+      'https://challenge-90-days.herokuapp.com/api/snedMessageToLineChannel',
       { message: checkinObj.message, name: this.userInfo.name }
     );
   }
