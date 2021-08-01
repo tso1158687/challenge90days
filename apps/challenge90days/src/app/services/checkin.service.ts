@@ -55,7 +55,7 @@ export class CheckinService {
     this.checkinCollection.add(data).then((e) => {
       console.log(e);
       console.log(e.path);
-      this.userService.updateUserInfo(e.path);
+      this.userService.updateUserCheckinInfo(e.path);
       if (checkinObj.imgFile) {
         this.uploadFile(checkinObj.imgFile, e.id, e.path);
       }

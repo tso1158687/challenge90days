@@ -6,7 +6,7 @@ import {
 import { UserInfo } from '@challenge90days/api-interfaces';
 import { BehaviorSubject } from 'rxjs';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 @Injectable({
   providedIn: 'root',
 })
@@ -53,13 +53,10 @@ export class UserService {
       console.log(userInfo);
       this.userInfo$.next(userInfo[0]);
       console.log(this.userInfo$.value);
-      // this.updateUserInfo()
     });
   }
 
-  updateUserInfo(checkinPath: string): void {
-    console.log('333');
-    console.log(this.userInfo$.value.userId);
+  updateUserCheckinInfo(checkinPath: string): void {
     this.firestore
       .collection('user')
       .doc(this.userInfo$.value.userId)

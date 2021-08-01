@@ -4,7 +4,11 @@
       <h3>後台</h3>
     </div>
     <div class="col col-12">
-      <nb-select placeholder="選擇活動名稱"(selectedChange)='changeEventId($event)'  [(selected)]="selectedEventId">
+      <nb-select
+        placeholder="選擇活動名稱"
+        (selectedChange)="changeEventId($event)"
+        [(selected)]="selectedEventId"
+      >
         <nb-option
           [value]="event.id"
           *ngFor="let event of eventList$ | async"
@@ -14,12 +18,27 @@
     </div>
   </div>
   <div class="row">
-      <ng-container *ngFor="let user of checkinList$ |async">
-          <div class="col col-12" >
-              {{user.name}}
-          </div>
-      </ng-container>
-      
+    <div class="col col-12">
+      <nb-card size="medium">
+        <nb-card-header>今日打卡狀態</nb-card-header>
+        <nb-list>
+          <nb-list-item *ngFor="let user of userList$ | async">
+            <span class="status">
+              <nb-icon
+                [icon]="
+                  isCheckinToday(user.userId)
+                    ? 'checkmark-circle-outline'
+                    : 'close-circle-outline'
+                "
+                [status]="isCheckinToday(user.userId)?'success':'danger'"
+              ></nb-icon>
+            </span>
+            <span class="name">
+              {{ user.name }}
+            </span>
+          </nb-list-item>
+        </nb-list>
+      </nb-card>
+    </div>
   </div>
 </div>
-
