@@ -58,20 +58,41 @@
               </nb-button-group>
             </div>
           </nb-card-body>
-          <nb-card-footer
-            ><button nbButton status="primary" (click)="checkin()">打卡</button>
-            <nb-checkbox
-              status="warning"
-              class="checkin-checkbox"
-              (checkedChange)="isCheckinTomorrow($event)"
-              >預約明天</nb-checkbox
-            >
+          <nb-card-footer>
+            {{ checkinStatus }}
+            <ng-container *ngIf="checkinStatus">
+              <h3 class="h3">恭喜!今天已經打卡過囉</h3>
+              <button
+                nbButton
+                status="warning"
+                [disabled]="checkinForm.invalid"
+                (click)="deleteAndAddCheckin()"
+              >
+                重新打卡
+              </button>
+            </ng-container>
+            <ng-container *ngIf="!checkinStatus">
+              <button
+                nbButton
+                status="primary"
+                [disabled]="checkinForm.invalid"
+                (click)="checkin()"
+              >
+                打卡
+              </button>
+              <nb-checkbox
+                status="warning"
+                class="checkin-checkbox"
+                (checkedChange)="isCheckinTomorrow($event)"
+                >預約明天</nb-checkbox
+              >
+            </ng-container>
           </nb-card-footer>
         </nb-card>
       </ng-container>
     </div>
   </div>
-  <div class="row"  *ngIf="!isCheckinMode">
+  <div class="row" *ngIf="!isCheckinMode">
     <div class="col col-12">
       <challenge90days-checkin-card
         [status]="'success'"
@@ -80,14 +101,14 @@
     </div>
     <div class="col col-12">
       <button
-      nbButton
-      hero
-      shape="round"
-      status="primary"
-      routerLink="/checkin/list"
-    >
-      看看大家的打卡
-    </button>
+        nbButton
+        hero
+        shape="round"
+        status="primary"
+        routerLink="/checkin/list"
+      >
+        看看大家的打卡
+      </button>
     </div>
   </div>
 </div>

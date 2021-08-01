@@ -6,7 +6,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 import { UserService } from './user.service';
 
 import { DateService } from './date.service';
@@ -37,6 +37,7 @@ export class CheckinService {
     });
   }
 
+  deleteCheckin() {}
   addCheckin(checkinObj: CheckinObj): Observable<any> {
     console.log(this.userInfo);
     const data = {
@@ -105,5 +106,23 @@ export class CheckinService {
           .limit(1);
       })
       .valueChanges();
+  }
+
+  getLastCheckinRef() {
+    return this.firestore.collection<Checkin>('checkin', (ref) => {
+      return ref
+        .where('userId', '==', this.userService.userId$.value)
+        .orderBy('time', 'desc')
+        .limit(1);
+    }).get()
+  }
+
+  getCheckinStatus(): Observable<boolean> {
+    return this.firestore
+      .collection('checkin', (ref) => {
+        return ref.where('userId', '==', this.userService.userId$.value);
+      })
+      .snapshotChanges()
+      .pipe(map((e) => e.length > 0));
   }
 }

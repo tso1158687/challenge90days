@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService, NbDateService } from '@nebular/theme';
 import { CheckinService } from '../../../services/checkin.service';
 import { FireworkService } from '../../../services/firework.service';
@@ -22,6 +22,7 @@ export class CheckinComponent implements OnInit {
   emojiList = emojiList;
 
   checkinForm: FormGroup;
+  checkinStatus = false;
   constructor(
     private fb: FormBuilder,
     private checkinService: CheckinService,
@@ -35,17 +36,18 @@ export class CheckinComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.welcomeText = this.dateService.getWelcomeText();
+    this.getCheckinStatus();
     this.getLastCheckin();
   }
 
   initForm(): void {
     this.checkinForm = this.fb.group({
-      user: '',
-      message: '',
-      url: '',
-      imgFile: null,
-      emoji: '',
-      isCheckinTomorrow: false,
+      user: [''],
+      message: ['', Validators.required],
+      url: [''],
+      imgFile: [null, Validators.required],
+      emoji: [''],
+      isCheckinTomorrow: [false],
     });
   }
   onFileChange(event) {
@@ -61,10 +63,8 @@ export class CheckinComponent implements OnInit {
     console.log(this.checkinForm.value);
     this.showFirework();
     this.toastrService.success('成功', '恭喜，又完成一天囉');
-    const message = this.checkinForm.get('message').value;
-    this.checkinService.addCheckin(this.checkinForm.value).subscribe((e) => {
-      console.log('component');
-      this.isCheckinMode=false
+    this.checkinService.addCheckin(this.checkinForm.value).subscribe(() => {
+      this.isCheckinMode = false;
     });
     this.initForm();
   }
@@ -85,7 +85,23 @@ export class CheckinComponent implements OnInit {
     this.checkinForm.get('isCheckinTomorrow').patchValue(isCheckinTomorrow);
   }
 
-  getLastCheckin() {
+  getLastCheckin(): void {
     this.lastCheckin$ = this.checkinService.getLastCheckin();
+  }
+
+  getCheckinStatus(): void {
+    this.checkinService.getCheckinStatus().subscribe((checkinStatus) => {
+      this.checkinStatus = checkinStatus;
+      this.cd.markForCheck();
+      console.log(this.checkinStatus);
+    });
+  }
+
+  deleteAndAddCheckin() {
+    this.checkinService.getLastCheckinRef().subscribe((checkinList) => {
+      checkinList.docs[0].ref.delete().then(() => {
+        this.checkin();
+      });
+    });
   }
 }
