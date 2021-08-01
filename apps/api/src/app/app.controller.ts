@@ -42,10 +42,12 @@ export class AppController {
   }
 
   @Post('snedMessageToLineChannel')
-  snedMessageToLineChannel(@Body() data): void {
+  snedMessageToLineChannel(@Body() data) {
     console.log('!!!!');
     console.log(data)
-    this.appService.pushMessageToLineChannel(data.message);
+    this.appService.pushMessageToLineChannel(data).subscribe((res)=>{
+      return 
+    });
   }
 
   @Post('webhook')
