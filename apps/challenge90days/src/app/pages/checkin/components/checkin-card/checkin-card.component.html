@@ -10,8 +10,8 @@
     </div>
   </nb-card-header>
   <nb-card-body>
-    <div>
-      <img height="400px" [src]="checkin.imgFile" alt="" />
+    <div *ngIf="checkin.imgFile">
+      <img height="auto" width="100%" [src]="checkin.imgFile" alt="" /> 
     </div>
     <p>
       <a [href]="checkin.url">{{ checkin.url }}</a>
