@@ -17,6 +17,10 @@ export const routes: Routes = [
     path: 'list',
     component: MyselfComponent,
   },
+  {
+    path: ':id',
+    component: MyselfComponent,
+  },
 ];
 
 @NgModule({

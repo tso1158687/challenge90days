@@ -37,7 +37,6 @@ export class CheckinService {
     private dateService: DateService
   ) {
     this.checkinCollection = firestore.collection<any>('checkin');
-    // this.userCollection = firestore.collection<any>('user');
     this.userService.userInfo$.subscribe((e) => {
       this.userInfo = e;
       console.log(this.userInfo);
@@ -86,7 +85,7 @@ export class CheckinService {
   uploadFile(
     data,
     filePath: string,
-    postPath: string,
+    docPath: string,
     message: string,
     name: string
   ): Observable<any> {
@@ -113,9 +112,8 @@ export class CheckinService {
           console.log('download url');
           console.log(imageUrl);
           this.imageUrl = imageUrl;
-          this.firestore.doc(postPath).update({ imgFile: imageUrl });
-          
-          this.sendMessageToLineChatbot(message, name, imageUrl);
+          this.firestore.doc(docPath).update({ imgFile: imageUrl });
+          this.sendMessageToLineChatbot(message, name, imageUrl, docPath);
         });
       })
     );
@@ -164,15 +162,19 @@ export class CheckinService {
   sendMessageToLineChatbot(
     message: string,
     name: string,
-    imageUrl: string
+    imageUrl: string,
+    docPath: string
   ): void {
-    console.log(message,name,imageUrl)
+    console.log(message, name, imageUrl);
     this.http
       .post(this.apiUrl, {
         message,
         name,
         imageUrl,
+        docPath
       })
-      .subscribe();
+      .subscribe((e) => {
+        console.log(e);
+      });
   }
 }

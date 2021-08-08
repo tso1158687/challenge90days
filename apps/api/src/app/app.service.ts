@@ -60,6 +60,7 @@ export class AppService {
   }
 
   pushMessageToLineChannel(messageContent: any): Observable<any> {
+    console.log(messageContent);
     // const message: TextMessage = {
     //   type: 'text',
     //   text: messageContent,
@@ -72,8 +73,8 @@ export class AppService {
     //   previewImageUrl:
     //     'https://firebasestorage.googleapis.com/v0/b/challenage90days.appspot.com/o/checkin%2FhV91NdH3WZVRsjOR6CYH?alt=media&token=c4513a43-6b9e-4044-8840-34b312a7d103',
     // };
-    
-    const { imageUrl, name, message } = messageContent;
+
+    const { imageUrl, name, message, docPath } = messageContent;
 
     const templateMessage: TemplateMessage = {
       type: 'template',
@@ -90,15 +91,15 @@ export class AppService {
           {
             type: 'uri',
             label: '看看打卡',
-            uri: 'https://challenage90days.web.app/',
+            uri: `https://challenage90days.web.app/checkin/${docPath}`,
           },
         ],
       },
     };
-    this.groupIdList.forEach(groupId=>{
-      this.client.pushMessage(groupId,templateMessage)
-    })
-   
+    this.groupIdList.forEach((groupId) => {
+      this.client.pushMessage(groupId, templateMessage);
+    });
+
     return of();
   }
 
