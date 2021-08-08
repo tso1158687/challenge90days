@@ -20,9 +20,10 @@ import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
 import { environment } from 'apps/challenge90days/src/environments/environment';
 import { MyselfComponent } from './components/myself/myself.component';
 import { CheckinCardComponent } from './components/checkin-card/checkin-card.component';
+import { ListComponent } from './components/list/list.component';
 
 @NgModule({
-  declarations: [CheckinComponent, ChallenageComponent, MyselfComponent, CheckinCardComponent],
+  declarations: [CheckinComponent, ChallenageComponent, MyselfComponent, CheckinCardComponent,ListComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

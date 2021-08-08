@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col col-12">
+      <nb-toggle
+      status="basic"
+      [(ngModel)]="checkinListToggle"
+      (ngModelChange)="changeCheckinListMode(checkinListToggle)"
+      >{{ checkinListToggle ? '看看大家' : '看看自己' }}</nb-toggle
+    >
+    </div>
+  </div>
+  <div class="row justify-content-start">
+    <div
+      class="col col-md-4 col-12"
+      *ngFor="let checkin of checkinList$ | async"
+    >
+      <challenge90days-checkin-card
+        [checkin]="checkin"
+      ></challenge90days-checkin-card>
+    </div>
+  </div>
+</div>

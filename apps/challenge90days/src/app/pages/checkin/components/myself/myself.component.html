@@ -1,21 +1,21 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col col-12">
-      <nb-toggle
-      status="basic"
-      [(ngModel)]="checkinListToggle"
-      (ngModelChange)="changeCheckinListMode(checkinListToggle)"
-      >{{ checkinListToggle ? '看看大家' : '看看自己' }}</nb-toggle
-    >
+      <button
+        nbButton
+        hero
+        shape="round"
+        status="primary"
+        routerLink="/checkin/list"
+      >
+        <nb-icon icon="arrow-back-outline"></nb-icon>
+      </button>
     </div>
   </div>
   <div class="row justify-content-start">
-    <div
-      class="col col-md-4 col-12"
-      *ngFor="let checkin of checkinList$ | async"
-    >
+    <div class="col">
       <challenge90days-checkin-card
-        [checkin]="checkin"
+        [checkin]="checkin$ | async"
       ></challenge90days-checkin-card>
     </div>
   </div>

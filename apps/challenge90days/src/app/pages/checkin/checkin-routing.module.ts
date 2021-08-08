@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CheckinComponent } from './components/checkin.component';
 import { ChallenageComponent } from './components/challenage/challenage.component';
 import { MyselfComponent } from './components/myself/myself.component';
+import { ListComponent } from './components/list/list.component';
 
 export const routes: Routes = [
   {
@@ -15,10 +16,10 @@ export const routes: Routes = [
   // },
   {
     path: 'list',
-    component: MyselfComponent,
+    component: ListComponent,
   },
   {
-    path: ':id',
+    path: ':docPath',
     component: MyselfComponent,
   },
 ];
