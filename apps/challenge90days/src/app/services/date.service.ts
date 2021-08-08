@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { NbDateService } from '@nebular/theme';
-
+import { startOfToday, endOfToday } from 'date-fns';
 @Injectable({
   providedIn: 'root',
 })
 export class DateService {
+  startOfToday = startOfToday();
+  endOfToday = endOfToday();
+
   constructor(private nbDateService: NbDateService<Date>) {}
 
   getWelcomeText(): string {

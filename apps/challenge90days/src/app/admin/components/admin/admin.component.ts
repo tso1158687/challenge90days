@@ -4,10 +4,9 @@ import {
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
 import { Observable, Subject } from 'rxjs';
-import { addDays } from 'date-fns/fp';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Checkin, UserInfo } from '@challenge90days/api-interfaces';
-import { startOfToday, endOfToday } from 'date-fns';
+import { DateService } from '../../../services/date.service';
 @Component({
   selector: 'challenge90days-admin',
   templateUrl: './admin.component.html',
@@ -22,10 +21,13 @@ export class AdminComponent implements OnInit {
   selectedEventId: number;
   checkinListSet = new Set();
 
-  startOfToday = startOfToday();
-  endOfToday = endOfToday();
+  startOfToday = this.dateService.startOfToday;
+  endOfToday = this.dateService.endOfToday;
 
-  constructor(private firestore: AngularFirestore) {}
+  constructor(
+    private firestore: AngularFirestore,
+    private dateService: DateService
+  ) {}
   ngOnInit(): void {
     console.log(this.startOfToday);
     console.log(this.endOfToday);

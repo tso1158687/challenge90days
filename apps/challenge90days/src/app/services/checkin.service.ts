@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { EMPTY, from, Observable } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/storage';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
-import { finalize, map } from 'rxjs/operators';
+import { finalize, map, tap, switchMap } from 'rxjs/operators';
 import { UserService } from './user.service';
 
 import { DateService } from './date.service';
@@ -22,6 +22,10 @@ export class CheckinService {
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
   userInfo;
+
+  // date
+  startOfToday = this.dateService.startOfToday;
+  endOfToday = this.dateService.endOfToday;
   constructor(
     private http: HttpClient,
     private firestore: AngularFirestore,
@@ -44,7 +48,7 @@ export class CheckinService {
       content: checkinObj.message,
       postUser: this.userInfo.name,
       url: checkinObj.url,
-      imgFile: '',
+      imgFile: null,
       type: 1,
       time: checkinObj.isCheckinTomorrow
         ? this.dateService.getTomorrowDateTime()
@@ -52,16 +56,14 @@ export class CheckinService {
       userId: this.userService.userId$.value,
       emoji: checkinObj.emoji,
     };
-    console.log(data);
-    this.checkinCollection.add(data).then((e) => {
-      console.log(e);
-      console.log(e.path);
-      this.userService.updateUserCheckinInfo(e.path);
-      if (checkinObj.imgFile) {
-        this.uploadFile(checkinObj.imgFile, e.id, e.path);
-      }
-    });
-
+    const addDoc$ = from(this.checkinCollection.add(data));
+    addDoc$
+      .pipe(
+        switchMap((res) =>
+          this.uploadFile(checkinObj.imgFile, res.id, res.path)
+        )
+      )
+      .subscribe();
     // TODO:可以加入名字了
     return this.http.post(
       'https://challenge-90-days.herokuapp.com/api/snedMessageToLineChannel',
@@ -69,7 +71,11 @@ export class CheckinService {
     );
   }
 
-  uploadFile(data, filePath: string, postPath: string) {
+  uploadFile(data, filePath: string, postPath: string): Observable<any> {
+    console.log(data);
+    if (!data) {
+      return EMPTY;
+    }
     const fullFilePath = `checkin/${filePath}`;
     const fileRef = this.storage.ref(fullFilePath);
     const task = this.storage.upload(fullFilePath, data);
@@ -80,21 +86,18 @@ export class CheckinService {
       console.log(e);
     });
     // get notified when the download URL is available
-    task
-      .snapshotChanges()
-      .pipe(
-        finalize(() => {
-          this.downloadURL = fileRef.getDownloadURL();
-          console.log('final');
-          console.log(this.downloadURL);
-          this.downloadURL.subscribe((imgFile) => {
-            console.log('download url');
-            console.log(imgFile);
-            this.firestore.doc(postPath).update({ imgFile });
-          });
-        })
-      )
-      .subscribe();
+    return task.snapshotChanges().pipe(
+      finalize(() => {
+        this.downloadURL = fileRef.getDownloadURL();
+        console.log('final');
+        console.log(this.downloadURL);
+        this.downloadURL.subscribe((imgFile) => {
+          console.log('download url');
+          console.log(imgFile);
+          this.firestore.doc(postPath).update({ imgFile });
+        });
+      })
+    );
   }
 
   getLastCheckin(): Observable<Checkin[]> {
@@ -109,20 +112,31 @@ export class CheckinService {
   }
 
   getLastCheckinRef() {
-    return this.firestore.collection<Checkin>('checkin', (ref) => {
-      return ref
-        .where('userId', '==', this.userService.userId$.value)
-        .orderBy('time', 'desc')
-        .limit(1);
-    }).get()
+    return this.firestore
+      .collection<Checkin>('checkin', (ref) => {
+        return ref
+          .where('userId', '==', this.userService.userId$.value)
+          .orderBy('time', 'desc')
+          .limit(1);
+      })
+      .get();
   }
 
   getCheckinStatus(): Observable<boolean> {
     return this.firestore
       .collection('checkin', (ref) => {
-        return ref.where('userId', '==', this.userService.userId$.value);
+        return ref
+          .where('userId', '==', this.userService.userId$.value)
+          .where('time', '>', this.startOfToday)
+          .where('time', '<', this.endOfToday);
       })
       .snapshotChanges()
-      .pipe(map((e) => e.length > 0));
+      .pipe(
+        tap((e) => {
+          console.log('我看看');
+          console.log(e);
+        }),
+        map((e) => e.length > 0)
+      );
   }
 }

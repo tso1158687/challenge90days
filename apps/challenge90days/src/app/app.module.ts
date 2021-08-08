@@ -27,6 +27,7 @@ import {
 import { environment } from '../environments/environment';
 import { FireworkModule } from '../../../../libs/firework/src/lib/firework.module';
 import { FooterModule } from './modules/footer/footer.module';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -47,6 +48,7 @@ import { FooterModule } from './modules/footer/footer.module';
     NbToastrModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule.enablePersistence(),
     NbFirebaseAuthModule,
     NbAuthModule.forRoot({
       forms: {
