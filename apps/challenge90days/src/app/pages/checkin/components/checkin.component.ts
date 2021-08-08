@@ -63,7 +63,9 @@ export class CheckinComponent implements OnInit {
     console.log(this.checkinForm.value);
     this.showFirework();
     this.toastrService.success('成功', '恭喜，又完成一天囉');
-    this.checkinService.addCheckin(this.checkinForm.value).subscribe(() => {
+    this.checkinService.addCheckin(this.checkinForm.value).subscribe((e) => {
+      console.log('黑人問號看')
+      console.log(e)
       this.isCheckinMode = false;
     });
     this.initForm();

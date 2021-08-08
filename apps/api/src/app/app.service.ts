@@ -12,7 +12,7 @@ import {
   ImageMessage,
   TemplateMessage,
 } from '@line/bot-sdk';
-import { from, Observable } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 
 @Injectable()
 export class AppService {
@@ -27,10 +27,8 @@ export class AppService {
     channelSecret: process.env.channelSecret,
   };
   client = new Client(this.clientConfig);
-  constructor(private httpService: HttpService) {
-    console.log('???');
-    // this.listenLineWebhook()
-  }
+  groupIdList = process.env.groupIdStringList.split(',');
+  constructor(private httpService: HttpService) {}
   getData(): Message {
     return { message: 'Welcome to api!' };
   }
@@ -62,32 +60,32 @@ export class AppService {
   }
 
   pushMessageToLineChannel(messageContent: any): Observable<any> {
-    const message: TextMessage = {
-      type: 'text',
-      text: messageContent,
-    };
+    // const message: TextMessage = {
+    //   type: 'text',
+    //   text: messageContent,
+    // };
 
-    const imageMessage: ImageMessage = {
-      type: 'image',
-      originalContentUrl:
-        'https://firebasestorage.googleapis.com/v0/b/challenage90days.appspot.com/o/checkin%2FhV91NdH3WZVRsjOR6CYH?alt=media&token=c4513a43-6b9e-4044-8840-34b312a7d103',
-      previewImageUrl:
-        'https://firebasestorage.googleapis.com/v0/b/challenage90days.appspot.com/o/checkin%2FhV91NdH3WZVRsjOR6CYH?alt=media&token=c4513a43-6b9e-4044-8840-34b312a7d103',
-    };
-
-    const { imageUrl, user, content } = messageContent;
+    // const imageMessage: ImageMessage = {
+    //   type: 'image',
+    //   originalContentUrl:
+    //     'https://firebasestorage.googleapis.com/v0/b/challenage90days.appspot.com/o/checkin%2FhV91NdH3WZVRsjOR6CYH?alt=media&token=c4513a43-6b9e-4044-8840-34b312a7d103',
+    //   previewImageUrl:
+    //     'https://firebasestorage.googleapis.com/v0/b/challenage90days.appspot.com/o/checkin%2FhV91NdH3WZVRsjOR6CYH?alt=media&token=c4513a43-6b9e-4044-8840-34b312a7d103',
+    // };
+    
+    const { imageUrl, name, message } = messageContent;
 
     const templateMessage: TemplateMessage = {
       type: 'template',
-      altText: 'This is a buttons template',
+      altText: `${name} 打卡囉`,
       template: {
         type: 'buttons',
         thumbnailImageUrl: imageUrl,
         imageAspectRatio: 'rectangle',
         imageSize: 'cover',
         imageBackgroundColor: '#FFFFFF',
-        title: `${user} 打卡囉`,
-        text: `${content}`,
+        title: `${name} 打卡囉`,
+        text: `${message}`,
         actions: [
           {
             type: 'uri',
@@ -97,18 +95,11 @@ export class AppService {
         ],
       },
     };
-    // this.client.pushMessage(
-    //我自己的
-    //   'C5a3dccf669169a04808559e361295740',
-    //   templateMessage
-    // );
-
-    const pushLineMesssagePromise = this.client.pushMessage(
-      'C5a3dccf669169a04808559e361295740',
-      templateMessage
-    );
-    return from(pushLineMesssagePromise);
-    // this.bot.push('', message);
+    this.groupIdList.forEach(groupId=>{
+      this.client.pushMessage(groupId,templateMessage)
+    })
+   
+    return of();
   }
 
   listenLineWebhook(): void {

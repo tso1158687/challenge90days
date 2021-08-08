@@ -20,8 +20,11 @@ export class CheckinService {
   userCollection: AngularFirestoreCollection<any>;
   //
   uploadPercent: Observable<number>;
-  downloadURL: Observable<string>;
+  downloadURL$: Observable<string>;
+  imageUrl: string;
   userInfo;
+  apiUrl =
+    'https://challenge-90-days.herokuapp.com/api/snedMessageToLineChannel';
 
   // date
   startOfToday = this.dateService.startOfToday;
@@ -43,7 +46,6 @@ export class CheckinService {
 
   deleteCheckin() {}
   addCheckin(checkinObj: CheckinObj): Observable<any> {
-    console.log(this.userInfo);
     const data = {
       content: checkinObj.message,
       postUser: this.userInfo.name,
@@ -57,21 +59,37 @@ export class CheckinService {
       emoji: checkinObj.emoji,
     };
     const addDoc$ = from(this.checkinCollection.add(data));
-    addDoc$
-      .pipe(
-        switchMap((res) =>
-          this.uploadFile(checkinObj.imgFile, res.id, res.path)
+    return addDoc$.pipe(
+      switchMap((res) =>
+        this.uploadFile(
+          checkinObj.imgFile,
+          res.id,
+          res.path,
+          checkinObj.message,
+          this.userInfo.name
         )
       )
-      .subscribe();
-    // TODO:可以加入名字了
-    return this.http.post(
-      'https://challenge-90-days.herokuapp.com/api/snedMessageToLineChannel',
-      { message: checkinObj.message, name: this.userInfo.name }
+      // switchMap((e) => {
+      //   console.log(e)
+      //   return this.http.post(
+      //     'https://challenge-90-days.herokuapp.com/api/snedMessageToLineChannel',
+      //     {
+      //       message: checkinObj.message,
+      //       name: this.userInfo.name,
+      //       imageUrl: this.imageUrl,
+      //     }
+      //   );
+      // })
     );
   }
 
-  uploadFile(data, filePath: string, postPath: string): Observable<any> {
+  uploadFile(
+    data,
+    filePath: string,
+    postPath: string,
+    message: string,
+    name: string
+  ): Observable<any> {
     console.log(data);
     if (!data) {
       return EMPTY;
@@ -88,13 +106,16 @@ export class CheckinService {
     // get notified when the download URL is available
     return task.snapshotChanges().pipe(
       finalize(() => {
-        this.downloadURL = fileRef.getDownloadURL();
+        this.downloadURL$ = fileRef.getDownloadURL();
         console.log('final');
-        console.log(this.downloadURL);
-        this.downloadURL.subscribe((imgFile) => {
+        console.log(this.downloadURL$);
+        this.downloadURL$.subscribe((imageUrl) => {
           console.log('download url');
-          console.log(imgFile);
-          this.firestore.doc(postPath).update({ imgFile });
+          console.log(imageUrl);
+          this.imageUrl = imageUrl;
+          this.firestore.doc(postPath).update({ imgFile: imageUrl });
+          
+          this.sendMessageToLineChatbot(message, name, imageUrl);
         });
       })
     );
@@ -138,5 +159,20 @@ export class CheckinService {
         }),
         map((e) => e.length > 0)
       );
+  }
+
+  sendMessageToLineChatbot(
+    message: string,
+    name: string,
+    imageUrl: string
+  ): void {
+    console.log(message,name,imageUrl)
+    this.http
+      .post(this.apiUrl, {
+        message,
+        name,
+        imageUrl,
+      })
+      .subscribe();
   }
 }
