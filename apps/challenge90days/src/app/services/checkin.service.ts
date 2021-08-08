@@ -113,7 +113,7 @@ export class CheckinService {
           console.log(imageUrl);
           this.imageUrl = imageUrl;
           this.firestore.doc(docPath).update({ imgFile: imageUrl });
-          this.sendMessageToLineChatbot(message, name, imageUrl, docPath);
+          this.sendMessageToLineChatbot(message, name, imageUrl, filePath);
         });
       })
     );

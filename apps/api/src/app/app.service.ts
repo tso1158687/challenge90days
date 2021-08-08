@@ -75,7 +75,7 @@ export class AppService {
     // };
 
     const { imageUrl, name, message, docPath } = messageContent;
-
+    console.log(messageContent)
     const templateMessage: TemplateMessage = {
       type: 'template',
       altText: `${name} 打卡囉`,
