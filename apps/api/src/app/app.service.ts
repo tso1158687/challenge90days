@@ -52,8 +52,7 @@ export class AppService {
     );
   }
 
-  // @Cron('* 8 * * *')
-  @Interval(1000000)
+  @Cron('* 15 * * *')
   notificationCheckin(): void {
     const message: TextMessage = {
       type: 'text',
