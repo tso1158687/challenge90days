@@ -30,6 +30,8 @@ export class AppService {
   groupIdList = process.env.groupIdStringList.split(',');
   constructor(private httpService: HttpService) {}
   getData(): Message {
+    console.log(new Date())
+    console.log(+new Date())
     return { message: 'Welcome to api!' };
   }
   // @Cron('10 * * * * *')
