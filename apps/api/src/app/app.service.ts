@@ -29,10 +29,14 @@ export class AppService {
   client = new Client(this.clientConfig);
   groupIdList = process.env.groupIdStringList.split(',');
   constructor(private httpService: HttpService) {}
-  getData(): Message {
-    console.log(new Date())
-    console.log(+new Date())
-    return { message: 'Welcome to api!' };
+  getData() {
+    console.log(new Date());
+    console.log(+new Date());
+    return {
+      message: 'Welcome to api!',
+      date: new Date(),
+      timestamp: +new Date(),
+    };
   }
   // @Cron('10 * * * * *')
   @Interval(1000000)
@@ -77,7 +81,7 @@ export class AppService {
     // };
 
     const { imageUrl, name, message, docPath } = messageContent;
-    console.log(messageContent)
+    console.log(messageContent);
     const templateMessage: TemplateMessage = {
       type: 'template',
       altText: `${name} 打卡囉`,
