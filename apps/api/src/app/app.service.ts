@@ -52,17 +52,17 @@ export class AppService {
     );
   }
 
-  @Cron('0 0 * * * *')
+  // @Cron('* 8 * * *')
+  @Interval(1000000)
   notificationCheckin(): void {
-    const data = { text: '晚上11點30分囉，請大家記得打卡！😊' };
-    this.httpService.post(process.env.slackApi, data).subscribe(
-      () => {
-        return { message: 'ok' };
-      },
-      (error) => {
-        return { message: 'ohnono' };
-      }
-    );
+    const message: TextMessage = {
+      type: 'text',
+      text: '晚上11點囉，請大家記得打卡！😊',
+    };
+
+    this.groupIdList.forEach((groupId) => {
+      this.client.pushMessage(groupId, message);
+    });
   }
 
   pushMessageToLineChannel(messageContent: any): Observable<any> {
