@@ -52,7 +52,7 @@ export class AppService {
     );
   }
 
-  @Cron('* 15 * * *')
+  @Cron('0 15 * * *')
   notificationCheckin(): void {
     const message: TextMessage = {
       type: 'text',
