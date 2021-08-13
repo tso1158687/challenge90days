@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import {
   NbThemeModule,
   NbLayoutModule,
@@ -14,6 +15,7 @@ import {
   NbToggleModule,
   NbMenuModule,
   NbCalendarModule,
+  NbDatepickerModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
@@ -50,6 +52,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
     NbFirebaseAuthModule,
+    NbDatepickerModule.forRoot(),
     NbAuthModule.forRoot({
       forms: {
         login: {

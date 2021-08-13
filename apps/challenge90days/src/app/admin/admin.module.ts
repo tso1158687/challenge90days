@@ -7,6 +7,8 @@ import {
   NbSelectModule,
   NbCardModule,
   NbIconModule,
+  NbDatepickerModule,
+  NbInputModule,
 } from '@nebular/theme';
 import { FormsModule } from '@angular/forms';
 
@@ -20,6 +22,8 @@ import { FormsModule } from '@angular/forms';
     NbListModule,
     NbCardModule,
     NbIconModule,
+    NbDatepickerModule,
+    NbInputModule
   ],
 })
 export class AdminModule {}

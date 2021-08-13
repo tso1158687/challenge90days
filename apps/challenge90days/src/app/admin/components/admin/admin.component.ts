@@ -19,6 +19,7 @@ export class AdminComponent implements OnInit {
   userList$: Observable<UserInfo[]>;
   checkinList$: Observable<Checkin[]>;
   selectedEventId: number;
+  selectedDate = new Date();
   checkinListSet = new Set();
 
   startOfToday = this.dateService.startOfToday;
@@ -38,6 +39,12 @@ export class AdminComponent implements OnInit {
 
   getEventList(): void {
     this.eventList$ = this.firestore.collection('event').valueChanges();
+  }
+
+  changeDate(){
+    console.log('change date')
+    console.log(this.selectedDate)
+    
   }
 
   changeEventId(eventId: number): void {

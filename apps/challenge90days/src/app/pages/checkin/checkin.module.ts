@@ -13,6 +13,7 @@ import {
   NbButtonGroupModule,
   NbCheckboxModule,
   NbFormFieldModule,
+  NbTabsetModule,
 } from '@nebular/theme';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ChallenageComponent } from './components/challenage/challenage.component';
@@ -34,6 +35,7 @@ import { ListComponent } from './components/list/list.component';
     NbButtonModule,
     NbInputModule,
     NbIconModule,
+    NbTabsetModule,
     NbCalendarModule,
     NbToggleModule,
     NbButtonGroupModule,

@@ -74,4 +74,9 @@ export class ListComponent implements OnInit {
       )
     );
   }
+
+  changeMode(a){
+    console.log('dsadadssddsa')
+    console.log(a)
+  }
 }

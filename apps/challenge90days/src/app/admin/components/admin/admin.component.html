@@ -15,6 +15,8 @@
           >{{ event.name }}</nb-option
         >
       </nb-select>
+      <input nbInput placeholder="選擇日期" [nbDatepicker]="dateTimePicker"  [(ngModel)]="selectedDate" (ngModelChange)="changeDate()">
+      <nb-datepicker #dateTimePicker format="yyyy-MM-dd"></nb-datepicker>
     </div>
   </div>
   <div class="row">

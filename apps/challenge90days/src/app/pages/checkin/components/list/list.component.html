@@ -1,5 +1,17 @@
 <div class="container-fluid">
   <div class="row">
+    <div class="col col12">
+      <nb-tabset fullWidth (changeTab)="changeMode($event)">
+        <nb-tab tabTitle="看看自己">
+          Tab content 1
+        </nb-tab>
+        <nb-tab tabTitle="看看大家">
+          Tab content 2
+        </nb-tab>
+       </nb-tabset>
+    </div>
+  </div>
+  <div class="row">
     <div class="col col-12">
       <nb-toggle
       status="basic"
