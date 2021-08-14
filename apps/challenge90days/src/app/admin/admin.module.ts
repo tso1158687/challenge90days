@@ -11,7 +11,7 @@ import {
   NbInputModule,
 } from '@nebular/theme';
 import { FormsModule } from '@angular/forms';
-
+import {NbDateFnsDateModule} from '@nebular/date-fns'
 @NgModule({
   declarations: [AdminComponent],
   imports: [
@@ -23,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     NbCardModule,
     NbIconModule,
     NbDatepickerModule,
-    NbInputModule
+    NbInputModule,
+    NbDateFnsDateModule
   ],
 })
 export class AdminModule {}

@@ -2,23 +2,32 @@
   <div class="row">
     <div class="col col12">
       <nb-tabset fullWidth (changeTab)="changeMode($event)">
-        <nb-tab tabTitle="看看自己">
-          Tab content 1
-        </nb-tab>
+        <nb-tab tabTitle="看看自己"> </nb-tab>
         <nb-tab tabTitle="看看大家">
-          Tab content 2
+          <div class="col col-12">
+            <nb-select
+              placeholder="選擇挑戰者"
+              (selectedChange)="changeUser($event)"
+              [(selected)]="selectedUserId"
+            >
+              <nb-option
+                *ngFor="let user of userList$ | async"
+                [value]="user.userId"
+                >{{ user.name }}</nb-option
+              >
+            </nb-select>
+            <input
+              nbInput
+              placeholder="選擇日期"
+              [nbDatepicker]="dateTimePicker"
+              [(ngModel)]="selectedDate"
+              (ngModelChange)="changeDate()"
+            />
+            <nb-datepicker #dateTimePicker format="yyyy-MM-dd"></nb-datepicker>
+            <button nbButton hero status="danger" (click)="clearFilter()">清除</button>
+          </div>
         </nb-tab>
-       </nb-tabset>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col col-12">
-      <nb-toggle
-      status="basic"
-      [(ngModel)]="checkinListToggle"
-      (ngModelChange)="changeCheckinListMode(checkinListToggle)"
-      >{{ checkinListToggle ? '看看大家' : '看看自己' }}</nb-toggle
-    >
+      </nb-tabset>
     </div>
   </div>
   <div class="row justify-content-start">

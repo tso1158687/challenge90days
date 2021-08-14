@@ -6,15 +6,16 @@ import {
   NbCardModule,
   NbButtonModule,
   NbInputModule,
-  NbToastrService,
   NbIconModule,
   NbCalendarModule,
   NbToggleModule,
   NbButtonGroupModule,
   NbCheckboxModule,
-  NbFormFieldModule,
   NbTabsetModule,
+  NbSelectModule,
+  NbDatepickerModule,
 } from '@nebular/theme';
+import { NbDateFnsDateModule } from '@nebular/date-fns';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ChallenageComponent } from './components/challenage/challenage.component';
 import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
@@ -24,7 +25,13 @@ import { CheckinCardComponent } from './components/checkin-card/checkin-card.com
 import { ListComponent } from './components/list/list.component';
 
 @NgModule({
-  declarations: [CheckinComponent, ChallenageComponent, MyselfComponent, CheckinCardComponent,ListComponent],
+  declarations: [
+    CheckinComponent,
+    ChallenageComponent,
+    MyselfComponent,
+    CheckinCardComponent,
+    ListComponent,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -40,6 +47,9 @@ import { ListComponent } from './components/list/list.component';
     NbToggleModule,
     NbButtonGroupModule,
     NbCheckboxModule,
+    NbSelectModule,
+    NbDatepickerModule,
+    NbDateFnsDateModule,
   ],
   providers: [
     { provide: BUCKET, useValue: environment.firebase.storageBucket },
