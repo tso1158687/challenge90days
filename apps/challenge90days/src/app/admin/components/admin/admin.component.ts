@@ -22,7 +22,7 @@ export class AdminComponent implements OnInit {
   selectedEventId: number;
   selectedDate = new Date();
   checkinListSet = new Set();
-  combineLatest = combineLatest([this.eventChange$, this.dateChange$]);
+  pageChange$ = combineLatest([this.eventChange$, this.dateChange$]);
   startOfDay = this.dateService.startOfToday;
   endOfDay = this.dateService.endOfToday;
 
@@ -30,15 +30,11 @@ export class AdminComponent implements OnInit {
     private firestore: AngularFirestore,
     private dateService: DateService
   ) {}
+
   ngOnInit(): void {
-    console.log(this.startOfDay);
-    console.log(this.endOfDay);
     this.getEventList();
     this.getCheckinStatus();
     this.getCheckinListSet();
-    this.combineLatest.subscribe((e) => {
-      console.log(e);
-    });
   }
 
   getEventList(): void {
@@ -58,7 +54,6 @@ export class AdminComponent implements OnInit {
   }
 
   changeEventId(eventId: number): void {
-    console.log()
     this.eventChange$.next(eventId);
   }
 
@@ -77,25 +72,22 @@ export class AdminComponent implements OnInit {
   }
 
   getCheckinListSet(): void {
-    this.checkinList$ = this.combineLatest.pipe(
+    this.checkinList$ = this.pageChange$.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      switchMap(() =>{
-        console.log('變換參數')
+      switchMap(() => {
         return this.firestore
           .collection<Checkin>('checkin', (ref) => {
             return ref
               .where('time', '>', this.startOfDay)
               .where('time', '<', this.endOfDay);
           })
-          .valueChanges()
-        })
+          .valueChanges();
+      })
     );
 
     this.checkinList$.subscribe((checkin) => {
-      console.log('check')
       this.checkinListSet.clear();
-      console.log(checkin);
       checkin.forEach((e) => {
         this.checkinListSet.add(e.userId);
       });
