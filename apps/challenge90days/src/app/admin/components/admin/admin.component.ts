@@ -51,8 +51,6 @@ export class AdminComponent implements OnInit {
     );
     this.startOfDay = startOfDay;
     this.endOfDay = endOfDay;
-    console.log(this.startOfDay);
-    console.log(this.endOfDay);
     this.dateChange$.next({
       startOfDay: this.startOfDay,
       endOfDate: this.endOfDay,
@@ -79,29 +77,28 @@ export class AdminComponent implements OnInit {
   }
 
   getCheckinListSet(): void {
-    this.checkinList$ = this.eventChange$.pipe(
+    this.checkinList$ = this.combineLatest.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      switchMap((checkinListMode) =>
-        this.firestore
+      switchMap(() =>{
+        console.log('變換參數')
+        return this.firestore
           .collection<Checkin>('checkin', (ref) => {
             return ref
               .where('time', '>', this.startOfDay)
               .where('time', '<', this.endOfDay);
           })
           .valueChanges()
-      )
+        })
     );
 
     this.checkinList$.subscribe((checkin) => {
+      console.log('check')
       this.checkinListSet.clear();
       console.log(checkin);
       checkin.forEach((e) => {
         this.checkinListSet.add(e.userId);
       });
-      console.log('檢查');
-      console.log(this.checkinListSet.has('UBCtFOSKVQgzXgxjPRmIOrXgE1w1'));
-      console.log(this.checkinListSet.has('123'));
     });
   }
 
