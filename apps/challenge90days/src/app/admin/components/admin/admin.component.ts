@@ -3,7 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
-import { Observable, Subject } from 'rxjs';
+import { combineLatest, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Checkin, UserInfo } from '@challenge90days/api-interfaces';
 import { DateService } from '../../../services/date.service';
@@ -15,39 +15,52 @@ import { DateService } from '../../../services/date.service';
 export class AdminComponent implements OnInit {
   userCollection: AngularFirestoreCollection<any>;
   eventChange$ = new Subject<number>();
+  dateChange$ = new Subject();
   eventList$: Observable<any[]>;
   userList$: Observable<UserInfo[]>;
   checkinList$: Observable<Checkin[]>;
   selectedEventId: number;
   selectedDate = new Date();
   checkinListSet = new Set();
-
-  startOfToday = this.dateService.startOfToday;
-  endOfToday = this.dateService.endOfToday;
+  combineLatest = combineLatest([this.eventChange$, this.dateChange$]);
+  startOfDay = this.dateService.startOfToday;
+  endOfDay = this.dateService.endOfToday;
 
   constructor(
     private firestore: AngularFirestore,
     private dateService: DateService
   ) {}
   ngOnInit(): void {
-    console.log(this.startOfToday);
-    console.log(this.endOfToday);
+    console.log(this.startOfDay);
+    console.log(this.endOfDay);
     this.getEventList();
     this.getCheckinStatus();
     this.getCheckinListSet();
+    this.combineLatest.subscribe((e) => {
+      console.log(e);
+    });
   }
 
   getEventList(): void {
     this.eventList$ = this.firestore.collection('event').valueChanges();
   }
 
-  changeDate(){
-    console.log('change date')
-    console.log(this.selectedDate)
-    
+  changeDate() {
+    const { startOfDay, endOfDay } = this.dateService.getDayRange(
+      this.selectedDate
+    );
+    this.startOfDay = startOfDay;
+    this.endOfDay = endOfDay;
+    console.log(this.startOfDay);
+    console.log(this.endOfDay);
+    this.dateChange$.next({
+      startOfDay: this.startOfDay,
+      endOfDate: this.endOfDay,
+    });
   }
 
   changeEventId(eventId: number): void {
+    console.log()
     this.eventChange$.next(eventId);
   }
 
@@ -73,8 +86,8 @@ export class AdminComponent implements OnInit {
         this.firestore
           .collection<Checkin>('checkin', (ref) => {
             return ref
-              .where('time', '>', this.startOfToday)
-              .where('time', '<', this.endOfToday);
+              .where('time', '>', this.startOfDay)
+              .where('time', '<', this.endOfDay);
           })
           .valueChanges()
       )
