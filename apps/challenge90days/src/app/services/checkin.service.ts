@@ -68,17 +68,6 @@ export class CheckinService {
           this.userInfo.name
         )
       )
-      // switchMap((e) => {
-      //   console.log(e)
-      //   return this.http.post(
-      //     'https://challenge-90-days.herokuapp.com/api/snedMessageToLineChannel',
-      //     {
-      //       message: checkinObj.message,
-      //       name: this.userInfo.name,
-      //       imageUrl: this.imageUrl,
-      //     }
-      //   );
-      // })
     );
   }
 
@@ -89,7 +78,6 @@ export class CheckinService {
     message: string,
     name: string
   ): Observable<any> {
-    console.log(data);
     if (!data) {
       return EMPTY;
     }
@@ -97,11 +85,11 @@ export class CheckinService {
     const fileRef = this.storage.ref(fullFilePath);
     const task = this.storage.upload(fullFilePath, data);
 
-    // observe percentage changes
-    this.uploadPercent = task.percentageChanges();
-    this.uploadPercent.subscribe((e) => {
-      console.log(e);
-    });
+    // // observe percentage changes
+    // this.uploadPercent = task.percentageChanges();
+    // this.uploadPercent.subscribe((e) => {
+    //   console.log(e);
+    // });
     // get notified when the download URL is available
     return task.snapshotChanges().pipe(
       finalize(() => {
@@ -112,7 +100,9 @@ export class CheckinService {
           console.log('download url');
           console.log(imageUrl);
           this.imageUrl = imageUrl;
-          this.firestore.doc(docPath).update({ imgFile: imageUrl });
+          this.firestore
+            .doc(docPath)
+            .update({ imgFile: imageUrl, docPath: filePath });
           this.sendMessageToLineChatbot(message, name, imageUrl, filePath);
         });
       })
@@ -171,7 +161,7 @@ export class CheckinService {
         message,
         name,
         imageUrl,
-        docPath
+        docPath,
       })
       .subscribe((e) => {
         console.log(e);

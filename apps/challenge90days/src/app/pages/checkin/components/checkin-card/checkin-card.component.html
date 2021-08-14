@@ -7,6 +7,16 @@
     </h3>
     <div class="subtitle">
       {{ checkin.postUser }}
+      <button
+      *ngIf="!isSelf"
+        nbButton
+        hero
+        shape="round"
+        status="primary"
+        routerLink="/checkin/{{checkin.docPath}}"
+      >
+        <nb-icon icon="arrow-forward-outline"></nb-icon>
+      </button>
     </div>
   </nb-card-header>
   <nb-card-body>

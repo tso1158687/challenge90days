@@ -21,6 +21,7 @@ export interface Checkin {
   time: any;
   userId: string;
   emoji: string;
+  docPath: string;
   isCheckinToday?: boolean;
 }
 

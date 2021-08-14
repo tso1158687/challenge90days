@@ -14,8 +14,10 @@
   </div>
   <div class="row justify-content-start">
     <div class="col">
-      <challenge90days-checkin-card *ngIf="!!(checkin$ | async)"
-        [checkin]="(checkin$ | async)"
+      <challenge90days-checkin-card
+        *ngIf="!!(checkin$ | async)"
+        [isSelf]="true"
+        [checkin]="checkin$ | async"
       ></challenge90days-checkin-card>
     </div>
   </div>
