@@ -23,8 +23,7 @@ export class CheckinService {
   downloadURL$: Observable<string>;
   imageUrl: string;
   userInfo;
-  apiUrl =
-    'https://challenge-90-days.herokuapp.com/api/snedMessageToLineChannel';
+  apiUrl = 'https://challenge-90-days.herokuapp.com/api';
 
   // date
   startOfToday = this.dateService.startOfToday;
@@ -43,7 +42,6 @@ export class CheckinService {
     });
   }
 
-  deleteCheckin() {}
   addCheckin(checkinObj: CheckinObj): Observable<any> {
     const data = {
       content: checkinObj.message,
@@ -69,6 +67,18 @@ export class CheckinService {
         )
       )
     );
+  }
+
+  getDayOff(): Observable<any> {
+    const data = {
+      type: 2,
+      time: new Date(),
+      userId: this.userService.userId$.value,
+    };
+    return from(this.checkinCollection.add(data))
+    // .pipe(
+    //   switchMap((res) => this.sendDayoffMessageToLineChatbot())
+    // );
   }
 
   uploadFile(
@@ -140,13 +150,7 @@ export class CheckinService {
           .where('time', '<', this.endOfToday);
       })
       .snapshotChanges()
-      .pipe(
-        tap((e) => {
-          console.log('我看看');
-          console.log(e);
-        }),
-        map((e) => e.length > 0)
-      );
+      .pipe(map((e) => e.length > 0));
   }
 
   sendMessageToLineChatbot(
@@ -155,9 +159,9 @@ export class CheckinService {
     imageUrl: string,
     docPath: string
   ): void {
-    console.log(message, name, imageUrl);
+    const url = `${this.apiUrl}/snedMessageToLineChannel`;
     this.http
-      .post(this.apiUrl, {
+      .post(url, {
         message,
         name,
         imageUrl,
@@ -166,5 +170,12 @@ export class CheckinService {
       .subscribe((e) => {
         console.log(e);
       });
+  }
+
+  sendDayoffMessageToLineChatbot(): Observable<any> {
+    const url = `${this.apiUrl}/snedDayoffMessageToLineChannel`;
+    return this.http.post(url, {
+      name: this.userInfo.name,
+    });
   }
 }

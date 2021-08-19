@@ -64,7 +64,10 @@ export class ListComponent implements OnInit {
         this.firestore
           .collection<Checkin>('checkin', (ref) => {
             if (this.mode) {
-              let finalQuery = ref.orderBy('time', 'desc').limit(65);
+              let finalQuery = ref
+                .where('type', '==', 1)
+                .orderBy('time', 'desc')
+                .limit(65);
               if (this.selectedUserId) {
                 console.log(this.selectedUserId);
                 finalQuery = finalQuery.where(
@@ -85,6 +88,7 @@ export class ListComponent implements OnInit {
             } else {
               return ref
                 .where('userId', '==', this.userId)
+                .where('type', '==', 1)
                 .limit(65)
                 .orderBy('time', 'desc');
             }

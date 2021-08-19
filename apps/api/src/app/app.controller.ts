@@ -50,6 +50,16 @@ export class AppController {
     });
   }
 
+  @Post('snedDayoffMessageToLineChannel')
+  snedDayoffMessageToLineChannel(@Body() data) {
+    console.log('!!!!');
+    console.log(data)
+    this.appService.pushDayoffMessageToLineChannel(data).subscribe((res)=>{
+      return 
+    });
+  }
+
+
   @Post('webhook')
   getWebHookEvent(): void {
     this.appService.listenLineWebhook();

@@ -108,6 +108,10 @@ export class AppService {
     return of();
   }
 
+  pushDayoffMessageToLineChannel(messageContent: any): Observable<any>{
+    return of()
+  }
+
   listenLineWebhook(): void {
     const port = process.env.PORT || 3333;
     // bot.listen('/linewebhook', 3000, function () { console.log('[BOT已準備就緒]');

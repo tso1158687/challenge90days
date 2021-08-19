@@ -91,6 +91,23 @@
       </ng-container>
     </div>
   </div>
+  <div class="row" *ngIf="!checkinStatus">
+    <div class="col col-12">
+      <nb-card>
+        <nb-card-header>請假</nb-card-header>
+        <nb-card-body>
+          <button
+            nbButton
+            [disabled]="checkinStatus"
+            status="warning"
+            (click)="dayOff()"
+          >
+            請假
+          </button>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
   <div class="row" *ngIf="!isCheckinMode">
     <div class="col col-12">
       <challenge90days-checkin-card

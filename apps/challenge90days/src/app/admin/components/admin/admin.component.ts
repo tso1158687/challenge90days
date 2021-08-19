@@ -20,7 +20,8 @@ export class AdminComponent implements OnInit {
   userList$: Observable<UserInfo[]>;
   checkinList$: Observable<Checkin[]>;
   selectedEventId: number;
-  selectedDate = new Date();
+  selectedDate: Date;
+  checkinList: Checkin[] = [];
   checkinListSet = new Set();
   pageChange$ = combineLatest([this.eventChange$, this.dateChange$]);
   startOfDay = this.dateService.startOfToday;
@@ -86,16 +87,33 @@ export class AdminComponent implements OnInit {
       })
     );
 
-    this.checkinList$.subscribe((checkin) => {
+    this.checkinList$.subscribe((checkinList) => {
+      this.checkinList = checkinList;
+      console.log(checkinList);
       this.checkinListSet.clear();
-      checkin.forEach((e) => {
-        this.checkinListSet.add(e.userId);
+      checkinList.forEach((checkin) => {
+        this.checkinListSet.add(checkin.userId);
       });
     });
   }
 
   isCheckinToday(userId: string): boolean {
     return this.checkinListSet.has(userId);
+  }
+
+  getIcon(userId: string): string {
+    const isCheckinToday = this.isCheckinToday(userId);
+    if (isCheckinToday) {
+      const currentCheckin = this.checkinList.find(
+        (checkin) => checkin.userId === userId
+      );
+      console.log(currentCheckin);
+      return currentCheckin.type === 1
+        ? 'checkmark-circle-outline'
+        : 'minus-outline';
+    } else {
+      return 'close-circle-outline';
+    }
   }
 }
 

@@ -15,24 +15,26 @@
           >{{ event.name }}</nb-option
         >
       </nb-select>
-      <input nbInput placeholder="選擇日期" [nbDatepicker]="dateTimePicker"  [(ngModel)]="selectedDate" (ngModelChange)="changeDate()">
+      <input
+        nbInput
+        placeholder="選擇日期"
+        [nbDatepicker]="dateTimePicker"
+        [(ngModel)]="selectedDate"
+        (ngModelChange)="changeDate()"
+      />
       <nb-datepicker #dateTimePicker format="yyyy-MM-dd"></nb-datepicker>
     </div>
   </div>
   <div class="row">
     <div class="col col-12">
       <nb-card size="medium">
-        <nb-card-header>今日打卡狀態</nb-card-header>
+        <nb-card-header>{{ selectedDate | date: 'yyyy-MM-dd' }}</nb-card-header>
         <nb-list>
           <nb-list-item *ngFor="let user of userList$ | async">
             <span class="status">
               <nb-icon
-                [icon]="
-                  isCheckinToday(user.userId)
-                    ? 'checkmark-circle-outline'
-                    : 'close-circle-outline'
-                "
-                [status]="isCheckinToday(user.userId)?'success':'danger'"
+                [icon]="getIcon(user.userId)"
+                [status]="isCheckinToday(user.userId) ? 'success' : 'danger'"
               ></nb-icon>
             </span>
             <span class="name">
