@@ -67,8 +67,14 @@
                 [disabled]="checkinForm.invalid"
                 (click)="deleteAndAddCheckin()"
               >
-                重新打卡
+                打卡
               </button>
+              <nb-checkbox
+                status="warning"
+                class="checkin-checkbox"
+                (checkedChange)="isCheckinTomorrow($event)"
+                >預約明天</nb-checkbox
+              >
             </ng-container>
             <ng-container *ngIf="!checkinStatus">
               <button
