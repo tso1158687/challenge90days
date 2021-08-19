@@ -22,11 +22,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('../admin/admin.module').then((m) => m.AdminModule),
       },
-      // {
-      //   path: 'announce',
-      //   loadChildren: () =>
-      //     import('./announce/announce.module').then((m) => m.AnnounceModule),
-      // },
+      {
+        path: 'announce',
+        loadChildren: () =>
+          import('./announce/announce.module').then((m) => m.AnnounceModule),
+      },
       {
         path: '',
         loadChildren: () =>

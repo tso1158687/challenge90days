@@ -7,6 +7,8 @@ import { combineLatest, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Checkin, UserInfo } from '@challenge90days/api-interfaces';
 import { DateService } from '../../../services/date.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NbToastrService } from '@nebular/theme';
 @Component({
   selector: 'challenge90days-admin',
   templateUrl: './admin.component.html',
@@ -14,6 +16,8 @@ import { DateService } from '../../../services/date.service';
 })
 export class AdminComponent implements OnInit {
   userCollection: AngularFirestoreCollection<any>;
+  announceCollection:AngularFirestoreCollection<any>
+  announceForm: FormGroup;
   eventChange$ = new Subject<number>();
   dateChange$ = new Subject();
   eventList$: Observable<any[]>;
@@ -29,10 +33,13 @@ export class AdminComponent implements OnInit {
 
   constructor(
     private firestore: AngularFirestore,
-    private dateService: DateService
+    private dateService: DateService,
+    private toastrService: NbToastrService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.initForm();
     this.getEventList();
     this.getCheckinStatus();
     this.getCheckinListSet();
@@ -114,6 +121,22 @@ export class AdminComponent implements OnInit {
     } else {
       return 'close-circle-outline';
     }
+  }
+  initForm() {
+    this.announceForm = this.fb.group({
+      title: [null, Validators.required],
+      content: [null, Validators.required],
+      date: new Date(),
+    });
+  }
+
+  publishAnnounce(): void {
+    const data = this.announceForm.value;
+    this.firestore.collection('announce').add(data).then(e=>{
+      console.log(e)
+      this.toastrService.success('成功','發布成功')
+      this.initForm()
+    })
   }
 }
 

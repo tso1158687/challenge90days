@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'challenge90days-announce',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./announce.component.scss']
 })
 export class AnnounceComponent implements OnInit {
-
-  constructor() { }
+  announceList$:Observable<any[]>
+  constructor(
+    private firestore:AngularFirestore
+  ) { }
 
   ngOnInit(): void {
+    this.getAnnounceList()
   }
-
+  getAnnounceList(){
+    this.announceList$=this.firestore.collection('announce').valueChanges()
+  }
 }

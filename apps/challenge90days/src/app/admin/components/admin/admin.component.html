@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col col-12">
-      <h3>後台</h3>
+      <h3>出席狀況</h3>
     </div>
     <div class="col col-12">
       <nb-select
@@ -43,6 +43,38 @@
           </nb-list-item>
         </nb-list>
       </nb-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-12">
+      <h3>發布公告</h3>
+    </div>
+    <div class="col col-12">
+      <ng-container [formGroup]="announceForm">
+        <nb-card>
+          <nb-card-header
+            ><input nbInput type="text" formControlName="title"
+          /></nb-card-header>
+          <nb-card-body>
+            <textarea nbInput fullWidth formControlName="content"></textarea>
+          </nb-card-body>
+          <nb-card-footer
+            >發布時間:{{
+              announceForm.get('date').value | date: 'yyyy-MM-dd'
+            }}</nb-card-footer
+          >
+        </nb-card>
+      </ng-container>
+    </div>
+    <div class="col col-12">
+      <button
+        nbButton
+        status="warning"
+        [disabled]="announceForm.invalid"
+        (click)="publishAnnounce()"
+      >
+        發佈公告
+      </button>
     </div>
   </div>
 </div>

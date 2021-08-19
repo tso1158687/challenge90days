@@ -21,8 +21,8 @@ export class PagesComponent implements OnInit, OnDestroy {
   user: any;
   settingList: NbMenuItem[] = [
     { title: '打卡戰績', url: 'checkin/list', icon: 'browser-outline' },
+    { title: '公告', url: 'announce', icon: 'message-circle-outline' },
     // { title: '成就', url: 'checkin/challenge', icon: 'award-outline' },
-    // { title: '公告', url: 'announce', icon: 'message-circle-outline' },
     // { title: '設定', url: 'settings', icon: 'settings-outline' },
   ];
   themeToggle = this.themeService.themeToggle;
