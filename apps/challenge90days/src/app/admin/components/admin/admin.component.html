@@ -51,10 +51,21 @@
     </div>
     <div class="col col-12">
       <ng-container [formGroup]="announceForm">
-        <nb-card>
+        <nb-card [status]="selectedStatus">
           <nb-card-header
-            ><input nbInput type="text" formControlName="title"
-          /></nb-card-header>
+            ><input nbInput type="text" formControlName="title" />
+            <nb-select
+              placeholder="選擇顏色"
+              (selectedChange)="changeStatus($event)"
+              [(selected)]="selectedStatus"
+            >
+              <nb-option
+                [value]="status.value"
+                *ngFor="let status of statusList"
+                >{{ status.text }}</nb-option
+              >
+            </nb-select>
+          </nb-card-header>
           <nb-card-body>
             <textarea nbInput fullWidth formControlName="content"></textarea>
           </nb-card-body>

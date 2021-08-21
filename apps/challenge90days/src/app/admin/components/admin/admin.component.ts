@@ -9,6 +9,7 @@ import { Checkin, UserInfo } from '@challenge90days/api-interfaces';
 import { DateService } from '../../../services/date.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
+import { STATUS_LIST } from '../../../data/status';
 @Component({
   selector: 'challenge90days-admin',
   templateUrl: './admin.component.html',
@@ -16,7 +17,7 @@ import { NbToastrService } from '@nebular/theme';
 })
 export class AdminComponent implements OnInit {
   userCollection: AngularFirestoreCollection<any>;
-  announceCollection:AngularFirestoreCollection<any>
+  announceCollection: AngularFirestoreCollection<any>;
   announceForm: FormGroup;
   eventChange$ = new Subject<number>();
   dateChange$ = new Subject();
@@ -25,12 +26,13 @@ export class AdminComponent implements OnInit {
   checkinList$: Observable<Checkin[]>;
   selectedEventId: number;
   selectedDate: Date;
+  selectedStatus = '';
   checkinList: Checkin[] = [];
   checkinListSet = new Set();
   pageChange$ = combineLatest([this.eventChange$, this.dateChange$]);
   startOfDay = this.dateService.startOfToday;
   endOfDay = this.dateService.endOfToday;
-
+  statusList = STATUS_LIST;
   constructor(
     private firestore: AngularFirestore,
     private dateService: DateService,
@@ -125,18 +127,24 @@ export class AdminComponent implements OnInit {
   initForm() {
     this.announceForm = this.fb.group({
       title: [null, Validators.required],
+      status: '',
       content: [null, Validators.required],
       date: new Date(),
     });
   }
+  changeStatus(status:string): void {
+    this.announceForm.get('status').patchValue(status)
+  }
 
   publishAnnounce(): void {
     const data = this.announceForm.value;
-    this.firestore.collection('announce').add(data).then(e=>{
-      console.log(e)
-      this.toastrService.success('成功','發布成功')
-      this.initForm()
-    })
+    this.firestore
+      .collection('announce')
+      .add(data)
+      .then(() => {
+        this.toastrService.success('成功', '發布成功');
+        this.initForm();
+      });
   }
 }
 

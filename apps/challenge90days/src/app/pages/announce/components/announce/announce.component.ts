@@ -5,18 +5,18 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'challenge90days-announce',
   templateUrl: './announce.component.html',
-  styleUrls: ['./announce.component.scss']
+  styleUrls: ['./announce.component.scss'],
 })
 export class AnnounceComponent implements OnInit {
-  announceList$:Observable<any[]>
-  constructor(
-    private firestore:AngularFirestore
-  ) { }
+  announceList$: Observable<any[]>;
+  constructor(private firestore: AngularFirestore) {}
 
   ngOnInit(): void {
-    this.getAnnounceList()
+    this.getAnnounceList();
   }
-  getAnnounceList(){
-    this.announceList$=this.firestore.collection('announce').valueChanges()
+  getAnnounceList() {
+    this.announceList$ = this.firestore
+      .collection('announce', (ref) => ref.orderBy('date', 'desc'))
+      .valueChanges();
   }
 }

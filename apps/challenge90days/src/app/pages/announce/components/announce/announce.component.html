@@ -2,10 +2,12 @@
   <div class="row">
     <div class="col col-12">
       <ng-container *ngFor="let announce of announceList$ | async">
-        <nb-card>
+        <nb-card [status]="announce.status">
           <nb-card-header>{{ announce.title }}</nb-card-header>
           <nb-card-body>
-            {{ announce.content }}
+            <pre>
+              {{ announce.content }}
+            </pre>
           </nb-card-body>
           <nb-card-footer>{{
             announce.date.toDate() | date: 'yyyy-MM-dd'
