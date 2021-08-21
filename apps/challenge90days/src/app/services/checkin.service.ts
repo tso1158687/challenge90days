@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { EMPTY, from, Observable } from 'rxjs';
+import { EMPTY, from, Observable, of } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/storage';
 import {
   AngularFirestore,
@@ -11,7 +11,7 @@ import { UserService } from './user.service';
 
 import { DateService } from './date.service';
 import { Checkin, CheckinObj, UserInfo } from '@challenge90days/api-interfaces';
-
+import firebase from 'firebase/app';
 @Injectable({
   providedIn: 'root',
 })
@@ -20,8 +20,7 @@ export class CheckinService {
   userCollection: AngularFirestoreCollection<any>;
   //
   uploadPercent: Observable<number>;
-  downloadURL$: Observable<string>;
-  imageUrl: string;
+
   userInfo;
   apiUrl = 'https://challenge-90-days.herokuapp.com/api';
 
@@ -47,13 +46,14 @@ export class CheckinService {
       content: checkinObj.message,
       postUser: this.userInfo.name,
       url: checkinObj.url,
-      imgFile: null,
+      imgFile: [],
       type: 1,
       time: checkinObj.isCheckinTomorrow
         ? this.dateService.getTomorrowDateTime()
         : new Date(),
       userId: this.userService.userId$.value,
       emoji: checkinObj.emoji,
+      docPath: '',
     };
     const addDoc$ = from(this.checkinCollection.add(data));
     return addDoc$.pipe(
@@ -65,7 +65,7 @@ export class CheckinService {
           checkinObj.message,
           this.userInfo.name
         )
-      )
+      ),
     );
   }
 
@@ -75,48 +75,47 @@ export class CheckinService {
       time: new Date(),
       userId: this.userService.userId$.value,
     };
-    return from(this.checkinCollection.add(data))
+    return from(this.checkinCollection.add(data));
     // .pipe(
     //   switchMap((res) => this.sendDayoffMessageToLineChatbot())
     // );
   }
 
   uploadFile(
-    data,
+    imageFiles: File[],
     filePath: string,
     docPath: string,
     message: string,
     name: string
   ): Observable<any> {
-    if (!data) {
-      return EMPTY;
-    }
     const fullFilePath = `checkin/${filePath}`;
-    const fileRef = this.storage.ref(fullFilePath);
-    const task = this.storage.upload(fullFilePath, data);
+    for (const [i, imageFile] of Object.entries(imageFiles)) {
+      const task = this.storage.upload(`${fullFilePath}${i}`, imageFile);
+      task
+        .snapshotChanges()
+        .pipe(
+          finalize(() => {
+            const fileRef = this.storage.ref(`${fullFilePath}${i}`);
+            const downloadURL$ = fileRef.getDownloadURL();
+            downloadURL$.subscribe((imageUrl) => {
+              console.log('download url');
+              console.log(i);
+              console.log(imageUrl);
+              if(Number(i)===0){
+                console.log('傳訊息')
+                // this.sendMessageToLineChatbot(message, name, imageUrl, filePath);
+              }
+              this.firestore.doc(docPath).update({
+                imgFile: firebase.firestore.FieldValue.arrayUnion(imageUrl),
+                docPath: filePath,
+              });
+            });
+          })
+        )
+        .subscribe();
+    }
 
-    // // observe percentage changes
-    // this.uploadPercent = task.percentageChanges();
-    // this.uploadPercent.subscribe((e) => {
-    //   console.log(e);
-    // });
-    // get notified when the download URL is available
-    return task.snapshotChanges().pipe(
-      finalize(() => {
-        this.downloadURL$ = fileRef.getDownloadURL();
-        console.log('final');
-        console.log(this.downloadURL$);
-        this.downloadURL$.subscribe((imageUrl) => {
-          console.log('download url');
-          console.log(imageUrl);
-          this.imageUrl = imageUrl;
-          this.firestore
-            .doc(docPath)
-            .update({ imgFile: imageUrl, docPath: filePath });
-          this.sendMessageToLineChatbot(message, name, imageUrl, filePath);
-        });
-      })
-    );
+    return of(['success']);
   }
 
   getLastCheckin(): Observable<Checkin[]> {

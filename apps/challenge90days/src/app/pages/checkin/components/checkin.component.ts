@@ -50,25 +50,34 @@ export class CheckinComponent implements OnInit {
       isCheckinTomorrow: [false],
     });
   }
-  onFileChange(event) {
+  onFileChange(event): void {
+    console.log(event);
+    if (event?.target?.files?.length > 5) {
+      this.toastrService.danger('錯誤', '圖片超過5張，請重新選擇');
+      const input = document.getElementById('checkin-file') as HTMLInputElement;
+      input.value = '';
+      return;
+    }
     if (event.target.files && event.target.files.length) {
-      const file: File = event.target.files[0];
-      this.checkinForm.get('imgFile').patchValue(file);
+      console.log(event.target.files);
+      const files: File[] = event.target.files;
+      console.log(files)
+      this.checkinForm.get('imgFile').patchValue(files);
       this.cd.markForCheck();
-      console.log(this.checkinForm.value);
     }
   }
 
   checkin(): void {
     console.log(this.checkinForm.value);
-    this.showFirework();
-    this.toastrService.success('成功', '恭喜，又完成一天囉');
     this.checkinService.addCheckin(this.checkinForm.value).subscribe((e) => {
-      console.log('黑人問號看');
-      console.log(e);
+      console.log('checkin success')
+      this.showFirework();
+      this.toastrService.success('成功', '恭喜，又完成一天囉');
       this.isCheckinMode = false;
+      this.initForm();
+      const input = document.getElementById('checkin-file') as HTMLInputElement;
+      input.value = '';
     });
-    this.initForm();
   }
 
   dayOff(): void {

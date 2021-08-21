@@ -29,7 +29,7 @@ export interface CheckinObj {
   user: string;
   message: string;
   url: string;
-  imgFile: any;
+  imgFile: File[];
   emoji: string;
   isCheckinTomorrow: boolean;
 }

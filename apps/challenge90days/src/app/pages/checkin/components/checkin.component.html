@@ -13,17 +13,18 @@
           <nb-card-header>打卡</nb-card-header>
           <nb-card-body>
             <div class="custom-input-group">
-              <label for="checkin-file" class="label">上傳檔案</label>
+              <label for="checkin-file" class="label">上傳檔案 <span class="required">* (最多5張)</span></label>
               <input
                 id="checkin-file"
                 nbInput
+                multiple
                 status="primary"
                 type="file"
                 (change)="onFileChange($event)"
               />
             </div>
             <div class="custom-input-group">
-              <label for="checkin-content" class="label">今天做了什麼</label>
+              <label for="checkin-content" class="label">今天做了什麼 <span class="required">*</span></label>
               <textarea
                 id="checkin-content"
                 nbInput
