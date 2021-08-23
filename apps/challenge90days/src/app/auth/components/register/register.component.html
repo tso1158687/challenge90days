@@ -2,18 +2,18 @@
     <h1 id="title" class="title">註冊</h1>
     <form [formGroup]="registerForm" aria-labelledby="title">
         <div class="form-control-group">
-            <label class="label" for="input-name">Line ID:</label>
-            <input nbInput formControlName="name" id="input-name" name="fullName" placeholder="Line ID" autofocus fullWidth
+            <label class="label" for="input-name">中文+英文名稱:</label>
+            <input nbInput formControlName="name" id="input-name" name="fullName" placeholder="柳家蓉 Carol" autofocus fullWidth
                 fieldSize="large"
                 [status]="getControl('name').dirty ? (getControl('name').invalid  ? 'danger' : 'success') : 'basic'"
                 [attr.aria-invalid]="getControl('name').invalid && getControl('name').touched ? true : null">
             <ng-container *ngIf="getControl('name').invalid && getControl('name').touched">
                 <p class="caption status-danger" *ngIf="getControl('name').errors?.required">
-                    Line ID必填!
+                    中文+英文名稱必填!
                 </p>
                 <p class="caption status-danger"
                     *ngIf="getControl('name').errors?.minlength || getControl('name').errors?.maxlength">
-                    Line ID必須介於{{nameLimit.min}}字至{{nameLimit.max}}字之間
+                    中文+英文名稱必須介於{{nameLimit.min}}字至{{nameLimit.max}}字之間
                 </p>
             </ng-container>
         </div>
