@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { NbDateService } from '@nebular/theme';
-import { startOfToday, endOfToday, endOfDay, startOfDay } from 'date-fns';
+import {
+  startOfToday,
+  endOfToday,
+  endOfDay,
+  startOfDay,
+  addMinutes,
+} from 'date-fns';
 @Injectable({
   providedIn: 'root',
 })
@@ -26,9 +32,10 @@ export class DateService {
     return welcomeText;
   }
 
-  getTomorrowDateTime(): Date {
+  getTomorrowDateTimePlusOne(): Date {
     const tomorrowDate = this.nbDateService.addDay(new Date(), 1);
-    return tomorrowDate;
+
+    return addMinutes(tomorrowDate, 1);
   }
 
   getDayRange(date: Date): { startOfDay: Date; endOfDay: Date } {

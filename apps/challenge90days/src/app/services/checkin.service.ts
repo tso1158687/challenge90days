@@ -49,7 +49,7 @@ export class CheckinService {
       imgFile: [],
       type: 1,
       time: checkinObj.isCheckinTomorrow
-        ? this.dateService.getTomorrowDateTime()
+        ? this.dateService.getTomorrowDateTimePlusOne()
         : new Date(),
       userId: this.userService.userId$.value,
       emoji: checkinObj.emoji,
