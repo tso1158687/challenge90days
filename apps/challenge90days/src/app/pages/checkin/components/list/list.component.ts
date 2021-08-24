@@ -67,7 +67,6 @@ export class ListComponent implements OnInit {
               let finalQuery = ref
                 .where('type', '==', 1)
                 .orderBy('time', 'desc')
-                // .limit(65);
               if (this.selectedUserId) {
                 console.log(this.selectedUserId);
                 finalQuery = finalQuery.where(

@@ -65,7 +65,7 @@ export class CheckinService {
           checkinObj.message,
           this.userInfo.name
         )
-      ),
+      )
     );
   }
 
@@ -101,9 +101,14 @@ export class CheckinService {
               console.log('download url');
               console.log(i);
               console.log(imageUrl);
-              if(Number(i)===0){
-                console.log('傳訊息')
-                // this.sendMessageToLineChatbot(message, name, imageUrl, filePath);
+              if (Number(i) === 0) {
+                console.log('傳訊息');
+                this.sendMessageToLineChatbot(
+                  message,
+                  name,
+                  imageUrl,
+                  filePath
+                );
               }
               this.firestore.doc(docPath).update({
                 imgFile: firebase.firestore.FieldValue.arrayUnion(imageUrl),
