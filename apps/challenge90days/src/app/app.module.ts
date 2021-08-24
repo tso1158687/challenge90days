@@ -50,7 +50,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     NbToastrModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule.enablePersistence(),
+    // AngularFirestoreModule.enablePersistence(),
     NbFirebaseAuthModule,
     NbDatepickerModule.forRoot(),
     NbAuthModule.forRoot({

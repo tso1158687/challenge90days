@@ -56,7 +56,9 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
     this.userCollection = firestore.collection<any>('user');
     this.activatedEventCollection = firestore.collection<any>('event');
     // TODO:要用where去查詢現在正在舉辦的活動，過濾掉過期的
-    this.activateEvent$ = firestore.collection('event').valueChanges();
+    this.activateEvent$ = firestore
+      .collection('event', (ref) => ref.where('activate', '==', true))
+      .valueChanges();
   }
   ngOnInit(): void {
     this.initForm();
@@ -82,6 +84,7 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
           Validators.maxLength(this.passwordLimit.max),
         ],
       ],
+      nickName: [''],
     });
   }
 
@@ -110,15 +113,18 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
       email: this.registerForm.get('email').value,
       createDate: new Date(),
     };
-    this.userCollection.doc(userId).set(data).then((e) => {
-      this.toastrService.success(
-        `Hi ${data.name} 😀,請至你的信箱驗證驗證帳號`,
-        '註冊成功!',
-        { duration: this.duration }
-      );
-      setTimeout(() => {
-        this.router.navigate(['/']);
-      }, this.duration);
-    });
+    this.userCollection
+      .doc(userId)
+      .set(data)
+      .then((e) => {
+        this.toastrService.success(
+          `Hi ${data.name} 😀,請至你的信箱驗證驗證帳號`,
+          '註冊成功!',
+          { duration: this.duration }
+        );
+        setTimeout(() => {
+          this.router.navigate(['/']);
+        }, this.duration);
+      });
   }
 }
