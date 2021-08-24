@@ -90,14 +90,15 @@ export class CheckinService {
     name: string,
     isTomorrow:boolean
   ): Observable<any> {
+    const nowTimestamp=+new Date();
     const fullFilePath = `checkin/${filePath}`;
     for (const [i, imageFile] of Object.entries(imageFiles)) {
-      const task = this.storage.upload(`${fullFilePath}${i}`, imageFile);
+      const task = this.storage.upload(`${fullFilePath}${nowTimestamp}${i}`, imageFile);
       task
         .snapshotChanges()
         .pipe(
           finalize(() => {
-            const fileRef = this.storage.ref(`${fullFilePath}${i}`);
+            const fileRef = this.storage.ref(`${fullFilePath}${nowTimestamp}${i}`);
             const downloadURL$ = fileRef.getDownloadURL();
             downloadURL$.subscribe((imageUrl) => {
               console.log('download url');
