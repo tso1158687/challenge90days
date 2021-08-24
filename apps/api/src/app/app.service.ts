@@ -11,6 +11,7 @@ import {
   MessageAPIResponseBase,
   ImageMessage,
   TemplateMessage,
+  StickerMessage,
 } from '@line/bot-sdk';
 import { from, Observable, of } from 'rxjs';
 
@@ -79,23 +80,24 @@ export class AppService {
     //     'https://firebasestorage.googleapis.com/v0/b/challenage90days.appspot.com/o/checkin%2FhV91NdH3WZVRsjOR6CYH?alt=media&token=c4513a43-6b9e-4044-8840-34b312a7d103',
     // };
 
-    const { imageUrl, name, message, docPath } = messageContent;
+    const { imageUrl, name, message, docPath, isTomorrow } = messageContent;
     console.log(messageContent);
+    const textMessage = isTomorrow ? `${name} 預約打卡囉` : `${name} 打卡囉`;
     const templateMessage: TemplateMessage = {
       type: 'template',
-      altText: `${name} 打卡囉`,
+      altText: textMessage,
       template: {
         type: 'buttons',
         thumbnailImageUrl: imageUrl,
         imageAspectRatio: 'rectangle',
         imageSize: 'cover',
         imageBackgroundColor: '#FFFFFF',
-        title: `${name} 打卡囉`,
+        title: textMessage,
         text: `${message}`,
         actions: [
           {
             type: 'uri',
-            label: '看看打卡',
+            label: `看看${name}的打卡`,
             uri: `https://challenage90days.web.app/checkin/${docPath}`,
           },
         ],
@@ -108,8 +110,23 @@ export class AppService {
     return of();
   }
 
-  pushDayoffMessageToLineChannel(messageContent: any): Observable<any>{
-    return of()
+  pushDayoffMessageToLineChannel(messageContent: {
+    name: string;
+  }): Observable<any> {
+    const stickerMessage: StickerMessage = {
+      type: 'sticker',
+      packageId: '6362',
+      stickerId: '11087923',
+    };
+    const textMessage: TextMessage = {
+      type: 'text',
+      text: `${messageContent.name} 請假羅`,
+    };
+    this.groupIdList.forEach((groupId) => {
+      this.client.pushMessage(groupId, textMessage);
+      this.client.pushMessage(groupId, stickerMessage);
+    });
+    return of();
   }
 
   listenLineWebhook(): void {

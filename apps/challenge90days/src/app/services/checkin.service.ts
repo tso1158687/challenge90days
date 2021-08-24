@@ -63,7 +63,8 @@ export class CheckinService {
           res.id,
           res.path,
           checkinObj.message,
-          this.userInfo.name
+          this.userInfo.name,
+          checkinObj.isCheckinTomorrow
         )
       )
     );
@@ -75,10 +76,10 @@ export class CheckinService {
       time: new Date(),
       userId: this.userService.userId$.value,
     };
-    return from(this.checkinCollection.add(data));
-    // .pipe(
-    //   switchMap((res) => this.sendDayoffMessageToLineChatbot())
-    // );
+    return from(this.checkinCollection.add(data))
+    .pipe(
+      switchMap((res) => this.sendDayoffMessageToLineChatbot())
+    );
   }
 
   uploadFile(
@@ -86,7 +87,8 @@ export class CheckinService {
     filePath: string,
     docPath: string,
     message: string,
-    name: string
+    name: string,
+    isTomorrow:boolean
   ): Observable<any> {
     const fullFilePath = `checkin/${filePath}`;
     for (const [i, imageFile] of Object.entries(imageFiles)) {
@@ -102,12 +104,12 @@ export class CheckinService {
               console.log(i);
               console.log(imageUrl);
               if (Number(i) === 0) {
-                console.log('傳訊息');
                 this.sendMessageToLineChatbot(
                   message,
                   name,
                   imageUrl,
-                  filePath
+                  filePath,
+                  isTomorrow
                 );
               }
               this.firestore.doc(docPath).update({
@@ -161,7 +163,8 @@ export class CheckinService {
     message: string,
     name: string,
     imageUrl: string,
-    docPath: string
+    docPath: string,
+    isTomorrow
   ): void {
     const url = `${this.apiUrl}/snedMessageToLineChannel`;
     this.http
@@ -170,6 +173,7 @@ export class CheckinService {
         name,
         imageUrl,
         docPath,
+        isTomorrow
       })
       .subscribe((e) => {
         console.log(e);
