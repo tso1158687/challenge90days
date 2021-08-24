@@ -88,4 +88,31 @@
       </button>
     </div>
   </div>
+  <div class="row">
+    <div class="col col-12">
+      <ng-container *ngFor="let announce of announceList$ | async">
+        <nb-card [status]="announce.status">
+          <nb-card-header
+            ><input nbInput type="text" [(ngModel)]="announce.title"
+          /></nb-card-header>
+          <nb-card-body>
+            <textarea
+              nbInput
+              fullWidth
+              [(ngModel)]="announce.content"
+            ></textarea>
+          </nb-card-body>
+          <nb-card-footer
+            >{{ announce.date.toDate() | date: 'yyyy-MM-dd' }}
+            <button nbButton status="success" (click)="updateAnnounce(announce)">
+              修改
+            </button>
+            <button nbButton status="danger" (click)="deleteAnnounce(announce)">
+              刪除
+            </button></nb-card-footer
+          >
+        </nb-card>
+      </ng-container>
+    </div>
+  </div>
 </div>

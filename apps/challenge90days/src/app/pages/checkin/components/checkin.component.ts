@@ -23,6 +23,7 @@ export class CheckinComponent implements OnInit {
 
   checkinForm: FormGroup;
   checkinStatus = false;
+  checkinText = '';
   constructor(
     private fb: FormBuilder,
     private checkinService: CheckinService,
@@ -61,7 +62,7 @@ export class CheckinComponent implements OnInit {
     if (event.target.files && event.target.files.length) {
       console.log(event.target.files);
       const files: File[] = event.target.files;
-      console.log(files)
+      console.log(files);
       this.checkinForm.get('imgFile').patchValue(files);
       this.cd.markForCheck();
     }
@@ -70,7 +71,7 @@ export class CheckinComponent implements OnInit {
   checkin(): void {
     console.log(this.checkinForm.value);
     this.checkinService.addCheckin(this.checkinForm.value).subscribe((e) => {
-      console.log('checkin success')
+      console.log('checkin success');
       this.showFirework();
       this.toastrService.success('成功', '恭喜，又完成一天囉');
       this.isCheckinMode = false;
@@ -109,7 +110,11 @@ export class CheckinComponent implements OnInit {
 
   getCheckinStatus(): void {
     this.checkinService.getCheckinStatus().subscribe((checkinStatus) => {
-      this.checkinStatus = checkinStatus;
+      this.checkinText =
+        checkinStatus[0]?.type === 1
+          ? '恭喜!今天已經打卡過囉'
+          : '今天已經請假囉，打卡的話會取消請假或預約明天';
+      this.checkinStatus = checkinStatus.length > 0;
       this.cd.markForCheck();
       console.log(this.checkinStatus);
     });

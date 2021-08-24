@@ -148,16 +148,15 @@ export class CheckinService {
       .get();
   }
 
-  getCheckinStatus(): Observable<boolean> {
+  getCheckinStatus(): Observable<Checkin[]> {
     return this.firestore
-      .collection('checkin', (ref) => {
+      .collection<Checkin>('checkin', (ref) => {
         return ref
           .where('userId', '==', this.userService.userId$.value)
           .where('time', '>', this.startOfToday)
           .where('time', '<', this.endOfToday);
       })
-      .snapshotChanges()
-      .pipe(map((e) => e.length > 0));
+      .valueChanges()
   }
 
   sendMessageToLineChatbot(

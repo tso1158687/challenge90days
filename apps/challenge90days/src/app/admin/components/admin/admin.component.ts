@@ -24,6 +24,7 @@ export class AdminComponent implements OnInit {
   eventList$: Observable<any[]>;
   userList$: Observable<UserInfo[]>;
   checkinList$: Observable<Checkin[]>;
+  announceList$: Observable<any[]>;
   selectedEventId: number;
   selectedDate: Date;
   selectedStatus = '';
@@ -45,6 +46,7 @@ export class AdminComponent implements OnInit {
     this.getEventList();
     this.getCheckinStatus();
     this.getCheckinListSet();
+    this.getAnnounceList();
   }
 
   getEventList(): void {
@@ -132,19 +134,47 @@ export class AdminComponent implements OnInit {
       date: new Date(),
     });
   }
-  changeStatus(status:string): void {
-    this.announceForm.get('status').patchValue(status)
+  changeStatus(status: string): void {
+    this.announceForm.get('status').patchValue(status);
   }
 
   publishAnnounce(): void {
-    const data = this.announceForm.value;
+    const id = this.firestore.createId();
+    const data = { ...this.announceForm.value, id };
     this.firestore
       .collection('announce')
-      .add(data)
+      .doc(id)
+      .set(data)
       .then(() => {
         this.toastrService.success('成功', '發布成功');
         this.initForm();
       });
+  }
+  deleteAnnounce(announce): void {
+    console.log(announce);
+    this.firestore
+      .collection('announce')
+      .doc(announce.id)
+      .delete()
+      .then(() => {
+        this.toastrService.success('成功', '刪除成功');
+      });
+  }
+
+  updateAnnounce(announce): void {
+    this.firestore
+      .collection('announce')
+      .doc(announce.id)
+      .update(announce)
+      .then(() => {
+        this.toastrService.success('成功', '更新成功');
+      });
+  }
+
+  getAnnounceList(): void {
+    this.announceList$ = this.firestore
+      .collection('announce', (ref) => ref.orderBy('date', 'desc'))
+      .valueChanges();
   }
 }
 

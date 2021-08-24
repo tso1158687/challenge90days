@@ -13,7 +13,9 @@
           <nb-card-header>打卡</nb-card-header>
           <nb-card-body>
             <div class="custom-input-group">
-              <label for="checkin-file" class="label">上傳檔案 <span class="required">* (最多5張)</span></label>
+              <label for="checkin-file" class="label"
+                >上傳檔案 <span class="required">* (最多5張)</span></label
+              >
               <input
                 id="checkin-file"
                 nbInput
@@ -24,7 +26,9 @@
               />
             </div>
             <div class="custom-input-group">
-              <label for="checkin-content" class="label">今天做了什麼 <span class="required">*</span></label>
+              <label for="checkin-content" class="label"
+                >今天做了什麼 <span class="required">*</span></label
+              >
               <textarea
                 id="checkin-content"
                 nbInput
@@ -61,7 +65,7 @@
           </nb-card-body>
           <nb-card-footer>
             <ng-container *ngIf="checkinStatus">
-              <h3 class="h3">恭喜!今天已經打卡過囉</h3>
+              <h3 class="h3">{{ checkinText }}</h3>
               <button
                 nbButton
                 status="warning"
