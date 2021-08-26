@@ -120,7 +120,7 @@ export class AppService {
     };
     const textMessage: TextMessage = {
       type: 'text',
-      text: `${messageContent.name} 請假羅`,
+      text: `${messageContent.name} 請假囉`,
     };
     this.groupIdList.forEach((groupId) => {
       this.client.pushMessage(groupId, textMessage);
