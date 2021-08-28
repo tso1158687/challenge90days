@@ -6,6 +6,7 @@ import {
   endOfDay,
   startOfDay,
   addMinutes,
+  addDays,
 } from 'date-fns';
 @Injectable({
   providedIn: 'root',
@@ -13,8 +14,13 @@ import {
 export class DateService {
   startOfToday = startOfToday();
   endOfToday = endOfToday();
+  startOfTomorrow = addDays(startOfToday(), 1);
+  endOfTomorrow = addDays(endOfToday(), 1);
 
-  constructor(private nbDateService: NbDateService<Date>) {}
+  constructor(private nbDateService: NbDateService<Date>) {
+    console.log(this.startOfTomorrow)
+    console.log(this.endOfTomorrow)
+  }
 
   getWelcomeText(): string {
     const nowHour = this.nbDateService.getHours(new Date());

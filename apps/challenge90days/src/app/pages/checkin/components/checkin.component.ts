@@ -121,10 +121,24 @@ export class CheckinComponent implements OnInit {
   }
 
   deleteAndAddCheckin() {
-    this.checkinService.getLastCheckinRef().subscribe((checkinList) => {
-      checkinList.docs[0].ref.delete().then(() => {
-        this.checkin();
+    const isTomorrow = this.checkinForm.get('isCheckinTomorrow').value;
+    if (isTomorrow) {
+      this.checkinService.getTomorrowCheckinRef().subscribe((checkinList) => {
+        if (checkinList.docs.length > 0) {
+          checkinList.docs[0].ref.delete().then(() => {
+            this.checkin();
+          });
+        } else {
+          this.checkin();
+        }
       });
-    });
+      this.checkinService.getTodayCheckinRef().subscribe((e) => console.log(e));
+    } else {
+      this.checkinService.getTodayCheckinRef().subscribe((checkinList) => {
+        checkinList.docs[0].ref.delete().then(() => {
+          this.checkin();
+        });
+      });
+    }
   }
 }
