@@ -1,12 +1,20 @@
-<ng-container *ngFor="let item of items | async">
-  <nb-card accent="warning">
-    <nb-card-header>{{ item.title }}</nb-card-header>
-    <nb-card-body>
-      <img [src]="item.imgUrl" alt="" />
-      <pre>
+<div class="container">
+  <div class="row">
+    <div class="col col-12" *ngFor="let item of items | async">
+      <nb-card accent="warning">
+        <nb-card-header
+          ><h3>
+            {{ item.title }}
+          </h3>
+        </nb-card-header>
+        <nb-card-body>
+          <img [src]="item.imgUrl" alt="" />
+          <pre>
                 {{ item.content }}
             </pre
-      >
-    </nb-card-body>
-  </nb-card>
-</ng-container>
+          >
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</div>

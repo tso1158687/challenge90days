@@ -5,9 +5,7 @@
         <nb-card [status]="announce.status">
           <nb-card-header>{{ announce.title }}</nb-card-header>
           <nb-card-body>
-            <pre>
-              {{ announce.content }}
-            </pre>
+            <pre [innerHTML]="announce.content"></pre>
           </nb-card-body>
           <nb-card-footer>{{
             announce.date.toDate() | date: 'yyyy-MM-dd'
