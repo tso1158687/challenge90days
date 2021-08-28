@@ -3,7 +3,11 @@
     <div class="col col-12">
       <ng-container *ngFor="let announce of announceList$ | async">
         <nb-card [status]="announce.status">
-          <nb-card-header>{{ announce.title }}</nb-card-header>
+          <nb-card-header
+            ><h3>
+              {{ announce.title }}
+            </h3>
+          </nb-card-header>
           <nb-card-body>
             <pre [innerHTML]="announce.content"></pre>
           </nb-card-body>

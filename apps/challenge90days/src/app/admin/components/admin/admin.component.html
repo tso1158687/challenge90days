@@ -68,6 +68,7 @@
           </nb-card-header>
           <nb-card-body>
             <textarea nbInput fullWidth formControlName="content"></textarea>
+            <ckeditor [editor]="Editor" formControlName="content"></ckeditor>
           </nb-card-body>
           <nb-card-footer
             >發布時間:{{
@@ -97,11 +98,8 @@
             ><input nbInput type="text" [(ngModel)]="announce.title"
           /></nb-card-header>
           <nb-card-body>
-            <textarea
-              nbInput
-              fullWidth
-              [(ngModel)]="announce.content"
-            ></textarea>
+            <ckeditor [editor]="Editor" [(ngModel)]="announce.content"></ckeditor>
+            
           </nb-card-body>
           <nb-card-footer
             >{{ announce.date.toDate() | date: 'yyyy-MM-dd' }}

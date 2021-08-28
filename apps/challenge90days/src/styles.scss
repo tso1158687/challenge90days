@@ -44,8 +44,19 @@ pre {
   }
 }
 
-.nb-theme-dark pre {
-  a {
-    color: #b8b8b8;
+.nb-theme-dark{
+
+  pre {
+    a {
+      color: #b8b8b8;
+    }
+  } 
+
+  .ck-content{
+    background-color: #192038 !important;
+  }
+
+  .ck-editor__top{
+    background-color: #192038 !important;
   }
 }
