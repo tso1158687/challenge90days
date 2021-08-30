@@ -8,7 +8,7 @@ import { DateService } from '../../../services/date.service';
 import { UserService } from '../../../services/user.service';
 import { Observable } from 'rxjs';
 import { Checkin } from '@challenge90days/api-interfaces';
-
+import Compressor from 'compressorjs';
 @Component({
   selector: 'challenge90days-checkin',
   templateUrl: './checkin.component.html',
@@ -60,11 +60,26 @@ export class CheckinComponent implements OnInit {
       return;
     }
     if (event.target.files && event.target.files.length) {
-      console.log(event.target.files);
-      const files: File[] = event.target.files;
-      console.log(files);
-      this.checkinForm.get('imgFile').patchValue(files);
-      this.cd.markForCheck();
+      const originalFiles: File[] = event.target.files;
+      let compressFiles: Blob[] = [];
+
+      for (const [i, file] of Object.entries(originalFiles)) {
+        new Compressor(file, {
+          quality: 0.6,
+
+          success(result) {
+            compressFiles.push(result);
+          },
+          error(err) {
+            console.log(err.message);
+          },
+        });
+      }
+
+      setTimeout(() => {
+        this.checkinForm.get('imgFile').patchValue(compressFiles);
+        this.cd.markForCheck();
+      }, 3000);
     }
   }
 
