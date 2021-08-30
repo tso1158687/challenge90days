@@ -14,7 +14,7 @@ export class AnnounceComponent implements OnInit {
   ngOnInit(): void {
     this.getAnnounceList();
   }
-  getAnnounceList() {
+  getAnnounceList(): void {
     this.announceList$ = this.firestore
       .collection('announce', (ref) => ref.orderBy('date', 'desc'))
       .valueChanges();

@@ -11,8 +11,9 @@ import {
   NbInputModule,
 } from '@nebular/theme';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {NbDateFnsDateModule} from '@nebular/date-fns'
+import { NbDateFnsDateModule } from '@nebular/date-fns';
 import { NbButtonModule } from '@nebular/theme';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 @NgModule({
   declarations: [AdminComponent],
   imports: [
@@ -27,7 +28,8 @@ import { NbButtonModule } from '@nebular/theme';
     NbInputModule,
     NbDateFnsDateModule,
     NbButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CKEditorModule,
   ],
 })
 export class AdminModule {}

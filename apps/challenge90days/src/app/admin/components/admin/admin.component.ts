@@ -10,12 +10,14 @@ import { DateService } from '../../../services/date.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
 import { STATUS_LIST } from '../../../data/status';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 @Component({
   selector: 'challenge90days-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
+  public Editor = ClassicEditor;
   userCollection: AngularFirestoreCollection<any>;
   announceCollection: AngularFirestoreCollection<any>;
   announceForm: FormGroup;
@@ -130,7 +132,7 @@ export class AdminComponent implements OnInit {
     this.announceForm = this.fb.group({
       title: [null, Validators.required],
       status: '',
-      content: [null, Validators.required],
+      content: ["", Validators.required],
       date: new Date(),
     });
   }

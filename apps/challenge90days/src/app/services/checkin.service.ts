@@ -27,6 +27,8 @@ export class CheckinService {
   // date
   startOfToday = this.dateService.startOfToday;
   endOfToday = this.dateService.endOfToday;
+  startOfTomorrow = this.dateService.startOfTomorrow;
+  endOfTomorrow = this.dateService.endOfTomorrow;
   constructor(
     private http: HttpClient,
     private firestore: AngularFirestore,
@@ -76,8 +78,7 @@ export class CheckinService {
       time: new Date(),
       userId: this.userService.userId$.value,
     };
-    return from(this.checkinCollection.add(data))
-    .pipe(
+    return from(this.checkinCollection.add(data)).pipe(
       switchMap((res) => this.sendDayoffMessageToLineChatbot())
     );
   }
@@ -88,17 +89,22 @@ export class CheckinService {
     docPath: string,
     message: string,
     name: string,
-    isTomorrow:boolean
+    isTomorrow: boolean
   ): Observable<any> {
-    const nowTimestamp=+new Date();
+    const nowTimestamp = +new Date();
     const fullFilePath = `checkin/${filePath}`;
     for (const [i, imageFile] of Object.entries(imageFiles)) {
-      const task = this.storage.upload(`${fullFilePath}${nowTimestamp}${i}`, imageFile);
+      const task = this.storage.upload(
+        `${fullFilePath}${nowTimestamp}${i}`,
+        imageFile
+      );
       task
         .snapshotChanges()
         .pipe(
           finalize(() => {
-            const fileRef = this.storage.ref(`${fullFilePath}${nowTimestamp}${i}`);
+            const fileRef = this.storage.ref(
+              `${fullFilePath}${nowTimestamp}${i}`
+            );
             const downloadURL$ = fileRef.getDownloadURL();
             downloadURL$.subscribe((imageUrl) => {
               console.log('download url');
@@ -137,11 +143,27 @@ export class CheckinService {
       .valueChanges();
   }
 
-  getLastCheckinRef() {
+  getTodayCheckinRef() {
     return this.firestore
       .collection<Checkin>('checkin', (ref) => {
         return ref
           .where('userId', '==', this.userService.userId$.value)
+          .where('time', '>', this.startOfToday)
+          .where('time', '<', this.endOfToday)
+          .orderBy('time', 'desc')
+          .limit(1);
+      })
+      .get();
+  }
+
+
+  getTomorrowCheckinRef() {
+    return this.firestore
+      .collection<Checkin>('checkin', (ref) => {
+        return ref
+          .where('userId', '==', this.userService.userId$.value)
+          .where('time', '>', this.startOfTomorrow)
+          .where('time', '<', this.endOfTomorrow)
           .orderBy('time', 'desc')
           .limit(1);
       })
@@ -156,7 +178,7 @@ export class CheckinService {
           .where('time', '>', this.startOfToday)
           .where('time', '<', this.endOfToday);
       })
-      .valueChanges()
+      .valueChanges();
   }
 
   sendMessageToLineChatbot(
@@ -173,7 +195,7 @@ export class CheckinService {
         name,
         imageUrl,
         docPath,
-        isTomorrow
+        isTomorrow,
       })
       .subscribe((e) => {
         console.log(e);

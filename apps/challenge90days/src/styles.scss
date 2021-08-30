@@ -17,19 +17,46 @@
 
 @import 'aos/dist/aos.css';
 
-.fs-2x{
+.fs-2x {
   font-size: 2rem;
   line-height: 2rem;
 }
 
 @media (max-width: 768px) {
-  nb-layout-header nav{
+  nb-layout-header nav {
     height: 100% !important;
     padding: 0.3rem !important;
   }
 
-  .fs-2x{
+  .fs-2x {
     font-size: 1rem;
     line-height: 1rem;
+  }
+}
+
+pre {
+  white-space: pre-line;
+  a {
+    color: #0095ff;
+    text-decoration: none !important;
+    border-bottom: 2px solid #893128;
+    display: inline-block;
+  }
+}
+
+.nb-theme-dark{
+
+  pre {
+    a {
+      color: #b8b8b8;
+    }
+  } 
+
+  .ck-content{
+    background-color: #192038 !important;
+  }
+
+  .ck-editor__top{
+    background-color: #192038 !important;
   }
 }
