@@ -16,7 +16,7 @@ export class CheckinCardComponent {
   @Input() isSelf = false;
   @Input() status = '';
   @Input() checkin: Checkin;
-  randomId = (Math.random() + 1).toString(36).substring(7);
+  randomId = `a${(Math.random() + 1).toString(36).substring(7)}`;
 
   constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
