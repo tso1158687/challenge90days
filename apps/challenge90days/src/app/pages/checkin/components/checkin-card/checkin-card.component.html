@@ -27,7 +27,7 @@
         </ng-container>
       </ng-container>
       <ng-container *ngIf="checkin.imgFile.length > 1">
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div [id]="randomId" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             <ng-container
               *ngFor="let imgFile of checkin.imgFile; let i = index"
@@ -40,7 +40,7 @@
           <button
             class="carousel-control-prev"
             type="button"
-            data-bs-target="#carouselExampleControls"
+            [attr.data-bs-target]="getRandomIdTag()"
             data-bs-slide="prev"
           >
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -49,7 +49,7 @@
           <button
             class="carousel-control-next"
             type="button"
-            data-bs-target="#carouselExampleControls"
+            [attr.data-bs-target]="getRandomIdTag()"
             data-bs-slide="next"
           >
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
