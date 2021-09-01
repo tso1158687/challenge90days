@@ -6,9 +6,10 @@ import { FireworkService } from '../../../services/firework.service';
 import { emojiList } from '../../../data/emoji';
 import { DateService } from '../../../services/date.service';
 import { UserService } from '../../../services/user.service';
-import { Observable } from 'rxjs';
+import { forkJoin, from, Observable } from 'rxjs';
 import { Checkin } from '@challenge90days/api-interfaces';
 import Compressor from 'compressorjs';
+import { delay } from 'rxjs/operators';
 @Component({
   selector: 'challenge90days-checkin',
   templateUrl: './checkin.component.html',
@@ -61,25 +62,15 @@ export class CheckinComponent implements OnInit {
     }
     if (event.target.files && event.target.files.length) {
       const originalFiles: File[] = event.target.files;
-      let compressFiles: Blob[] = [];
-
+      let fileArray$ = [];
       for (const [i, file] of Object.entries(originalFiles)) {
-        new Compressor(file, {
-          quality: 0.6,
-
-          success(result) {
-            compressFiles.push(result);
-          },
-          error(err) {
-            console.log(err.message);
-          },
-        });
+        const file$ = from(this.compress(file));
+        fileArray$.push(file$);
       }
-
-      setTimeout(() => {
-        this.checkinForm.get('imgFile').patchValue(compressFiles);
-        this.cd.markForCheck();
-      }, 3000);
+      forkJoin(fileArray$).subscribe((compressedFiles) => {
+        console.log(compressedFiles);
+        this.checkinForm.get('imgFile').patchValue(compressedFiles);
+      });
     }
   }
 
@@ -155,5 +146,15 @@ export class CheckinComponent implements OnInit {
         });
       });
     }
+  }
+
+  compress(file: File): Promise<any> {
+    return new Promise((resolve, reject) => {
+      new Compressor(file, {
+        quality: 0.6,
+        success: resolve,
+        error: reject,
+      });
+    });
   }
 }

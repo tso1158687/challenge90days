@@ -43,6 +43,7 @@ export class CheckinService {
     });
   }
 
+  // 開始打卡
   addCheckin(checkinObj: CheckinObj): Observable<any> {
     const data = {
       content: checkinObj.message,
