@@ -30,6 +30,7 @@ import { environment } from '../environments/environment';
 import { FireworkModule } from '../../../../libs/firework/src/lib/firework.module';
 import { FooterModule } from './modules/footer/footer.module';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { ServiceWorkerModule } from '@angular/service-worker';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -101,6 +102,12 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
           name: 'google',
         }),
       ],
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
     }),
   ],
   providers: [],

@@ -112,7 +112,9 @@
             "tsConfig": "apps/challenge90days/tsconfig.app.json",
             "assets": [
               "apps/challenge90days/src/favicon.ico",
-              "apps/challenge90days/src/assets"
+              "apps/challenge90days/src/assets",
+              "apps/challenge90days/src/firebase-messaging-sw.js",
+              "apps/challenge90days/src/manifest.webmanifest"
             ],
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -128,7 +130,9 @@
             "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "serviceWorker": true,
+            "ngswConfigPath": "apps/challenge90days/ngsw-config.json"
           },
           "configurations": {
             "production": {

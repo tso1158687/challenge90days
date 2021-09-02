@@ -42,6 +42,7 @@
     "@angular/platform-browser": "12.1.0",
     "@angular/platform-browser-dynamic": "12.1.0",
     "@angular/router": "12.1.0",
+    "@angular/service-worker": "12.1.0",
     "@ckeditor/ckeditor5-angular": "^2.0.2",
     "@ckeditor/ckeditor5-build-classic": "^29.1.0",
     "@fortawesome/angular-fontawesome": "^0.8.2",
