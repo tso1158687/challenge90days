@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpService, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpService, HttpStatus, Param, Post,Response } from '@nestjs/common';
 
 import { Message } from '@challenge90days/api-interfaces';
 
@@ -36,38 +36,18 @@ export class AppController {
     );
   }
 
-  @Get('cronjob')
-  testCronJob() {
-    return this.appService.testCronJob();
-  }
-
   @Post('snedMessageToLineChannel')
-  snedMessageToLineChannel(@Body() data) {
-    console.log('!!!!');
-    console.log(data)
-    this.appService.pushMessageToLineChannel(data).subscribe((res)=>{
-      return 
+  snedMessageToLineChannel(@Body() data,@Response() res) {
+    this.appService.pushMessageToLineChannel(data).subscribe(()=>{
+      return res.status(HttpStatus.OK).json(); 
     });
   }
 
   @Post('snedDayoffMessageToLineChannel')
-  snedDayoffMessageToLineChannel(@Body() data) {
-    console.log('!!!!');
-    console.log(data)
-    this.appService.pushDayoffMessageToLineChannel(data).subscribe((res)=>{
-      return 
+  snedDayoffMessageToLineChannel(@Body() data,@Response() res) {
+   
+    this.appService.pushDayoffMessageToLineChannel(data).subscribe((d)=>{
+     return res.status(HttpStatus.OK).json(); 
     });
-  }
-
-
-  @Post('webhook')
-  getWebHookEvent(): void {
-    this.appService.listenLineWebhook();
-  }
-
-  @Get('getGroupInfo/:groupId')
-  getGroupInfo(@Param('groupId') groupId){
-    console.log(groupId)
-    this.appService.getGroupMemberIds(groupId)
   }
 }
