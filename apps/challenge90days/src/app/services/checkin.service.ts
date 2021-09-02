@@ -111,15 +111,15 @@ export class CheckinService {
               console.log('download url');
               console.log(i);
               console.log(imageUrl);
-              if (Number(i) === 0) {
-                this.sendMessageToLineChatbot(
-                  message,
-                  name,
-                  imageUrl,
-                  filePath,
-                  isTomorrow
-                );
-              }
+              // if (Number(i) === 0) {
+              //   this.sendMessageToLineChatbot(
+              //     message,
+              //     name,
+              //     imageUrl,
+              //     filePath,
+              //     isTomorrow
+              //   );
+              // }
               this.firestore.doc(docPath).update({
                 imgFile: firebase.firestore.FieldValue.arrayUnion(imageUrl),
                 docPath: filePath,
