@@ -9,7 +9,7 @@ import { UserService } from '../../../services/user.service';
 import { forkJoin, from, Observable } from 'rxjs';
 import { Checkin } from '@challenge90days/api-interfaces';
 import Compressor from 'compressorjs';
-import { delay } from 'rxjs/operators';
+
 @Component({
   selector: 'challenge90days-checkin',
   templateUrl: './checkin.component.html',
@@ -25,6 +25,7 @@ export class CheckinComponent implements OnInit {
   checkinForm: FormGroup;
   checkinStatus = false;
   checkinText = '';
+  isLoading = false;
   constructor(
     private fb: FormBuilder,
     private checkinService: CheckinService,
@@ -75,15 +76,18 @@ export class CheckinComponent implements OnInit {
   }
 
   checkin(): void {
+    this.toastrService.warning('上傳中', '請等待圖片上傳完成，請勿關閉視窗');
+    this.isLoading = true;
     console.log(this.checkinForm.value);
     this.checkinService.addCheckin(this.checkinForm.value).subscribe((e) => {
       console.log('checkin success');
+      console.log(e);
+
       this.showFirework();
       this.toastrService.success('成功', '恭喜，又完成一天囉');
       this.isCheckinMode = false;
-      this.initForm();
-      const input = document.getElementById('checkin-file') as HTMLInputElement;
-      input.value = '';
+      this.isLoading = false;
+      this.resetFrom();
     });
   }
 
@@ -127,6 +131,8 @@ export class CheckinComponent implements OnInit {
   }
 
   deleteAndAddCheckin() {
+    this.toastrService.warning('重新打卡中', '重新打卡中，請稍候');
+    this.isLoading = true;
     const isTomorrow = this.checkinForm.get('isCheckinTomorrow').value;
     if (isTomorrow) {
       this.checkinService.getTomorrowCheckinRef().subscribe((checkinList) => {
@@ -156,5 +162,11 @@ export class CheckinComponent implements OnInit {
         error: reject,
       });
     });
+  }
+
+  resetFrom() {
+    this.initForm();
+    const input = document.getElementById('checkin-file') as HTMLInputElement;
+    input.value = '';
   }
 }
