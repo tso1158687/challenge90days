@@ -38,11 +38,9 @@ export class AppController {
 
   @Post('snedMessageToLineChannel')
   snedMessageToLineChannel(@Body() data,@Response() res) {
-    // disabled
-    return res.status(HttpStatus.OK).json(); 
-    // this.appService.pushMessageToLineChannel(data).subscribe(()=>{
-    //   return res.status(HttpStatus.OK).json(); 
-    // });
+    this.appService.pushMessageToLineChannel(data).subscribe(()=>{
+      return res.status(HttpStatus.OK).json(); 
+    });
   }
 
   @Post('snedDayoffMessageToLineChannel')
