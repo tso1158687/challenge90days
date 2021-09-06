@@ -14,6 +14,7 @@ import {
   NbTabsetModule,
   NbSelectModule,
   NbDatepickerModule,
+  NbSpinnerModule,
 } from '@nebular/theme';
 import { NbDateFnsDateModule } from '@nebular/date-fns';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -48,6 +49,7 @@ import { ListComponent } from './components/list/list.component';
     NbSelectModule,
     NbDatepickerModule,
     NbDateFnsDateModule,
+    NbSpinnerModule
   ],
   providers: [
     { provide: BUCKET, useValue: environment.firebase.storageBucket },

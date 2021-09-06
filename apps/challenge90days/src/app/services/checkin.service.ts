@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { EMPTY, from, Observable, of } from 'rxjs';
+import { EMPTY, forkJoin, from, Observable, of } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/storage';
 import {
   AngularFirestore,
@@ -94,43 +94,43 @@ export class CheckinService {
   ): Observable<any> {
     const nowTimestamp = +new Date();
     const fullFilePath = `checkin/${filePath}`;
+    let fileArray$ = [];
     for (const [i, imageFile] of Object.entries(imageFiles)) {
       const task = this.storage.upload(
         `${fullFilePath}${nowTimestamp}${i}`,
         imageFile
       );
-      task
-        .snapshotChanges()
-        .pipe(
-          finalize(() => {
-            const fileRef = this.storage.ref(
-              `${fullFilePath}${nowTimestamp}${i}`
-            );
-            const downloadURL$ = fileRef.getDownloadURL();
-            downloadURL$.subscribe((imageUrl) => {
-              console.log('download url');
-              console.log(i);
-              console.log(imageUrl);
-              if (Number(i) === 0) {
-                this.sendMessageToLineChatbot(
-                  message,
-                  name,
-                  imageUrl,
-                  filePath,
-                  isTomorrow
-                );
-              }
-              this.firestore.doc(docPath).update({
-                imgFile: firebase.firestore.FieldValue.arrayUnion(imageUrl),
-                docPath: filePath,
-              });
-            });
-          })
-        )
-        .subscribe();
+      fileArray$.push(task);
     }
-
-    return of(['success']);
+    return forkJoin(fileArray$).pipe(
+      finalize(() => {
+        fileArray$.forEach((e, i) => {
+          const fileRef = this.storage.ref(
+            `${fullFilePath}${nowTimestamp}${i}`
+          );
+          const downloadURL$ = fileRef.getDownloadURL();
+          downloadURL$.subscribe((imageUrl) => {
+            console.log('download url');
+            console.log(i);
+            console.log(imageUrl);
+            if (Number(i) === 0) {
+              console.log('推訊息');
+              this.sendMessageToLineChatbot(
+                message,
+                name,
+                imageUrl,
+                filePath,
+                isTomorrow
+              );
+            }
+            this.firestore.doc(docPath).update({
+              imgFile: firebase.firestore.FieldValue.arrayUnion(imageUrl),
+              docPath: filePath,
+            });
+          });
+        });
+      })
+    );
   }
 
   getLastCheckin(): Observable<Checkin[]> {
@@ -156,7 +156,6 @@ export class CheckinService {
       })
       .get();
   }
-
 
   getTomorrowCheckinRef() {
     return this.firestore
