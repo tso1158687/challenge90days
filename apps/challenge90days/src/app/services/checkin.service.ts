@@ -12,6 +12,7 @@ import { UserService } from './user.service';
 import { DateService } from './date.service';
 import { Checkin, CheckinObj, UserInfo } from '@challenge90days/api-interfaces';
 import firebase from 'firebase/app';
+import { LastCheckin } from '../pages/checkin/enum/last-checkin.enum';
 @Injectable({
   providedIn: 'root',
 })
@@ -144,26 +145,18 @@ export class CheckinService {
       .valueChanges();
   }
 
-  getTodayCheckinRef() {
+  getCheckinRef(lastCheckin: LastCheckin) : Observable<firebase.firestore.QuerySnapshot>{
+    const isToday = lastCheckin === LastCheckin.Today;
+    const time = {
+      startTime: isToday ? this.startOfToday : this.startOfTomorrow,
+      endTime: isToday ? this.endOfToday : this.endOfTomorrow,
+    };
     return this.firestore
       .collection<Checkin>('checkin', (ref) => {
         return ref
           .where('userId', '==', this.userService.userId$.value)
-          .where('time', '>', this.startOfToday)
-          .where('time', '<', this.endOfToday)
-          .orderBy('time', 'desc')
-          .limit(1);
-      })
-      .get();
-  }
-
-  getTomorrowCheckinRef() {
-    return this.firestore
-      .collection<Checkin>('checkin', (ref) => {
-        return ref
-          .where('userId', '==', this.userService.userId$.value)
-          .where('time', '>', this.startOfTomorrow)
-          .where('time', '<', this.endOfTomorrow)
+          .where('time', '>', time.startTime)
+          .where('time', '<', time.endTime)
           .orderBy('time', 'desc')
           .limit(1);
       })

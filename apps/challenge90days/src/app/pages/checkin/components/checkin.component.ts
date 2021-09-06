@@ -9,6 +9,7 @@ import { UserService } from '../../../services/user.service';
 import { forkJoin, from, Observable } from 'rxjs';
 import { Checkin } from '@challenge90days/api-interfaces';
 import Compressor from 'compressorjs';
+import { LastCheckin } from '../enum/last-checkin.enum';
 
 @Component({
   selector: 'challenge90days-checkin',
@@ -135,7 +136,7 @@ export class CheckinComponent implements OnInit {
     this.isLoading = true;
     const isTomorrow = this.checkinForm.get('isCheckinTomorrow').value;
     if (isTomorrow) {
-      this.checkinService.getTomorrowCheckinRef().subscribe((checkinList) => {
+      this.checkinService.getCheckinRef(LastCheckin.Tomorrow).subscribe((checkinList) => {
         if (checkinList.docs.length > 0) {
           checkinList.docs[0].ref.delete().then(() => {
             this.checkin();
@@ -144,9 +145,9 @@ export class CheckinComponent implements OnInit {
           this.checkin();
         }
       });
-      this.checkinService.getTodayCheckinRef().subscribe((e) => console.log(e));
+      this.checkinService.getCheckinRef(LastCheckin.Tomorrow).subscribe((e) => console.log(e));
     } else {
-      this.checkinService.getTodayCheckinRef().subscribe((checkinList) => {
+      this.checkinService.getCheckinRef(LastCheckin.Today).subscribe((checkinList) => {
         checkinList.docs[0].ref.delete().then(() => {
           this.checkin();
         });
