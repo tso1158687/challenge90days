@@ -17,7 +17,6 @@ import {
 } from '@nebular/theme';
 import { NbDateFnsDateModule } from '@nebular/date-fns';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { ChallenageComponent } from './components/challenage/challenage.component';
 import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
 import { environment } from 'apps/challenge90days/src/environments/environment';
 import { MyselfComponent } from './components/myself/myself.component';
@@ -27,7 +26,6 @@ import { ListComponent } from './components/list/list.component';
 @NgModule({
   declarations: [
     CheckinComponent,
-    ChallenageComponent,
     MyselfComponent,
     CheckinCardComponent,
     ListComponent,
