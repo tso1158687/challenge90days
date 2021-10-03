@@ -48,14 +48,14 @@ export class AppService {
   //   );
   // }
 
-  @Cron('0 15 * * *')
-  notificationCheckin(): void {
-    const message: TextMessage = {
-      type: 'text',
-      text: '晚上11點囉，請大家記得打卡！😊',
-    };
-    this.client.pushMessage(this.groupId, message);
-  }
+  // @Cron('0 15 * * *')
+  // notificationCheckin(): void {
+  //   const message: TextMessage = {
+  //     type: 'text',
+  //     text: '晚上11點囉，請大家記得打卡！😊',
+  //   };
+  //   this.client.pushMessage(this.groupId, message);
+  // }
 
   pushMessageToLineChannel(
     messageContent: any
